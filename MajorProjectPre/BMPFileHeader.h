@@ -12,9 +12,9 @@ class BMPFileHeader
 #pragma region Attributes
 
 private:
-	const short int fileHeaderSize;
+	const short int fileHeaderSize;					// Size of the header
 
-	short int fileSize;
+	short int fileSize;								// Size of the entire bmp file
 
 	std::array<unsigned char, 13> fileHeader;
 

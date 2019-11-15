@@ -7,7 +7,7 @@ BMPFileHeader::BMPFileHeader(BMPInfoHeader* infoHeader)
 {
 	//make getters and setters fr the bmpinfoheader to get access to its attributes here
 
-	fileHeaderSize
+	fileSize = fileHeaderSize + infoHeader.
 
 		//fileHeaderSize + infoHeaderSize + (bytesPerPixel * width + paddingSize) * height
 
