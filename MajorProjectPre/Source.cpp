@@ -9,7 +9,7 @@ int main()
 
 	myBMP->ScanBMP(fileName, "rb");
 
-	//myBMP->Write(fileName);
+	myBMP->Write(fileName);
 
 	return 0;
 }
