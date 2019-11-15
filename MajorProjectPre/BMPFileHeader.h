@@ -13,9 +13,9 @@ class BMPFileHeader
 #pragma region Attributes
 
 private:
-	const short int fileHeaderSize;					// Size of the header
+	const int fileHeaderSize;					// Size of the header
 
-	short int fileSize;								// Size of the entire bmp file
+	int fileSize;								// Size of the entire bmp file
 
 	std::string fileName;
 
@@ -35,14 +35,14 @@ public:
 public:
 	void SetHeader(char* headerInfo, std::string filePath, std::ifstream* inputFile);
 
-	short int GetSize();
+	int GetSize();
 
 #pragma endregion
 
 #pragma region Methods
 
 public:
-	void CreateFileHeader(short int infoHeaderSize);
+	void CreateFileHeader(int infoHeaderSize);
 
 #pragma endregion
 };

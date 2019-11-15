@@ -3,6 +3,7 @@
 #pragma region Includes
 
 #include "BMP.h"
+#include "FileReader.h"
 
 #pragma endregion
 
@@ -17,13 +18,18 @@
 
 int main()
 {
-	const char* fileName = {FILEPATH};
+	FileReader reader(FILEPATH);
+
+	BMP
+
+	return 0;
+}
+
+
+/*const char* fileName = {FILEPATH};
 
 	BMP* myBMP = new BMP();
 
 	myBMP->ScanBMP(fileName, "rb");
 
-	myBMP->Write(fileName);
-
-	return 0;
-}
+	myBMP->Write(fileName);*/

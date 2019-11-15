@@ -2,8 +2,8 @@
 
 #pragma region Constructors
 
-BMPInfoHeader::BMPInfoHeader(short int width, short int height)
-	: bytesPerPixel(3), width(width), height(height), paddingSize(0)
+BMPInfoHeader::BMPInfoHeader()
+	: bytesPerPixel(3), width(0), height(0), paddingSize(0)
 {
 	CreateInfoHeader();
 }
@@ -12,15 +12,27 @@ BMPInfoHeader::BMPInfoHeader(short int width, short int height)
 
 #pragma region Properties
 
-short int BMPInfoHeader::GetSize() { return infoHeader.size(); }
+#pragma region Setters
 
-short int BMPInfoHeader::GetBytesPerPixel() { return bytesPerPixel; }
+void BMPInfoHeader::SetHeight(int value) { height = value; }
 
-short int BMPInfoHeader::GetHeight() { return height; }
+void BMPInfoHeader::SetWidth(int value) { width = value; }
 
-short int BMPInfoHeader::GetWidth() { return width; }
+#pragma endregion
 
-short int BMPInfoHeader::GetPaddingSize() { return paddingSize; }
+#pragma region Getters
+
+int BMPInfoHeader::GetSize() { return infoHeader.size(); }
+
+int BMPInfoHeader::GetBytesPerPixel() { return bytesPerPixel; }
+
+int BMPInfoHeader::GetHeight() { return height; }
+
+int BMPInfoHeader::GetWidth() { return width; }
+
+int BMPInfoHeader::GetPaddingSize() { return paddingSize; }
+
+#pragma endregion
 
 #pragma endregion
 

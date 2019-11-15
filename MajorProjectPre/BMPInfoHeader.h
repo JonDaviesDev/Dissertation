@@ -11,9 +11,9 @@ class BMPInfoHeader
 #pragma region Attributes
 
 private:
-	const short int bytesPerPixel;
+	const int bytesPerPixel;
 
-	short int height, width, paddingSize;
+	int height, width, paddingSize;
 
 	std::array<unsigned char, 40> infoHeader;
 
@@ -22,22 +22,26 @@ private:
 #pragma region Constructors
 
 public:
-	BMPInfoHeader(short int height, short int width);
+	BMPInfoHeader();
 
 #pragma endregion
 
 #pragma region Properties
 
 public:
-	short int GetSize();
+	int GetSize();
 
-	short int GetBytesPerPixel();
+	int GetBytesPerPixel();
 
-	short int GetHeight();
+	void SetHeight(int value);
 
-	short int GetWidth();
+	int GetHeight();
 
-	short int GetPaddingSize();
+	void SetWidth(int value);
+
+	int GetWidth();
+
+	int GetPaddingSize();
 
 #pragma endregion
 
@@ -45,6 +49,8 @@ public:
 
 public:
 	void CreateInfoHeader();
+
+
 
 #pragma endregion
 };

@@ -26,13 +26,13 @@ void BMPFileHeader::SetHeader(char* headerInfo, std::string filePath, std::ifstr
 	std::cin.get(headerInfo, 54);
 }
 
-short int BMPFileHeader::GetSize() { return fileHeader.size(); }
+int BMPFileHeader::GetSize() { return fileHeader.size(); }
 
 #pragma endregion
 
 #pragma region Methods
 
-void BMPFileHeader::CreateFileHeader(short int infoHeaderSize)
+void BMPFileHeader::CreateFileHeader(int infoHeaderSize)
 {
 	/*
 		fileHeader[0]-[1]	 = file signature (identifies file as a BMP)
