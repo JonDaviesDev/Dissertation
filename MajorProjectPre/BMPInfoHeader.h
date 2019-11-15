@@ -13,7 +13,7 @@ class BMPInfoHeader
 private:
 	const short int bytesPerPixel;
 
-	short int height, width;
+	short int height, width, paddingSize;
 
 	std::array<unsigned char, 40> infoHeader;
 
@@ -36,6 +36,8 @@ public:
 	short int GetHeight();
 
 	short int GetWidth();
+
+	short int GetPaddingSize();
 
 #pragma endregion
 

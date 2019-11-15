@@ -1,36 +1,35 @@
 #pragma once
+
+#pragma region Includes
+
+#pragma region System Files
+
 #include <iostream>
 #include <fstream>
-#include <fstream>
-#include <stdio.h>
 #include <vector>
 #include <bitset>
 #include <sstream>
 
-struct Pixel
-{
-	Pixel();
-	Pixel(unsigned char* data);
-	Pixel(unsigned char* data, int iterator);
+#pragma endregion
 
-	unsigned char r, g, b;
-};
+#pragma region Project Files
+
+#include "Pixel.h"
+#include "BMPFileHeader.h"
+#include "BMPInfoHeader.h"
+
+#pragma endregion
+
+#pragma endregion
 
 class BMP
 {
 #pragma region Attributes
 
 private:
-
-	unsigned int width, height, size, rowPadding;
-
-	const char* fileLocation;
-
-	const int fileHeaderSize = 14;
-	const int infoHeaderSize = 40;
-	const int bytesPerPixel = 3; /// red, green, blue
-
-	FILE* file;
+	BMPFileHeader fileHeader;
+	
+	BMPInfoHeader fileInfo;
 
 	std::vector<Pixel> pixels;
 

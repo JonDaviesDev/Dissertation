@@ -3,6 +3,7 @@
 #pragma region Includes
 
 #include <array>
+#include <iostream>
 #include "BMPInfoHeader.h"
 
 #pragma endregion
@@ -16,7 +17,9 @@ private:
 
 	short int fileSize;								// Size of the entire bmp file
 
-	std::array<unsigned char, 13> fileHeader;
+	std::string fileName;
+
+	std::array<unsigned char, 14> fileHeader;
 
 #pragma endregion
 
@@ -30,6 +33,8 @@ public:
 #pragma region Properties
 
 public:
+	void SetHeader(char* headerInfo, std::string filePath, std::ifstream* inputFile);
+
 	short int GetSize();
 
 #pragma endregion
