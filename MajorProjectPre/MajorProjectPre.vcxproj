@@ -124,10 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BMP.cpp" />
+    <ClCompile Include="BMPFileHeader.cpp" />
+    <ClCompile Include="BMPInfoHeader.cpp" />
+    <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="RGB.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h" />
+    <ClInclude Include="BMPFileHeader.h" />
+    <ClInclude Include="BMPInfoHeader.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="Pixel.h" />
+    <ClInclude Include="RGB.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
