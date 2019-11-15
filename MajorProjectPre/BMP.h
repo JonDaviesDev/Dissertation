@@ -28,10 +28,10 @@ class BMP
 #pragma region Attributes
 
 private:
-	BMPFileHeader fileHeader;
-	
 	BMPInfoHeader fileInfo;
 
+	BMPFileHeader fileHeader;
+	
 	std::vector<Pixel> pixels;
 
 #pragma endregion
@@ -48,7 +48,7 @@ public:
 
 #pragma region Properties
 
-	void SetHeaderInformation(std::ifstream* fileObject);
+	void SetHeaders(FileReader* reader);
 
 #pragma endregion
 

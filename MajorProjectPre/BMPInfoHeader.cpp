@@ -5,6 +5,7 @@
 BMPInfoHeader::BMPInfoHeader()
 	: bytesPerPixel(3), width(0), height(0), paddingSize(0)
 {
+
 	CreateInfoHeader();
 }
 

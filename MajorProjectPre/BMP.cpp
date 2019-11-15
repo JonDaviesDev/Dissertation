@@ -3,26 +3,31 @@
 
 #pragma region Constructors
 
-BMP::BMP() : fileHeader(0), fileInfo() {}
+BMP::BMP() : fileInfo(), fileHeader(0) {}
 
-BMP::BMP(FileReader* reader) : fileHeader(0), fileInfo()
+BMP::BMP(FileReader* reader) :  fileHeader(0), fileInfo()
 {
-	
+	SetHeaders(reader);
 }
 
 #pragma endregion
 
 #pragma region Properties
 
-void BMP::SetHeaderInformation(std::ifstream* fileObject)
+void BMP::SetHeaders(FileReader* reader)
 {
-	char* buffer;
+	char* buffer = nullptr;
 
-	fileObject->read(buffer, 54);
+	reader->GetFile()->read(buffer, 54);
+
+	fileHeader.SetFileName(reader->GetFileName());
 
 	fileInfo.SetWidth(*(int*)&buffer[18]);
-	height = *(int*)&buffer[22];
+	fileInfo.SetHeight(*(int*)&buffer[22]);
+
+	fileHeader.SetFileSize(fileInfo.GetWidth() * fileInfo.GetHeight() * fileInfo.GetBytesPerPixel());
 }
+
 
 #pragma endregion
 

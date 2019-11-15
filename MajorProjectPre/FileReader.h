@@ -31,6 +31,8 @@ public:
 public:
 	std::ifstream* GetFile();
 
+	std::string GetFileName();
+
 #pragma endregion
 
 #pragma region Methods

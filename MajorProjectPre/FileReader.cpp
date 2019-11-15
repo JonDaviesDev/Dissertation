@@ -15,6 +15,8 @@ FileReader::FileReader(std::string fileName) : fileName(fileName)
 // Return the address of the file
 std::ifstream* FileReader::GetFile() { return &inputFile; }
 
+std::string FileReader::GetFileName() { return fileName; }
+
 #pragma endregion
 
 #pragma region Methods

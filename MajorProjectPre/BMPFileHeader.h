@@ -33,9 +33,22 @@ public:
 #pragma region Properties
 
 public:
-	void SetHeader(char* headerInfo, std::string filePath, std::ifstream* inputFile);
+
+#pragma region Setters
+
+	void SetFileName(std::string value);
+
+	void SetFileSize(int value);
+
+#pragma endregion
+
+#pragma region Getters
 
 	int GetSize();
+
+#pragma endregion
+	
+#pragma endregion
 
 #pragma endregion
 

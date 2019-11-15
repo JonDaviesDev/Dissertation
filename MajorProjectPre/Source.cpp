@@ -20,7 +20,10 @@ int main()
 {
 	FileReader reader(FILEPATH);
 
-	BMP
+	// Dependencies in BMPInfoHeader and BMPFIleHeader - both rely on each other before they can be created.
+	// Decouple them?
+
+	BMP bmp(&reader);
 
 	return 0;
 }

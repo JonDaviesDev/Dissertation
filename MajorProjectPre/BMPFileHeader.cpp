@@ -10,23 +10,27 @@ BMPFileHeader::BMPFileHeader(BMPInfoHeader* infoHeader)
 	fileSize = fileHeaderSize + infoHeader->GetSize() + (infoHeader->GetBytesPerPixel() *
 		infoHeader->GetWidth() + infoHeader->GetPaddingSize()) * infoHeader->GetHeight();
 
-	char* buffer[54];
 
-	SetHeader(buffer, )
-
-		CreateFileHeader(infoHeader->GetSize());
+	CreateFileHeader(infoHeader->GetSize());
 }
 
 #pragma endregion
 
 #pragma region Properties
 
-void BMPFileHeader::SetHeader(char* headerInfo, std::string filePath, std::ifstream* inputFile)
-{
-	std::cin.get(headerInfo, 54);
-}
+#pragma region Setters
+
+void BMPFileHeader::SetFileName(std::string value) { fileName = value; }
+
+void BMPFileHeader::SetFileSize(int value) { fileSize = value; }
+
+#pragma endregion
+
+#pragma region Getters
 
 int BMPFileHeader::GetSize() { return fileHeader.size(); }
+
+#pragma endregion
 
 #pragma endregion
 
