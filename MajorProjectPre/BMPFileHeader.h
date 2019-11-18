@@ -25,7 +25,7 @@ class BMPFileHeader
 private:
 	const int fileHeaderSize;					// Size of the header
 
-	int fileSize;								// Size of the entire bmp file
+	size_t fileSize;							// Size of the entire bmp file
 
 	std::string fileName;
 
@@ -52,13 +52,15 @@ public:
 
 	void SetFileName(std::string value);
 
-	void SetFileSize(int value);
+	void SetFileSize(size_t value);
 
 #pragma endregion
 
 #pragma region Getters
 
 	int GetSize();
+
+	size_t GetFileSize();
 
 #pragma endregion
 	

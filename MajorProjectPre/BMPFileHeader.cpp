@@ -24,13 +24,15 @@ void BMPFileHeader::SetFileHeader(BMPInfoHeader* info)
 
 void BMPFileHeader::SetFileName(std::string value) { fileName = value; }
 
-void BMPFileHeader::SetFileSize(int value) { fileSize = value; }
+void BMPFileHeader::SetFileSize(size_t value) { fileSize = value; }
 
 #pragma endregion
 
 #pragma region Getters
 
 int BMPFileHeader::GetSize() { return fileHeader.size(); }
+
+size_t BMPFileHeader::GetFileSize() { return fileSize; }
 
 #pragma endregion
 

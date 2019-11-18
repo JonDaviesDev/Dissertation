@@ -11,16 +11,6 @@ BMP::BMP(FileReader* reader) : infoHeader(reader), fileHeader(&infoHeader) {}
 
 #pragma region Properties
 
-
-
-void BMP::SetFileHeader(FileReader* reader, BMPInfoHeader header)
-{
-	//fileHeader.SetFileName(reader->GetFileName());
-
-	//fileHeader.SetFileSize(infoHeader.GetWidth() * infoHeader.GetHeight() * infoHeader.GetBytesPerPixel());
-}
-
-
 #pragma endregion
 
 #pragma region Methods
@@ -34,6 +24,19 @@ void BMP::ScanBMP(std::ifstream* fileObject)
 
 	}
 }
+
+
+#pragma region Display Functions
+
+void BMP::PrintHeader()
+{
+	std::cout << std::endl << "Image width: " << infoHeader.GetWidth() << std::endl;
+	std::cout << "Image height: " << infoHeader.GetHeight() << std::endl;
+	std::cout << "Image size: " << fileHeader.GetFileSize() << " bytes" << std::endl << std::endl;
+}
+
+#pragma endregion
+
 
 #pragma endregion
 

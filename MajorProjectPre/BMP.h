@@ -48,13 +48,19 @@ public:
 
 #pragma region Properties
 
-	void SetFileHeader(FileReader* reader, BMPInfoHeader info);
-
 #pragma endregion
 
 #pragma region Methods
 
 	void ScanBMP(std::ifstream* fileObject);
+
+
+
+#pragma region Display Functions
+
+	void PrintHeader();
+
+#pragma endregion
 
 
 #pragma endregion
