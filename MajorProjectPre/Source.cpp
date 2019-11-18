@@ -22,15 +22,8 @@ int main()
 
 	BMP bmp(&reader);
 
-
 	return 0;
+
+
+	// TODO: go back and open/close in each function
 }
-
-
-/*const char* fileName = {FILEPATH};
-
-	BMP* myBMP = new BMP();
-
-	myBMP->ScanBMP(fileName, "rb");
-
-	myBMP->Write(fileName);*/

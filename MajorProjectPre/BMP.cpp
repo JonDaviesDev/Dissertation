@@ -16,7 +16,21 @@ BMP::BMP(FileReader* reader) : infoHeader(reader), fileHeader(&infoHeader), file
 
 #pragma region Properties
 
+#pragma region Setters
+
 void BMP::SetPixel(RGB value) { pixels.push_back(Pixel(value)); }
+
+#pragma endregion
+
+#pragma region Getters
+
+int BMP::GetHeight() { return infoHeader.GetHeight(); }
+
+int BMP::GetWidth() { return infoHeader.GetWidth(); }
+
+int BMP::GetColourSpace() { return infoHeader.GetBytesPerPixel(); }
+
+#pragma endregion
 
 #pragma endregion
 
@@ -36,17 +50,19 @@ void BMP::ReadPixels()
 {	
 	unsigned char* data = new unsigned char[infoHeader.GetPaddingSize()];
 
+	image = {(infoHeader.GetHeight(), std::vector<Pixel>(infoHeader.GetWidth()))};
+
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		//fileObject->GetFile()->getline((char*)data, infoHeader.GetPaddingSize());
-
 		fileObject->GetFile()->read((char*)data, infoHeader.GetPaddingSize());
 
 		for(int j = 0; j < infoHeader.GetWidth() * 3; j += 3)
 		{
 			ConvertBGRtoRGB(data, j);
 
-			SetPixel(RGB(data, j));
+			//image.data()[i].data()[j].push_back(RGB(data, j));
+
+			//SetPixel(RGB(data, j));
 		}
 	}
 }

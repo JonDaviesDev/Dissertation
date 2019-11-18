@@ -4,57 +4,57 @@
 
 #pragma region System Files
 
-#include <iostream>
-#include <fstream>
 #include <vector>
-#include <bitset>
-#include <sstream>
 
 #pragma endregion
 
 #pragma region Project Files
 
 #include "Pixel.h"
-#include "BMPFileHeader.h"
-#include "BMPInfoHeader.h"
-#include "FileReader.h"
+#include "BMP.h"
 
 #pragma endregion
 
+
+
 #pragma endregion
 
-class BMP
+class BMPWriter
 {
 #pragma region Attributes
 
 private:
-	BMPInfoHeader infoHeader;
+	int height;
 
-	BMPFileHeader fileHeader;
+	int width;
 
-	FileReader* fileObject;
-	
-	std::vector<std::vector<Pixel>> image;
+	int colourSpace;
 
-	std::vector<Pixel> pixels;
+	BMP* bmp;
+
+	std::vector<Pixel> image;
 
 #pragma endregion
 
 #pragma region Constructors
 
 public:
+	BMPWriter();
 
-	BMP();
-
-	BMP(FileReader* reader);
+	BMPWriter(BMP* bmp);
 
 #pragma endregion
 
 #pragma region Properties
 
+public:
 #pragma region Setters
 
-	void SetPixel(RGB value);
+	void SetHeight(int value);
+
+	void SetWidth(int value);
+
+	void SetColourSpace(int value);
 
 #pragma endregion
 
@@ -66,26 +66,17 @@ public:
 
 	int GetColourSpace();
 
+
+
 #pragma endregion
 
 #pragma endregion
 
 #pragma region Methods
 
-	void ScanBMP();
-
-	void ReadPixels();
-
-	void ConvertBGRtoRGB(unsigned char* data, int iteration);
-
-#pragma region Display Functions
-
-	void PrintHeader();
-
-#pragma endregion
-
+public:
+	void CreateBMP();
 
 #pragma endregion
 };
-
 
