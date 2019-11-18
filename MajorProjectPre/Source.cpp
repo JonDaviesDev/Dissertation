@@ -22,6 +22,7 @@ int main()
 
 	BMP bmp(&reader);
 
+
 	return 0;
 }
 

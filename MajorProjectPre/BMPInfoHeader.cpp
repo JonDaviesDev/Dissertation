@@ -30,6 +30,8 @@ void BMPInfoHeader::SetInfoHeader()
 	delete[] buffer;
 }
 
+void BMPInfoHeader::SetPaddingSize(int value) { paddingSize = value; }
+
 #pragma endregion
 
 #pragma region Getters
@@ -70,6 +72,8 @@ void BMPInfoHeader::CreateInfoHeader()
 
 	SetInfoHeader();
 
+	CalculatePaddingSize();
+
 	infoHeader[0] = (unsigned char)(GetSize());				// hs		Set the header size
 	infoHeader[4] = (unsigned char)(width);					// w
 	infoHeader[5] = (unsigned char)(width >> 8);			// w
@@ -82,6 +86,11 @@ void BMPInfoHeader::CreateInfoHeader()
 	infoHeader[12] = (unsigned char)(1);					// cp		Set the colour plane
 	infoHeader[14] = (unsigned char)(bytesPerPixel * 8);	// bpp		Set the number of bits per pixel
 
+}
+
+void BMPInfoHeader::CalculatePaddingSize()
+{
+	SetPaddingSize((width * 3 + 3) & (~3));
 }
 
 #pragma endregion

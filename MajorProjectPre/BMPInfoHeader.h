@@ -50,6 +50,8 @@ public:
 
 	void SetWidth(int value);
 
+	void SetPaddingSize(int value);
+
 #pragma endregion
 
 #pragma region Getters
@@ -74,6 +76,8 @@ public:
 
 public:
 	void CreateInfoHeader();
+
+	void CalculatePaddingSize();
 
 #pragma endregion
 };

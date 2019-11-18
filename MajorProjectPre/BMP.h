@@ -31,6 +31,8 @@ private:
 	BMPInfoHeader infoHeader;
 
 	BMPFileHeader fileHeader;
+
+	FileReader* fileObject;
 	
 	std::vector<Pixel> pixels;
 
@@ -48,13 +50,17 @@ public:
 
 #pragma region Properties
 
+	void SetPixel(RGB value);
+
 #pragma endregion
 
 #pragma region Methods
 
-	void ScanBMP(std::ifstream* fileObject);
+	void ScanBMP();
 
+	void ReadPixels();
 
+	void ConvertBGRtoRGB(unsigned char* data, int iteration);
 
 #pragma region Display Functions
 

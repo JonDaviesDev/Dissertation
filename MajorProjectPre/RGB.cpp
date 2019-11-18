@@ -6,6 +6,13 @@ RGB::RGB() : r(0), g(0), b(0) {}
 
 RGB::RGB(unsigned char r, unsigned char g, unsigned char b) : r(r), g(g), b(b) {}
 
+RGB::RGB(unsigned char* data, int iterator)
+{
+	r = data[iterator];
+	g = data[iterator + 1];
+	b = data[iterator + 2];
+}
+
 #pragma endregion
 
 #pragma region Properties

@@ -15,6 +15,8 @@ public:
 
 	RGB(unsigned char r, unsigned char g, unsigned char b);
 
+	RGB(unsigned char* data, int iterator);
+
 #pragma endregion
 
 #pragma region Properties
