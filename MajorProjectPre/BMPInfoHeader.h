@@ -2,7 +2,17 @@
 
 #pragma region Includes
 
+#pragma region System Files
+
 #include <array>
+
+#pragma endregion
+
+#pragma region Project Files
+
+#include "FileReader.h"
+
+#pragma endregion
 
 #pragma endregion
 
@@ -15,6 +25,8 @@ private:
 
 	int height, width, paddingSize;
 
+	FileReader* reader;
+
 	std::array<unsigned char, 40> infoHeader;
 
 #pragma endregion
@@ -22,22 +34,31 @@ private:
 #pragma region Constructors
 
 public:
-	BMPInfoHeader();
+	BMPInfoHeader(FileReader* reader);
 
 #pragma endregion
 
 #pragma region Properties
 
 public:
+
+#pragma region Setters
+
+	void SetInfoHeader();
+
+	void SetHeight(int value);
+
+	void SetWidth(int value);
+
+#pragma endregion
+
+#pragma region Getters
+
 	int GetSize();
 
 	int GetBytesPerPixel();
 
-	void SetHeight(int value);
-
 	int GetHeight();
-
-	void SetWidth(int value);
 
 	int GetWidth();
 
@@ -45,12 +66,12 @@ public:
 
 #pragma endregion
 
+#pragma endregion
+
 #pragma region Methods
 
 public:
 	void CreateInfoHeader();
-
-
 
 #pragma endregion
 };

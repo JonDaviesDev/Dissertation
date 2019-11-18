@@ -2,10 +2,9 @@
 
 #pragma region Constructors
 
-BMPInfoHeader::BMPInfoHeader()
-	: bytesPerPixel(3), width(0), height(0), paddingSize(0)
+BMPInfoHeader::BMPInfoHeader(FileReader* reader)
+	: bytesPerPixel(3), width(0), height(0), paddingSize(0), reader(reader)
 {
-
 	CreateInfoHeader();
 }
 
@@ -18,6 +17,20 @@ BMPInfoHeader::BMPInfoHeader()
 void BMPInfoHeader::SetHeight(int value) { height = value; }
 
 void BMPInfoHeader::SetWidth(int value) { width = value; }
+
+void BMPInfoHeader::SetInfoHeader()
+{
+	char* buffer = new char[54];
+
+	reader->GetFile()->read(buffer, 54);
+
+
+
+	SetWidth(*(int*)&buffer[18]);
+	SetHeight(*(int*)&buffer[22]);
+
+	delete[] buffer;
+}
 
 #pragma endregion
 
@@ -54,6 +67,8 @@ void BMPInfoHeader::CreateInfoHeader()
 		infoHeader[32]-[35] = colour table information
 		infoHeader[35]-[39] = colour count
 	*/
+
+	SetInfoHeader();
 
 	infoHeader[0] = (unsigned char)(GetSize());				// hs		Set the header size
 	infoHeader[4] = (unsigned char)(width);					// w

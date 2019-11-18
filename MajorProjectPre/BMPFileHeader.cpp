@@ -5,11 +5,9 @@
 BMPFileHeader::BMPFileHeader(BMPInfoHeader* infoHeader)
 	: fileSize(), fileHeaderSize(13)
 {
-
 	// Calculate the size of the entire file
 	fileSize = fileHeaderSize + infoHeader->GetSize() + (infoHeader->GetBytesPerPixel() *
 		infoHeader->GetWidth() + infoHeader->GetPaddingSize()) * infoHeader->GetHeight();
-
 
 	CreateFileHeader(infoHeader->GetSize());
 }
