@@ -3,12 +3,9 @@
 
 #pragma region Constructors
 
-BMP::BMP() : infoHeader(nullptr) {}
+BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader) {}
 
-BMP::BMP(FileReader* reader) : infoHeader(reader)
-{
-	//SetFileHeader(reader, infoHeader);
-}
+BMP::BMP(FileReader* reader) : infoHeader(reader), fileHeader(&infoHeader) {}
 
 #pragma endregion
 

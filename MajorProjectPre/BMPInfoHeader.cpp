@@ -24,8 +24,6 @@ void BMPInfoHeader::SetInfoHeader()
 
 	reader->GetFile()->read(buffer, 54);
 
-
-
 	SetWidth(*(int*)&buffer[18]);
 	SetHeight(*(int*)&buffer[22]);
 
@@ -45,6 +43,8 @@ int BMPInfoHeader::GetHeight() { return height; }
 int BMPInfoHeader::GetWidth() { return width; }
 
 int BMPInfoHeader::GetPaddingSize() { return paddingSize; }
+
+FileReader* BMPInfoHeader::GetReader() { return reader; }
 
 #pragma endregion
 

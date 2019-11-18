@@ -2,9 +2,19 @@
 
 #pragma region Includes
 
+#pragma region System Files
+
 #include <array>
 #include <iostream>
+
+#pragma endregion
+
+#pragma region Project Files
+
 #include "BMPInfoHeader.h"
+#include "FileReader.h"
+
+#pragma endregion
 
 #pragma endregion
 
@@ -18,6 +28,8 @@ private:
 	int fileSize;								// Size of the entire bmp file
 
 	std::string fileName;
+
+	FileReader* reader;
 
 	std::array<unsigned char, 14> fileHeader;
 
@@ -35,6 +47,8 @@ public:
 public:
 
 #pragma region Setters
+
+	void SetFileHeader(BMPInfoHeader* info);
 
 	void SetFileName(std::string value);
 
@@ -55,7 +69,7 @@ public:
 #pragma region Methods
 
 public:
-	void CreateFileHeader(int infoHeaderSize);
+	void CreateFileHeader(BMPInfoHeader* info);
 
 #pragma endregion
 };

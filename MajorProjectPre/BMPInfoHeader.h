@@ -64,6 +64,8 @@ public:
 
 	int GetPaddingSize();
 
+	FileReader* GetReader();
+
 #pragma endregion
 
 #pragma endregion

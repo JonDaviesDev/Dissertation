@@ -30,7 +30,7 @@ class BMP
 private:
 	BMPInfoHeader infoHeader;
 
-	//BMPFileHeader fileHeader;
+	BMPFileHeader fileHeader;
 	
 	std::vector<Pixel> pixels;
 
@@ -47,8 +47,6 @@ public:
 #pragma endregion
 
 #pragma region Properties
-
-	void SetInfoHeader(FileReader* reader);
 
 	void SetFileHeader(FileReader* reader, BMPInfoHeader info);
 
