@@ -18,7 +18,17 @@ BMP::BMP(FileReader* reader) : infoHeader(reader), fileHeader(&infoHeader), file
 
 #pragma region Setters
 
-void BMP::SetPixel(RGB value) { pixels.push_back(Pixel(value)); }
+void BMP::SetPixel(unsigned char* value, int iterator) 
+{ 
+	//testImage.push_back(std::vector<std::vector<Pixel>>(infoHeader.GetWidth(), std::vector<Pixel>(1, (RGB(value, iterator)))));
+
+	//testImage = {(std::vector<std::vector<std::vector<Pixel>>>(infoHeader.GetHeight(), std::vector<std::vector<Pixel>>(infoHeader.GetWidth(), std::vector<Pixel>(1, RGB(value, iterator)))))};
+}
+
+void BMP::SetPixelData(unsigned char* data, int iterator)
+{
+	//testImage.push_back(Pixel(data, iterator));
+}
 
 #pragma endregion
 
@@ -50,21 +60,27 @@ void BMP::ReadPixels()
 {	
 	unsigned char* data = new unsigned char[infoHeader.GetPaddingSize()];
 
-	image = {(infoHeader.GetHeight(), std::vector<Pixel>(infoHeader.GetWidth()))};
+	int i, j;
 
-	for(int i = 0; i < infoHeader.GetHeight(); i++)
+	//image = std::vector<std::vector<Pixel>>(infoHeader.GetHeight(), std::vector<Pixel>(infoHeader.GetWidth(), Pixel(RGB())));
+
+	for(i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		fileObject->GetFile()->read((char*)data, infoHeader.GetPaddingSize());
+		fileObject->GetFile()->readsome((char*)data, infoHeader.GetPaddingSize());
 
-		for(int j = 0; j < infoHeader.GetWidth() * 3; j += 3)
+		for(j = 0; j < infoHeader.GetWidth() * 3; j++)
 		{
 			ConvertBGRtoRGB(data, j);
 
-			//image.data()[i].data()[j].push_back(RGB(data, j));
+			//SetPixelData(data, j);
 
-			//SetPixel(RGB(data, j));
+
+			// All of it not working!!!!!!
 		}
+
 	}
+
+
 }
 
 void BMP::ConvertBGRtoRGB(unsigned char* data, int iteration)

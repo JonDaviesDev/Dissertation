@@ -33,10 +33,12 @@ private:
 	BMPFileHeader fileHeader;
 
 	FileReader* fileObject;
+
+	std::vector<Pixel> testImage;
 	
 	std::vector<std::vector<Pixel>> image;
 
-	std::vector<Pixel> pixels;
+	Pixel pixelList[128][128];
 
 #pragma endregion
 
@@ -54,7 +56,9 @@ public:
 
 #pragma region Setters
 
-	void SetPixel(RGB value);
+	void SetPixel(unsigned char* data, int iterator);
+
+	void SetPixelData(unsigned char* data, int iterator);
 
 #pragma endregion
 

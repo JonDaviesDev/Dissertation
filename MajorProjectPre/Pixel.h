@@ -23,13 +23,17 @@ public:
 
 	Pixel(RGB value);
 
+	Pixel(unsigned char* data, int iterator);
+
 #pragma endregion
 
 #pragma region Properties
 
 public:
 
-	void SetRGB(RGB value);
+	void SetRGB(unsigned char r, unsigned char g, unsigned char b);
+
+	void SetRGB(unsigned char* data, int iterator);
 
 	RGB GetRGB();
 
