@@ -34,11 +34,7 @@ private:
 
 	FileReader* fileObject;
 
-	std::vector<Pixel> testImage;
-	
-	std::vector<std::vector<Pixel>> image;
-
-	Pixel pixelList[128][128];
+	std::vector<std::vector<Pixel>> pixelsData;
 
 #pragma endregion
 
@@ -55,10 +51,6 @@ public:
 #pragma region Properties
 
 #pragma region Setters
-
-	void SetPixel(unsigned char* data, int iterator);
-
-	void SetPixelData(unsigned char* data, int iterator);
 
 #pragma endregion
 

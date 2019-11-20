@@ -25,6 +25,8 @@ public:
 
 	Pixel(unsigned char* data, int iterator);
 
+	Pixel(unsigned char* data, int posY, int posX);
+
 #pragma endregion
 
 #pragma region Properties
@@ -32,8 +34,6 @@ public:
 public:
 
 	void SetRGB(unsigned char r, unsigned char g, unsigned char b);
-
-	void SetRGB(unsigned char* data, int iterator);
 
 	RGB GetRGB();
 
