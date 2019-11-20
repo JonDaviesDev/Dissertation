@@ -19,6 +19,9 @@
 
 #pragma endregion
 
+using PixelVector2D = std::vector<std::vector<Pixel>>;
+using PixelVector1D = std::vector<Pixel>;
+
 class BMPWriter
 {
 #pragma region Attributes
@@ -32,7 +35,7 @@ private:
 
 	BMP* bmp;
 
-	std::vector<Pixel> image;
+	std::vector<std::vector<Pixel>> image;
 
 #pragma endregion
 
@@ -66,8 +69,6 @@ public:
 
 	int GetColourSpace();
 
-
-
 #pragma endregion
 
 #pragma endregion
@@ -75,7 +76,9 @@ public:
 #pragma region Methods
 
 public:
-	void CreateBMP();
+	void CreateNewBMP();
+
+	void GenerateImageData();
 
 #pragma endregion
 };

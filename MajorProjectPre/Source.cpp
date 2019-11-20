@@ -4,6 +4,7 @@
 
 #include "BMP.h"
 #include "FileReader.h"
+#include "BMPWriter.h"
 
 #pragma endregion
 
@@ -21,6 +22,10 @@ int main()
 	FileReader reader(FILEPATH);
 
 	BMP bmp(&reader);
+
+	BMPWriter newBMP;
+
+	newBMP.CreateNewBMP();
 
 	return 0;
 

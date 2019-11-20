@@ -4,10 +4,16 @@
 #pragma region Constructors
 
 BMPWriter::BMPWriter() 
-	: height(500), width(500), colourSpace(3), bmp(nullptr) {}
+	: height(500), width(500), colourSpace(3), bmp(nullptr) 
+{
+	image = {PixelVector2D(height, PixelVector1D(width, Pixel(RGB())))};
+}
 
 BMPWriter::BMPWriter(BMP* bmp) 
-	: height(bmp->GetHeight()), width(bmp->GetWidth()), colourSpace(bmp->GetColourSpace()), bmp(bmp) {}
+	: height(bmp->GetHeight()), width(bmp->GetWidth()), colourSpace(bmp->GetColourSpace()), bmp(bmp) 
+{
+	image = {PixelVector2D(height, PixelVector1D(width, Pixel(RGB())))};
+}
 
 #pragma endregion
 
@@ -37,15 +43,17 @@ int BMPWriter::GetColourSpace() { return colourSpace; }
 
 #pragma region Methods
 
-void BMPWriter::CreateBMP()
+void BMPWriter::CreateNewBMP()
 {
 	for(int i = 0; i < height; i++)
 	{
 		for(int j = 0; j < width; j++)
 		{
-			//image
+			image[i][j].SetRGB(255, 0, 0);
 		}
 	}
+
+
 }
 
 #pragma endregion
