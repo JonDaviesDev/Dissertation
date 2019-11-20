@@ -12,10 +12,10 @@
 
 #include "Pixel.h"
 #include "BMP.h"
+#include "BMPInfoHeader.h"
+#include "BMPFileHeader.h"
 
 #pragma endregion
-
-
 
 #pragma endregion
 
@@ -27,11 +27,11 @@ class BMPWriter
 #pragma region Attributes
 
 private:
-	int height;
+	//std::ofstream fileObject;
 
-	int width;
+	FILE* fileObject;
 
-	int colourSpace;
+	int height, width, colourSpace;
 
 	BMP* bmp;
 
@@ -78,7 +78,11 @@ public:
 public:
 	void CreateNewBMP();
 
-	void GenerateImageData();
+	void GenerateImageData(PixelVector2D image);
+
+	unsigned char* CreateFileHeader(int paddingSize);
+
+	unsigned char* CreateInfoHeader();
 
 #pragma endregion
 };

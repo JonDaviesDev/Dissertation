@@ -19,15 +19,17 @@
 
 int main()
 {
-	FileReader reader(FILEPATH);
+	//FileReader reader(FILEPATH);
 
-	BMP bmp(&reader);
+	//BMP bmp(&reader);
 
 	BMPWriter newBMP;
 
 	newBMP.CreateNewBMP();
 
 	return 0;
+
+	// Replace C++ with C style file loading
 
 
 	// TODO: go back and open/close in each function

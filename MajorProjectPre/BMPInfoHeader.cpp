@@ -8,6 +8,12 @@ BMPInfoHeader::BMPInfoHeader(FileReader* reader)
 	CreateInfoHeader();
 }
 
+BMPInfoHeader::BMPInfoHeader(int height, int width, int paddingSize) 
+	: bytesPerPixel(3), width(width), height(height), paddingSize(paddingSize), reader(nullptr)
+{
+	CreateInfoHeader();
+}
+
 #pragma endregion
 
 #pragma region Properties
@@ -47,6 +53,8 @@ int BMPInfoHeader::GetWidth() { return width; }
 int BMPInfoHeader::GetPaddingSize() { return paddingSize; }
 
 FileReader* BMPInfoHeader::GetReader() { return reader; }
+
+std::array<unsigned char, 40> BMPInfoHeader::GetInfoData() { return infoHeader; }
 
 #pragma endregion
 

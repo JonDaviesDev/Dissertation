@@ -34,6 +34,8 @@ int BMPFileHeader::GetSize() { return fileHeader.size(); }
 
 size_t BMPFileHeader::GetFileSize() { return fileSize; }
 
+std::array<unsigned char, 14> BMPFileHeader::GetFileData() { return fileHeader; }
+
 #pragma endregion
 
 #pragma endregion

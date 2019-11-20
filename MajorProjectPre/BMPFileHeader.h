@@ -62,6 +62,8 @@ public:
 
 	size_t GetFileSize();
 
+	std::array<unsigned char, 14> GetFileData();
+
 #pragma endregion
 	
 #pragma endregion

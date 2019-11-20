@@ -36,6 +36,8 @@ private:
 public:
 	BMPInfoHeader(FileReader* reader);
 
+	BMPInfoHeader(int height, int width, int paddingSize);
+
 #pragma endregion
 
 #pragma region Properties
@@ -67,6 +69,8 @@ public:
 	int GetPaddingSize();
 
 	FileReader* GetReader();
+
+	std::array<unsigned char, 40> GetInfoData();
 
 #pragma endregion
 
