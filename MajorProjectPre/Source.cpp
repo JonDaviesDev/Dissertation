@@ -25,7 +25,7 @@ int main()
 
 	BMPWriter newBMP;
 
-	newBMP.CreateNewBMP("theTest.bmp", 500, 500, RGB(100, 240, 140));
+	newBMP.CreateNewBMP("theTest.bmp", 500, 500, RGB(0, 100, 101));
 
 	return 0;
 
