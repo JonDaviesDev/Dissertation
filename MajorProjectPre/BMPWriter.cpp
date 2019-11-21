@@ -4,7 +4,7 @@
 #pragma region Constructors
 
 BMPWriter::BMPWriter() 
-	: fileObject(), height(500), width(500), colourSpace(3), bmp(nullptr) 
+	: fileObject(nullptr), height(0), width(0), colourSpace(0), bmp(nullptr) 
 {
 	image = {PixelVector2D(height, PixelVector1D(width, Pixel(RGB())))};
 }
@@ -43,80 +43,83 @@ int BMPWriter::GetColourSpace() { return colourSpace; }
 
 #pragma region Methods
 
-void BMPWriter::CreateNewBMP()
+void BMPWriter::CreateNewBMP(const char* fileName)
 {
 	const int height = 500;
+
 	const int width = 500;
+
 	const int colourElement = 3;
+	this->SetColourSpace(colourElement);
+
+	unsigned char image[width][height][3];
 
 	for(int i = 0; i < height; i++)
 	{
 		for(int j = 0; j < width; j++)
 		{
-			image[i][j].SetRGB(255, 100, 100);
+			image[i][j][2] = (unsigned char)255;
+			image[i][j][1] = (unsigned char)0;
+			image[i][j][0] = (unsigned char)0;
 
 			//std::cout << std::endl;
-
 			//std::cout << "R - ";
-
-
 			//std::cout << std::endl;
-
 			//std::cout << "G - ";
-
 			//std::cout << std::endl;
-
 			//std::cout << "B - ";
-
 		}
 	}
 
-	GenerateImageData(image);
+	GenerateImageData((unsigned char*)image, height, width, fileName);
 
 	std::cout << "Image generated" << std::endl;
 }
 
-void BMPWriter::GenerateImageData(PixelVector2D image)
+void BMPWriter::GenerateImageData(unsigned char* image, int height, int width, const char* imageFileName)
 {
 	// Create an array to store the extra padding
 	unsigned char padding[3] = {0, 0, 0};
 
 	// Calculate the amount of padding needed for this image
-	int paddingSize = (4 - (width * colourSpace) % 4) % 4;
+	int paddingSize = (4 - (width * 3) % 4) % 4;
 
 	// Create a file header
-	unsigned char* fileHeader = CreateFileHeader(paddingSize);
+	unsigned char* fileHeader = CreateFileHeader(height, width, paddingSize);
 
 	// Create an info header
-	unsigned char* infoHeader = CreateInfoHeader();
+	unsigned char* infoHeader = CreateInfoHeader(height, width);
+
+	// Ensure that the file can be opened, ErrorCheck will return nullptr if file cannot be opened
+	FILE* imageFile = ErrorCheck(fileObject, imageFileName, "wb");
 
 	// Write the file header
-	fwrite(fileHeader, 1, 14, fileObject);
+	fwrite(fileHeader, 1, 14, imageFile);
 
 	// Write the info header
-	fwrite(infoHeader, 1, 40, fileObject);
+	fwrite(infoHeader, 1, 40, imageFile);
 
 	// For each row in the image
 	for(int i = 0; i < height; i++)
 	{
 		// Write the pixel data for each pixel in the width
-		fwrite(image. + (i * width * colourSpace), colourSpace, width, fileObject);
+		fwrite(image + (i * width * 3), 3, width, imageFile);
 
 		// Add any needed padding to the image
-		fwrite(padding, 1, paddingSize, fileObject);
+		fwrite(padding, 1, paddingSize, imageFile);
 	}
 
 	// Close the file
 	fclose(imageFile);
 }
 
-unsigned char* BMPWriter::CreateFileHeader(int paddingSize)
+unsigned char* BMPWriter::CreateFileHeader(int height, int width, int paddingSize)
 {
 	// Calculate and store the size of the entire file
-	int fileSize = 14 + 40 + (colourSpace * width + paddingSize) * height;
-
+	int fileSize = 14 + 40 + (3 * width + paddingSize) * height;
+		
 	// Array placed in file that contains key file information
-	unsigned char fileHeader[13];
+	static unsigned char fileHeader[13];
 	/*
 		fileHeader[0]-[1]	 = file signature (identifies file as a BMP)
 		fileHeader[2]-[5]	 = size of file (bytes)
@@ -131,14 +134,14 @@ unsigned char* BMPWriter::CreateFileHeader(int paddingSize)
 	fileHeader[3] = (unsigned char)(fileSize >> 8);						// FileSize part 2
 	fileHeader[4] = (unsigned char)(fileSize >> 16);					// FileSize part 3
 	fileHeader[5] = (unsigned char)(fileSize >> 24);					// FileSize part 4
-	fileHeader[10] = (unsigned char)(14 + 40);							// Size of the header and info
+	fileHeader[10] = (unsigned char)(14 + 40);	// Size of the header and info
 
 	return fileHeader;
 }
 
-unsigned char* BMPWriter::CreateInfoHeader()
+unsigned char* BMPWriter::CreateInfoHeader(int height, int width)
 {
-	unsigned char infoHeader[40];
+	static unsigned char infoHeader[40];
 	/*
 		infoHeader[0]-[3]	= size of header
 		infoHeader[4]-[7]	= width of image
@@ -153,7 +156,7 @@ unsigned char* BMPWriter::CreateInfoHeader()
 		infoHeader[35]-[39] = colour count
 	*/
 
-	infoHeader[0] = (unsigned char)(40);					// hs		Set the header size
+	infoHeader[0] = (unsigned char)(40);		// hs		Set the header size
 	infoHeader[4] = (unsigned char)(width);					// w
 	infoHeader[5] = (unsigned char)(width >> 8);			// w
 	infoHeader[6] = (unsigned char)(width >> 16);			// w		Set the width of the image
@@ -163,9 +166,34 @@ unsigned char* BMPWriter::CreateInfoHeader()
 	infoHeader[10] = (unsigned char)(height >> 16);			// h		Set the height of the image
 	infoHeader[11] = (unsigned char)(height >> 24);			// h
 	infoHeader[12] = (unsigned char)(1);					// cp		Set the colour plane
-	infoHeader[14] = (unsigned char)(colourSpace * 8);		// bpp		Set the number of bits per pixel
+	infoHeader[14] = (unsigned char)(3 * 8);	// bpp		Set the number of bits per pixel
 
 	return infoHeader;
+}
+
+FILE* BMPWriter::ErrorCheck(FILE* file, const char* filePath, const char* mode)
+{
+	errno_t error = NULL;
+	char errorMessageBuffer[95];	// Maximum error message length is 94 chars. +1 for null terminator
+
+	if((error = fopen_s(&file, filePath, mode)) != 0)
+	{
+		strerror_s(errorMessageBuffer, sizeof(errorMessageBuffer), error);
+
+		std::cout << "Cannot open file '" << filePath << "' : " << errorMessageBuffer << std::endl;
+
+		return NULL;
+	}
+
+	else
+	{
+		strerror_s(errorMessageBuffer, sizeof(errorMessageBuffer), error);
+
+		std::cout << "'" << filePath << "' " << "opened successfully in '" << mode << "' mode" << std::endl;
+		std::cout << errorMessageBuffer << std::endl;
+
+		return file;
+	}
 }
 
 #pragma endregion

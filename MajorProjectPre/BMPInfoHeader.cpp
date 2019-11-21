@@ -28,7 +28,7 @@ void BMPInfoHeader::SetInfoHeader()
 {
 	char* buffer = new char[54];
 
-	reader->GetFile()->read(buffer, 54);
+	fread_s(buffer, sizeof(char) * 54, sizeof(char), sizeof(char) * 54, reader->GetFile());
 
 	SetWidth(*(int*)&buffer[18]);
 	SetHeight(*(int*)&buffer[22]);

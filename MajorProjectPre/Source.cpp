@@ -25,12 +25,9 @@ int main()
 
 	BMPWriter newBMP;
 
-	newBMP.CreateNewBMP();
+	newBMP.CreateNewBMP("theTest.bmp");
 
 	return 0;
-
-	// Replace C++ with C style file loading
-
 
 	// TODO: go back and open/close in each function
 }

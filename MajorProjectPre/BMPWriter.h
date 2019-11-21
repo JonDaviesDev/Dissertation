@@ -27,7 +27,7 @@ class BMPWriter
 #pragma region Attributes
 
 private:
-	//std::ofstream fileObject;
+	const char* fileName;
 
 	FILE* fileObject;
 
@@ -76,13 +76,15 @@ public:
 #pragma region Methods
 
 public:
-	void CreateNewBMP();
+	void CreateNewBMP(const char* fileName);
 
-	void GenerateImageData(PixelVector2D image);
+	void GenerateImageData(unsigned char* image, int height, int width, const char* imageFileName);
 
-	unsigned char* CreateFileHeader(int paddingSize);
+	unsigned char* CreateFileHeader(int height, int width, int paddingSize);
 
-	unsigned char* CreateInfoHeader();
+	unsigned char* CreateInfoHeader(int height, int width);
+
+	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode);
 
 #pragma endregion
 };

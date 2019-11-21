@@ -23,11 +23,11 @@ class BMPFileHeader
 #pragma region Attributes
 
 private:
-	const int fileHeaderSize;					// Size of the header
+	int fileHeaderSize;					// Size of the header
 
 	size_t fileSize;							// Size of the entire bmp file
 
-	std::string fileName;
+	const char* fileName;
 
 	FileReader* reader;
 
@@ -50,7 +50,7 @@ public:
 
 	void SetFileHeader(BMPInfoHeader* info);
 
-	void SetFileName(std::string value);
+	void SetFileName(const char* value);
 
 	void SetFileSize(size_t value);
 

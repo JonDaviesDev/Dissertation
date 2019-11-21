@@ -22,7 +22,7 @@ void BMPFileHeader::SetFileHeader(BMPInfoHeader* info)
 	SetFileName(info->GetReader()->GetFileName());
 }
 
-void BMPFileHeader::SetFileName(std::string value) { fileName = value; }
+void BMPFileHeader::SetFileName(const char* value) { fileName = value; }
 
 void BMPFileHeader::SetFileSize(size_t value) { fileSize = value; }
 

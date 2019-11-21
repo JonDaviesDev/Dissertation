@@ -37,9 +37,9 @@ int BMP::GetColourSpace() { return infoHeader.GetBytesPerPixel(); }
 
 void BMP::ScanBMP()
 {
-	std::string buffer;
+	const char* buffer;
 
-	if(fileObject->GetFile()->is_open())
+	if(fileObject->GetFile())
 	{
 		PrintHeader();
 	}
@@ -55,7 +55,9 @@ void BMP::ReadPixels()
 
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		fileObject->GetFile()->read((char*)data, infoHeader.GetPaddingSize());
+		fileObject->ErrorCheck(fileObject->GetFile(), fileObject->GetFileName(), "r");
+
+		fread(data, sizeof(char), 54, fileObject->GetFile());
 
 		for(int j = 0; j < infoHeader.GetWidth() * 3; j += 3)
 		{

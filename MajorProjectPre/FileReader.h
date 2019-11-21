@@ -13,34 +13,32 @@ class FileReader
 #pragma region Attributes
 
 private:
-	std::ifstream inputFile;
+	FILE* inputFile;
 
-	std::string fileName;
+	const char* fileName;
 
 #pragma endregion
 
 #pragma region Constructors
 
 public:
-	FileReader(std::string fileName);
+	FileReader(const char* fileName);
 
 #pragma endregion
 
 #pragma region Properties
 
 public:
-	std::ifstream* GetFile();
+	FILE* GetFile();
 
-	std::string GetFileName();
+	const char* GetFileName();
 
 #pragma endregion
 
 #pragma region Methods
 
 public:
-	void ErrorCheck();
-
-
+	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode); // POSSIBLY CREATE A BASE CLASS FOR THE READER AND WRITER
 
 #pragma endregion
 };
