@@ -19,8 +19,21 @@
 
 #pragma endregion
 
-using PixelVector2D = std::vector<std::vector<Pixel>>;
-using PixelVector1D = std::vector<Pixel>;
+using PixelVector3D = std::vector<std::vector<std::vector<unsigned char>>>;
+using PixelVector2D = std::vector<std::vector<unsigned char>>;
+using PixelVector1D = std::vector<unsigned char>;
+
+struct RGBarray
+{
+	int width;
+	int height;
+
+	unsigned char* r = new unsigned char[width * height];
+	unsigned char* g = new unsigned char[width * height];
+	unsigned char* b = new unsigned char[width * height];
+
+	RGBarray(int width, int height);
+};
 
 class BMPWriter
 {
@@ -35,7 +48,7 @@ private:
 
 	BMP* bmp;
 
-	std::vector<std::vector<Pixel>> image;
+	PixelVector3D imageVec;
 
 #pragma endregion
 
@@ -76,9 +89,9 @@ public:
 #pragma region Methods
 
 public:
-	void CreateNewBMP(const char* fileName);
+	void CreateNewBMP(const char* fileName, int width, int height, RGB colour);
 
-	void GenerateImageData(unsigned char* image, int height, int width, const char* imageFileName);
+	void GenerateImageData(RGBarray image, int height, int width, const char* imageFileName);
 
 	unsigned char* CreateFileHeader(int height, int width, int paddingSize);
 

@@ -3,17 +3,18 @@
 
 #pragma region Constructors
 
-BMPWriter::BMPWriter() 
-	: fileObject(nullptr), height(0), width(0), colourSpace(0), bmp(nullptr) 
+RGBarray::RGBarray(int width, int height)
 {
-	image = {PixelVector2D(height, PixelVector1D(width, Pixel(RGB())))};
+	this->width = width;
+	this->height = height;
 }
 
+BMPWriter::BMPWriter() 
+	: fileName(nullptr), fileObject(nullptr), height(0), width(0), colourSpace(0), bmp(nullptr), imageVec(0) {}
+
 BMPWriter::BMPWriter(BMP* bmp) 
-	: fileObject(), height(bmp->GetHeight()), width(bmp->GetWidth()), colourSpace(bmp->GetColourSpace()), bmp(bmp)
-{
-	image = {PixelVector2D(height, PixelVector1D(width, Pixel(RGB())))};
-}
+	: fileName(nullptr), fileObject(nullptr), height(bmp->GetHeight()), 
+	width(bmp->GetWidth()), colourSpace(bmp->GetColourSpace()), bmp(bmp), imageVec(0) {}
 
 #pragma endregion
 
@@ -43,40 +44,23 @@ int BMPWriter::GetColourSpace() { return colourSpace; }
 
 #pragma region Methods
 
-void BMPWriter::CreateNewBMP(const char* fileName)
+void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB colour)
 {
-	const int height = 500;
+	RGBarray pixel(width, height);
 
-	const int width = 500;
-
-	const int colourElement = 3;
-	this->SetColourSpace(colourElement);
-
-	unsigned char image[width][height][3];
-
-	for(int i = 0; i < height; i++)
+	for(int i = 0; i < height * width; i++)
 	{
-		for(int j = 0; j < width; j++)
-		{
-			image[i][j][2] = (unsigned char)255;
-			image[i][j][1] = (unsigned char)0;
-			image[i][j][0] = (unsigned char)0;
-
-			//std::cout << std::endl;
-			//std::cout << "R - ";
-			//std::cout << std::endl;
-			//std::cout << "G - ";
-			//std::cout << std::endl;
-			//std::cout << "B - ";
-		}
+		pixel.r[i] = (unsigned char)colour.GetRed();
+		pixel.g[i] = (unsigned char)colour.GetGreen();
+		pixel.b[i] = (unsigned char)colour.GetBlue();
 	}
 
-	GenerateImageData((unsigned char*)image, height, width, fileName);
+	GenerateImageData(pixel, height, width, fileName);
 
 	std::cout << "Image generated" << std::endl;
 }
 
-void BMPWriter::GenerateImageData(unsigned char* image, int height, int width, const char* imageFileName)
+void BMPWriter::GenerateImageData(RGBarray p, int height, int width, const char* imageFileName)
 {
 	// Create an array to store the extra padding
 	unsigned char padding[3] = {0, 0, 0};
@@ -102,11 +86,14 @@ void BMPWriter::GenerateImageData(unsigned char* image, int height, int width, c
 	// For each row in the image
 	for(int i = 0; i < height; i++)
 	{
-		// Write the pixel data for each pixel in the width
-		fwrite(image + (i * width * 3), 3, width, imageFile);
+		for(int j = 0; j < width; j++)
+		{
+			fwrite(&p.b[j], sizeof(char), 1, imageFile);
+			fwrite(&p.g[j], sizeof(char), 1, imageFile);
+			fwrite(&p.r[j], sizeof(char), 1, imageFile);
+		}
 
-		// Add any needed padding to the image
-		fwrite(padding, 1, paddingSize, imageFile);
+		fwrite(padding, 1, paddingSize, imageFile);		
 	}
 
 	// Close the file
