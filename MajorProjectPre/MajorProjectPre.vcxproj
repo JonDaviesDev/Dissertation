@@ -126,6 +126,7 @@
     <ClCompile Include="BMP.cpp" />
     <ClCompile Include="BMPFileHeader.cpp" />
     <ClCompile Include="BMPInfoHeader.cpp" />
+    <ClCompile Include="BMPReader.cpp" />
     <ClCompile Include="BMPWriter.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Pixel.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="BMP.h" />
     <ClInclude Include="BMPFileHeader.h" />
     <ClInclude Include="BMPInfoHeader.h" />
+    <ClInclude Include="BMPReader.h" />
     <ClInclude Include="BMPWriter.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="Pixel.h" />

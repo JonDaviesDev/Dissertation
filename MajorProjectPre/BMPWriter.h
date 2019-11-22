@@ -74,9 +74,13 @@ public:
 public:
 	void CreateNewBMP(const char* fileName, int width, int height, RGB colour);
 
-	void CloneBMP(BMP* bmp);
+	void CreateNewBMP(BMP* bmp);
+
+	void WriteBMP(BMP* bmp);
 
 	void GenerateImageData(PixelContainer image, int height, int width, const char* imageFileName);
+
+	void GenerateImageData(BMP* bmp, PixelContainer pixelContainer);
 
 	unsigned char* CreateFileHeader(int height, int width, int paddingSize);
 

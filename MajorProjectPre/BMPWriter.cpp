@@ -54,14 +54,65 @@ void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB co
 	std::cout << "Image generated" << std::endl;
 }
 
-void BMPWriter::CloneBMP(BMP* bmp)
+void BMPWriter::CreateNewBMP(BMP* bmp)
 {
 	PixelContainer pixelContainer(bmp->GetWidth(), bmp->GetHeight());
 
 	for(int i = 0; i < bmp->GetHeight() * bmp->GetWidth(); i++)
 	{
-		//pixelContainer.SetRed( = 
+		pixelContainer.SetRed((unsigned char)bmp->GetPixelContainer()->GetRed(i), i);
+		pixelContainer.SetGreen((unsigned char)bmp->GetPixelContainer()->GetGreen(i), i);
+		pixelContainer.SetBlue((unsigned char)bmp->GetPixelContainer()->GetBlue(i), i);
 	}
+
+	GenerateImageData(bmp, pixelContainer);
+
+	std::cout << "Image generated" << std::endl;
+}
+
+void BMPWriter::WriteBMP(BMP* bmp)
+{
+	CreateNewBMP(bmp);
+}
+
+void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
+{
+	// Create an array to store the extra padding
+	unsigned char padding[3] = {0, 0, 0};
+
+	// Calculate the amount of padding needed for this image
+	int paddingSize = (4 - (bmp->GetWidth() * 3) % 4) % 4;
+
+	// Create a file header
+	unsigned char* fileHeader = CreateFileHeader(bmp->GetHeight(), bmp->GetWidth(), bmp->GetInfoHeader()->GetPaddingSize());
+
+	// Create an info header
+	unsigned char* infoHeader = CreateInfoHeader(bmp->GetHeight(), bmp->GetWidth());
+
+	// Ensure that the file can be opened, ErrorCheck will return nullptr if file cannot be opened
+	FILE* imageFile = ErrorCheck(bmp->GetFileObject()->GetFile(), bmp->GetFileHeader()->GetFileName(), "wb");
+
+	// Write the file header
+	fwrite(fileHeader, 1, 14, imageFile);
+
+	// Write the info header
+	fwrite(infoHeader, 1, 40, imageFile);
+
+	// For each row in the image
+	for(int i = 0; i < height; i++)
+	{
+		for(int j = 0; j < width; j++)
+		{
+			fwrite(pixelContainer.GetBlue(j), sizeof(char), 1, imageFile);
+			fwrite(pixelContainer.GetGreen(j), sizeof(char), 1, imageFile);
+			fwrite(pixelContainer.GetRed(j), sizeof(char), 1, imageFile);
+		}
+
+		fwrite(padding, 1, paddingSize, imageFile);
+	}
+
+	// Close the file
+	fclose(imageFile);
 }
 
 void BMPWriter::GenerateImageData(PixelContainer PixelContainer, int height, int width, const char* imageFileName)

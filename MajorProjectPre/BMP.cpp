@@ -7,11 +7,15 @@ BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader), fileObject(nullptr), 
 
 BMP::BMP(FileReader* reader) : fileHeader(&infoHeader), infoHeader(reader), fileObject(reader)
 {
+	fileObject->ErrorCheck(fileObject->GetFile(), fileObject->GetFileName(), "r");
+
 	pixels = {infoHeader.GetWidth(), infoHeader.GetHeight()};
 
 	ScanBMP();
 
 	ReadPixels();
+
+	fclose(fileObject->GetFile());
 }
 
 #pragma endregion
@@ -20,6 +24,7 @@ BMP::BMP(FileReader* reader) : fileHeader(&infoHeader), infoHeader(reader), file
 
 #pragma region Setters
 
+void BMP::SetPixelContainer(PixelContainer pixelList) { pixels = pixelList; }
 
 #pragma endregion
 
@@ -30,6 +35,14 @@ int BMP::GetHeight() { return infoHeader.GetHeight(); }
 int BMP::GetWidth() { return infoHeader.GetWidth(); }
 
 int BMP::GetColourSpace() { return infoHeader.GetBytesPerPixel(); }
+
+FileReader* BMP::GetFileObject() { return fileObject; }
+
+BMPInfoHeader* BMP::GetInfoHeader() { return &infoHeader; }
+
+BMPFileHeader* BMP::GetFileHeader() { return &fileHeader; }
+
+PixelContainer* BMP::GetPixelContainer() { return &pixels; }
 
 #pragma endregion
 
@@ -51,18 +64,19 @@ void BMP::ReadPixels()
 {
 	unsigned char* data = new unsigned char[infoHeader.GetPaddingSize()];
 
+	int k = 0;
+
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		fileObject->ErrorCheck(fileObject->GetFile(), fileObject->GetFileName(), "r");
-
 		fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
 
-		for(int j = 0; j < infoHeader.GetWidth() * 3; j += 3)
+		for(int j = 0; j < infoHeader.GetWidth(); j++)
 		{
-			pixels.SetRed(data[j], j);
-			pixels.SetGreen(data[j + 1], j + 1);
-			pixels.SetBlue(data[j + 2], j + 2);
+			pixels.SetRed(data[k], j);
+			pixels.SetGreen(data[k + 1], j);
+			pixels.SetBlue(data[k + 2], j);
 		}
+		k++;
 	}
 }
 

@@ -53,6 +53,8 @@ public:
 
 #pragma region Setters
 
+	void SetPixelContainer(PixelContainer pixelList);
+
 #pragma endregion
 
 #pragma region Getters
@@ -62,6 +64,14 @@ public:
 	int GetWidth();
 
 	int GetColourSpace();
+
+	FileReader* GetFileObject();
+
+	BMPInfoHeader* GetInfoHeader();
+
+	BMPFileHeader* GetFileHeader();
+
+	PixelContainer* GetPixelContainer();
 
 #pragma endregion
 

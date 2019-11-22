@@ -58,11 +58,15 @@ public:
 
 #pragma region Getters
 
+	const char* GetFileName();
+
 	int GetSize();
 
 	size_t GetFileSize();
 
 	std::array<unsigned char, 14> GetFileData();
+
+	FileReader* GetReader();
 
 #pragma endregion
 	
