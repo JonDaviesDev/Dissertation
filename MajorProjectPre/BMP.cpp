@@ -7,8 +7,7 @@ BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader), fileObject(nullptr), 
 
 BMP::BMP(FileReader* reader) : fileHeader(&infoHeader), infoHeader(reader), fileObject(reader)
 {
-	pixels.SetWidth(infoHeader.GetWidth());
-	pixels.SetHeight(infoHeader.GetHeight());
+	pixels = {infoHeader.GetWidth(), infoHeader.GetHeight()};
 
 	ScanBMP();
 
@@ -52,19 +51,17 @@ void BMP::ReadPixels()
 {
 	unsigned char* data = new unsigned char[infoHeader.GetPaddingSize()];
 
-	int k = 0;
-
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
 		fileObject->ErrorCheck(fileObject->GetFile(), fileObject->GetFileName(), "r");
 
-		fread(data, sizeof(char), 54, fileObject->GetFile());
+		fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
 
 		for(int j = 0; j < infoHeader.GetWidth() * 3; j += 3)
 		{
 			pixels.SetRed(data[j], j);
-			pixels.SetGreen(data[j + 1], j);
-			pixels.SetBlue(data[j + 2], j);
+			pixels.SetGreen(data[j + 1], j + 1);
+			pixels.SetBlue(data[j + 2], j + 2);
 		}
 	}
 }

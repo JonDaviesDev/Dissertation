@@ -10,7 +10,7 @@
 
 #pragma region Defines
 
-#define FILEPATH "C:\\GitHub\\MajorProject\\ImageSamples\\squares.bmp"
+#define FILEPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
 
 #pragma endregion
 
