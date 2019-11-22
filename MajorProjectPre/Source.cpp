@@ -10,7 +10,7 @@
 
 #pragma region Defines
 
-#define FILEPATH "C:\\Users\\jonny\\source\\repos\\MajorProject\\MajorProjectPre\\ImageSamples\\stripes.BMP"
+#define FILEPATH "C:\\GitHub\\MajorProject\\ImageSamples\\squares.bmp"
 
 #pragma endregion
 
@@ -19,13 +19,15 @@
 
 int main()
 {
-	//FileReader reader(FILEPATH);
+	FileReader reader(FILEPATH);
 
-	//BMP bmp(&reader);
+	BMP bmp(&reader);
 
-	BMPWriter newBMP;
+	////BMPWriter newBMP;
 
-	newBMP.CreateNewBMP("theTest.bmp", 500, 500, RGB(0, 100, 101));
+	//newBMP.CloneBMP(&bmp);
+
+	//newBMP.CreateNewBMP("theTest.bmp", 500, 500, RGB(255, 255, 200));
 
 	return 0;
 

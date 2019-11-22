@@ -5,7 +5,7 @@
 FileReader::FileReader(const char* fileName) : fileName(fileName)
 {
 	// Ensure that the file has opened correctly on object creation
-	ErrorCheck(inputFile, fileName, "r");
+	inputFile = ErrorCheck(inputFile, fileName, "r");
 }
 
 #pragma endregion

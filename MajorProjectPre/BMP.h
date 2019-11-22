@@ -18,6 +18,7 @@
 #include "BMPFileHeader.h"
 #include "BMPInfoHeader.h"
 #include "FileReader.h"
+#include "PixelContainer.h"
 
 #pragma endregion
 
@@ -34,7 +35,7 @@ private:
 
 	FileReader* fileObject;
 
-	std::vector<std::vector<Pixel>> pixelsData;
+	PixelContainer pixels;
 
 #pragma endregion
 

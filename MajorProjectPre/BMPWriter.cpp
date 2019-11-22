@@ -3,18 +3,12 @@
 
 #pragma region Constructors
 
-RGBarray::RGBarray(int width, int height)
-{
-	this->width = width;
-	this->height = height;
-}
-
 BMPWriter::BMPWriter() 
-	: fileName(nullptr), fileObject(nullptr), height(0), width(0), colourSpace(0), bmp(nullptr), imageVec(0) {}
+	: fileName(nullptr), fileObject(nullptr), height(0), width(0), colourSpace(0), bmp(nullptr) {}
 
 BMPWriter::BMPWriter(BMP* bmp) 
 	: fileName(nullptr), fileObject(nullptr), height(bmp->GetHeight()), 
-	width(bmp->GetWidth()), colourSpace(bmp->GetColourSpace()), bmp(bmp), imageVec(0) {}
+	width(bmp->GetWidth()), colourSpace(bmp->GetColourSpace()), bmp(bmp) {}
 
 #pragma endregion
 
@@ -46,21 +40,31 @@ int BMPWriter::GetColourSpace() { return colourSpace; }
 
 void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB colour)
 {
-	RGBarray pixel(width, height);
+	PixelContainer pixelContainer(width, height);
 
 	for(int i = 0; i < height * width; i++)
 	{
-		pixel.r[i] = (unsigned char)colour.GetRed();
-		pixel.g[i] = (unsigned char)colour.GetGreen();
-		pixel.b[i] = (unsigned char)colour.GetBlue();
+		pixelContainer.SetRed((unsigned char)colour.GetRed(), i);
+		pixelContainer.SetGreen((unsigned char)colour.GetGreen(), i);
+		pixelContainer.SetBlue((unsigned char)colour.GetBlue(), i);
 	}
 
-	GenerateImageData(pixel, height, width, fileName);
+	GenerateImageData(pixelContainer, height, width, fileName);
 
 	std::cout << "Image generated" << std::endl;
 }
 
-void BMPWriter::GenerateImageData(RGBarray p, int height, int width, const char* imageFileName)
+void BMPWriter::CloneBMP(BMP* bmp)
+{
+	PixelContainer pixelContainer(bmp->GetWidth(), bmp->GetHeight());
+
+	for(int i = 0; i < bmp->GetHeight() * bmp->GetWidth(); i++)
+	{
+		//pixelContainer.SetRed( = 
+	}
+}
+
+void BMPWriter::GenerateImageData(PixelContainer PixelContainer, int height, int width, const char* imageFileName)
 {
 	// Create an array to store the extra padding
 	unsigned char padding[3] = {0, 0, 0};
@@ -88,9 +92,9 @@ void BMPWriter::GenerateImageData(RGBarray p, int height, int width, const char*
 	{
 		for(int j = 0; j < width; j++)
 		{
-			fwrite(&p.b[j], sizeof(char), 1, imageFile);
-			fwrite(&p.g[j], sizeof(char), 1, imageFile);
-			fwrite(&p.r[j], sizeof(char), 1, imageFile);
+			fwrite(PixelContainer.GetBlue(j), sizeof(char), 1, imageFile);
+			fwrite(PixelContainer.GetGreen(j), sizeof(char), 1, imageFile);
+			fwrite(PixelContainer.GetRed(j), sizeof(char), 1, imageFile);
 		}
 
 		fwrite(padding, 1, paddingSize, imageFile);		

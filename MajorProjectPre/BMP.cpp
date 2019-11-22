@@ -3,10 +3,13 @@
 
 #pragma region Constructors
 
-BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader), fileObject(nullptr) {}
+BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader), fileObject(nullptr), pixels() {}
 
-BMP::BMP(FileReader* reader) : infoHeader(reader), fileHeader(&infoHeader), fileObject(reader) 
+BMP::BMP(FileReader* reader) : fileHeader(&infoHeader), infoHeader(reader), fileObject(reader)
 {
+	pixels.SetWidth(infoHeader.GetWidth());
+	pixels.SetHeight(infoHeader.GetHeight());
+
 	ScanBMP();
 
 	ReadPixels();
@@ -47,8 +50,6 @@ void BMP::ScanBMP()
 
 void BMP::ReadPixels()
 {
-	pixelsData = {(std::vector<std::vector<Pixel>>(infoHeader.GetHeight(), std::vector<Pixel>(infoHeader.GetWidth(), Pixel(RGB()))))};
-
 	unsigned char* data = new unsigned char[infoHeader.GetPaddingSize()];
 
 	int k = 0;
@@ -61,13 +62,10 @@ void BMP::ReadPixels()
 
 		for(int j = 0; j < infoHeader.GetWidth() * 3; j += 3)
 		{
-			ConvertBGRtoRGB(data, j);
-
-			pixelsData[i][k].SetRGB(data[j], data[j + 1], data[j + 2]);
-
-			k++;
+			pixels.SetRed(data[j], j);
+			pixels.SetGreen(data[j + 1], j);
+			pixels.SetBlue(data[j + 2], j);
 		}
-		k = 0;
 	}
 }
 
