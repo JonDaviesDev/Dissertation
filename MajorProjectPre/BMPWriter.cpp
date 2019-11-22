@@ -60,9 +60,9 @@ void BMPWriter::CreateNewBMP(BMP* bmp)
 
 	for(int i = 0; i < bmp->GetHeight() * bmp->GetWidth(); i++)
 	{
-		pixelContainer.SetRed((unsigned char)bmp->GetPixelContainer()->GetRed(i), i);
-		pixelContainer.SetGreen((unsigned char)bmp->GetPixelContainer()->GetGreen(i), i);
-		pixelContainer.SetBlue((unsigned char)bmp->GetPixelContainer()->GetBlue(i), i);
+		pixelContainer.SetRed(/*(unsigned char)bmp->GetPixelContainer()->GetRed(i)*/255, i);
+		pixelContainer.SetGreen(/*(unsigned char)bmp->GetPixelContainer()->GetGreen(i)*/0, i);
+		pixelContainer.SetBlue(/*(unsigned char)bmp->GetPixelContainer()->GetBlue(i)*/0, i);
 	}
 
 	GenerateImageData(bmp, pixelContainer);
@@ -83,14 +83,24 @@ void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
 	// Calculate the amount of padding needed for this image
 	int paddingSize = (4 - (bmp->GetWidth() * 3) % 4) % 4;
 
-	// Create a file header
-	unsigned char* fileHeader = CreateFileHeader(bmp->GetHeight(), bmp->GetWidth(), bmp->GetInfoHeader()->GetPaddingSize());
-
 	// Create an info header
 	unsigned char* infoHeader = CreateInfoHeader(bmp->GetHeight(), bmp->GetWidth());
 
+	// Create a file header
+	unsigned char* fileHeader = CreateFileHeader(bmp->GetHeight(), bmp->GetWidth(), bmp->GetInfoHeader()->GetPaddingSize());
+
 	// Ensure that the file can be opened, ErrorCheck will return nullptr if file cannot be opened
-	FILE* imageFile = ErrorCheck(bmp->GetFileObject()->GetFile(), bmp->GetFileHeader()->GetFileName(), "wb");
+	FILE* imageFile = bmp->GetFileObject()->GetFile();
+
+
+
+
+	//**************
+	//************** I am trying to open the exact same file as the one I am copying.  IS THS RIGHT??????
+	//**************
+
+
+
 
 	// Write the file header
 	fwrite(fileHeader, 1, 14, imageFile);
@@ -99,9 +109,9 @@ void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
 	fwrite(infoHeader, 1, 40, imageFile);
 
 	// For each row in the image
-	for(int i = 0; i < height; i++)
+	for(int i = 0; i < bmp->GetHeight(); i++)
 	{
-		for(int j = 0; j < width; j++)
+		for(int j = 0; j < bmp->GetWidth(); j++)
 		{
 			fwrite(pixelContainer.GetBlue(j), sizeof(char), 1, imageFile);
 			fwrite(pixelContainer.GetGreen(j), sizeof(char), 1, imageFile);
@@ -198,7 +208,7 @@ unsigned char* BMPWriter::CreateInfoHeader(int height, int width)
 		infoHeader[35]-[39] = colour count
 	*/
 
-	infoHeader[0] = (unsigned char)(40);		// hs		Set the header size
+	infoHeader[0] = (unsigned char)(40);					// hs		Set the header size
 	infoHeader[4] = (unsigned char)(width);					// w
 	infoHeader[5] = (unsigned char)(width >> 8);			// w
 	infoHeader[6] = (unsigned char)(width >> 16);			// w		Set the width of the image
@@ -208,7 +218,7 @@ unsigned char* BMPWriter::CreateInfoHeader(int height, int width)
 	infoHeader[10] = (unsigned char)(height >> 16);			// h		Set the height of the image
 	infoHeader[11] = (unsigned char)(height >> 24);			// h
 	infoHeader[12] = (unsigned char)(1);					// cp		Set the colour plane
-	infoHeader[14] = (unsigned char)(3 * 8);	// bpp		Set the number of bits per pixel
+	infoHeader[14] = (unsigned char)(3 * 8);				// bpp		Set the number of bits per pixel
 
 	return infoHeader;
 }
