@@ -37,11 +37,11 @@ public:
 
 	void SetBlue(unsigned char value, int iterator);
 
-	void SetRed(unsigned char value);
+	void SetRed(unsigned char* value, int iterator);
 
-	void SetGreen(unsigned char value);
+	void SetGreen(unsigned char* value, int iterator);
 
-	void SetBlue(unsigned char value);
+	void SetBlue(unsigned char* value, int iterator);
 
 #pragma endregion
 

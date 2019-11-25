@@ -60,19 +60,14 @@ void BMPWriter::CreateNewBMP(BMP* bmp)
 
 	for(int i = 0; i < bmp->GetHeight() * bmp->GetWidth(); i++)
 	{
-		pixelContainer.SetRed(/*(unsigned char)bmp->GetPixelContainer()->GetRed(i)*/255, i);
-		pixelContainer.SetGreen(/*(unsigned char)bmp->GetPixelContainer()->GetGreen(i)*/0, i);
-		pixelContainer.SetBlue(/*(unsigned char)bmp->GetPixelContainer()->GetBlue(i)*/0, i);
+		pixelContainer.SetRed((unsigned char*)bmp->GetPixelContainer()->GetRed(i), i);
+		pixelContainer.SetGreen((unsigned char*)bmp->GetPixelContainer()->GetGreen(i), i);
+		pixelContainer.SetBlue((unsigned char*)bmp->GetPixelContainer()->GetBlue(i), i);
 	}
 
 	GenerateImageData(bmp, pixelContainer);
 
 	std::cout << "Image generated" << std::endl;
-}
-
-void BMPWriter::WriteBMP(BMP* bmp)
-{
-	CreateNewBMP(bmp);
 }
 
 void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
@@ -87,21 +82,11 @@ void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
 	unsigned char* infoHeader = CreateInfoHeader(bmp->GetHeight(), bmp->GetWidth());
 
 	// Create a file header
-	unsigned char* fileHeader = CreateFileHeader(bmp->GetHeight(), bmp->GetWidth(), bmp->GetInfoHeader()->GetPaddingSize());
+	unsigned char* fileHeader = CreateFileHeader(bmp->GetHeight(), bmp->GetWidth(), paddingSize);
 
 	// Ensure that the file can be opened, ErrorCheck will return nullptr if file cannot be opened
-	FILE* imageFile = bmp->GetFileObject()->GetFile();
-
-
-
-
-	//**************
-	//************** I am trying to open the exact same file as the one I am copying.  IS THS RIGHT??????
-	//**************
-
-
-
-
+	FILE* imageFile = ErrorCheck(bmp->GetFileObject()->GetFile(), "daveAndWael.bmp", "wb");;
+	
 	// Write the file header
 	fwrite(fileHeader, 1, 14, imageFile);
 
@@ -122,7 +107,7 @@ void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
 	}
 
 	// Close the file
-	fclose(imageFile);
+	//fclose(imageFile);
 }
 
 void BMPWriter::GenerateImageData(PixelContainer PixelContainer, int height, int width, const char* imageFileName)
@@ -162,7 +147,7 @@ void BMPWriter::GenerateImageData(PixelContainer PixelContainer, int height, int
 	}
 
 	// Close the file
-	fclose(imageFile);
+	//fclose(imageFile);
 }
 
 unsigned char* BMPWriter::CreateFileHeader(int height, int width, int paddingSize)

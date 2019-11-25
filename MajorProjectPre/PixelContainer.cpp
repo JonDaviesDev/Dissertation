@@ -28,11 +28,11 @@ void PixelContainer::SetGreen(unsigned char value, int iterator) { g[iterator] =
 
 void PixelContainer::SetBlue(unsigned char value, int iterator) { b[iterator] = value; }
 
-void PixelContainer::SetRed(unsigned char value) { *r = value; }
+void PixelContainer::SetRed(unsigned char* value, int iterator) { r[iterator] = *value; }
 
-void PixelContainer::SetGreen(unsigned char value) { *g = value; }
+void PixelContainer::SetGreen(unsigned char* value, int iterator) { g[iterator] = *value; }
 
-void PixelContainer::SetBlue(unsigned char value) { *b = value; }
+void PixelContainer::SetBlue(unsigned char* value, int iterator) { b[iterator] = *value; }
 
 #pragma endregion
 
