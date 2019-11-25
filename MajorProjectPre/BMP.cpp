@@ -76,6 +76,7 @@ void BMP::ReadPixels()
 			pixels.SetGreen(data[k + 1], j);
 			pixels.SetBlue(data[k + 2], j);
 		}
+
 		k++;
 	}
 }

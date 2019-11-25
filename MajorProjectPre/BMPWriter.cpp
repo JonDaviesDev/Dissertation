@@ -54,7 +54,7 @@ void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB co
 	std::cout << "Image generated" << std::endl;
 }
 
-void BMPWriter::CreateNewBMP(BMP* bmp)
+void BMPWriter::CloneBMP(BMP* bmp, const char* newFileName)
 {
 	PixelContainer pixelContainer(bmp->GetWidth(), bmp->GetHeight());
 
@@ -65,12 +65,14 @@ void BMPWriter::CreateNewBMP(BMP* bmp)
 		pixelContainer.SetBlue((unsigned char*)bmp->GetPixelContainer()->GetBlue(i), i);
 	}
 
-	GenerateImageData(bmp, pixelContainer);
+	GenerateImageData(bmp, pixelContainer, newFileName);
 
 	std::cout << "Image generated" << std::endl;
+
+	fclose(bmp->GetFileObject()->GetFile());
 }
 
-void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
+void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer, const char* newFileName)
 {
 	// Create an array to store the extra padding
 	unsigned char padding[3] = {0, 0, 0};
@@ -85,7 +87,7 @@ void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
 	unsigned char* fileHeader = CreateFileHeader(bmp->GetHeight(), bmp->GetWidth(), paddingSize);
 
 	// Ensure that the file can be opened, ErrorCheck will return nullptr if file cannot be opened
-	FILE* imageFile = ErrorCheck(bmp->GetFileObject()->GetFile(), "daveAndWael.bmp", "wb");;
+	FILE* imageFile = ErrorCheck(bmp->GetFileObject()->GetFile(), newFileName, "wb");;
 	
 	// Write the file header
 	fwrite(fileHeader, 1, 14, imageFile);
@@ -107,7 +109,7 @@ void BMPWriter::GenerateImageData(BMP* bmp, PixelContainer pixelContainer)
 	}
 
 	// Close the file
-	//fclose(imageFile);
+	fclose(imageFile);
 }
 
 void BMPWriter::GenerateImageData(PixelContainer PixelContainer, int height, int width, const char* imageFileName)
@@ -147,7 +149,7 @@ void BMPWriter::GenerateImageData(PixelContainer PixelContainer, int height, int
 	}
 
 	// Close the file
-	//fclose(imageFile);
+	fclose(imageFile);
 }
 
 unsigned char* BMPWriter::CreateFileHeader(int height, int width, int paddingSize)
@@ -206,6 +208,15 @@ unsigned char* BMPWriter::CreateInfoHeader(int height, int width)
 	infoHeader[14] = (unsigned char)(3 * 8);				// bpp		Set the number of bits per pixel
 
 	return infoHeader;
+}
+
+void BMPWriter::ConvertBGRtoRGB(unsigned char* data, int iteration)
+{
+	unsigned char temp = 0;
+
+	temp = data[iteration];
+	data[iteration] = data[iteration + 2];
+	data[iteration + 2] = temp;
 }
 
 FILE* BMPWriter::ErrorCheck(FILE* file, const char* filePath, const char* mode)

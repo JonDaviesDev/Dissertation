@@ -11,12 +11,14 @@
 #pragma region Defines
 
 #define STRIPESPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
-#define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\theTest.bmp"
+#define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\test.bmp"
+#define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
+#define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
+#define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
 
 #pragma endregion
 
 #pragma endregion
-
 
 int main()
 {
@@ -26,29 +28,7 @@ int main()
 
 	BMPWriter newBMP;
 
-	newBMP.CreateNewBMP(&bmp);
-
-	//newBMP.CloneBMP(&bmp);
-
-	//newBMP.CreateNewBMP("theTest.bmp", 500, 500, RGB(255, 255, 200));
+	newBMP.CreateNewBMP("newtest.bmp", 500, 500, RGB(255, 255, 255));
 
 	return 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// TODO: go back and open/close in each function
 }

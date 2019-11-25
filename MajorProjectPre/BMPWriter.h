@@ -74,17 +74,17 @@ public:
 public:
 	void CreateNewBMP(const char* fileName, int width, int height, RGB colour);
 
-	void CreateNewBMP(BMP* bmp);
-
-	void WriteBMP(BMP* bmp);
+	void CloneBMP(BMP* bmp, const char* newFileName);
 
 	void GenerateImageData(PixelContainer image, int height, int width, const char* imageFileName);
 
-	void GenerateImageData(BMP* bmp, PixelContainer pixelContainer);
+	void GenerateImageData(BMP* bmp, PixelContainer pixelContainer, const char* newFileName);
 
 	unsigned char* CreateFileHeader(int height, int width, int paddingSize);
 
 	unsigned char* CreateInfoHeader(int height, int width);
+
+	void ConvertBGRtoRGB(unsigned char* data, int iteration);
 
 	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode);
 
