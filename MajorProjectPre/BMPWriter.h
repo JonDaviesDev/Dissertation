@@ -15,12 +15,13 @@
 #include "BMPInfoHeader.h"
 #include "BMPFileHeader.h"
 #include "PixelContainer.h"
+#include "File.h"
 
 #pragma endregion
 
 #pragma endregion
 
-class BMPWriter
+class BMPWriter : public File
 {
 #pragma region Attributes
 
@@ -85,8 +86,6 @@ public:
 	unsigned char* CreateInfoHeader(int height, int width);
 
 	void ConvertBGRtoRGB(unsigned char* data, int iteration);
-
-	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode);
 
 #pragma endregion
 };

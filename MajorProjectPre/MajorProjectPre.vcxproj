@@ -128,11 +128,13 @@
     <ClCompile Include="BMPInfoHeader.cpp" />
     <ClCompile Include="BMPReader.cpp" />
     <ClCompile Include="BMPWriter.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="PixelContainer.cpp" />
     <ClCompile Include="RGB.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Stego.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h" />
@@ -140,10 +142,12 @@
     <ClInclude Include="BMPInfoHeader.h" />
     <ClInclude Include="BMPReader.h" />
     <ClInclude Include="BMPWriter.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="PixelContainer.h" />
     <ClInclude Include="RGB.h" />
+    <ClInclude Include="Stego.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

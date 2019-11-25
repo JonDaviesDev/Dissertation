@@ -1,13 +1,17 @@
 #pragma once
 
+#pragma region Preprocessor Directives
+
 #pragma region Includes
 
 #include <iostream>
+#include "File.h"
 
 #pragma endregion
 
+#pragma endregion
 
-class FileReader
+class FileReader : public File
 {
 #pragma region Attributes
 
@@ -35,10 +39,7 @@ public:
 #pragma endregion
 
 #pragma region Methods
-
-public:
-	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode); // POSSIBLY CREATE A BASE CLASS FOR THE READER AND WRITER
-
+	
 #pragma endregion
 };
 

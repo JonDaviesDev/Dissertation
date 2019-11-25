@@ -5,6 +5,7 @@
 #include "BMP.h"
 #include "FileReader.h"
 #include "BMPWriter.h"
+#include <array>
 
 #pragma endregion
 
@@ -28,7 +29,12 @@ int main()
 
 	BMPWriter newBMP;
 
-	newBMP.CreateNewBMP("newtest.bmp", 500, 500, RGB(255, 255, 255));
+	newBMP.CreateNewBMP("newtest.bmp", 500, 500, RGB(99, 255, 255));
+
+
+
+
+
 
 	return 0;
 }
