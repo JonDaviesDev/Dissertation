@@ -5,17 +5,21 @@
 #include "BMP.h"
 #include "FileReader.h"
 #include "BMPWriter.h"
-#include <array>
+#include "Stego.h"
 
 #pragma endregion
 
 #pragma region Defines
 
+// Images
 #define STRIPESPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
 #define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\test.bmp"
 #define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
 #define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
 #define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
+
+// Text
+#define TEXT "C:\\GitHub\\MajorProject\\MajorProjectPre\\hello.txt"
 
 #pragma endregion
 
@@ -23,18 +27,12 @@
 
 int main()
 {
-	FileReader reader(TESTPATH);
+	FileReader image(TESTPATH);
+	FileReader text(TEXT);
 
-	BMP bmp(&reader);
-
-	BMPWriter newBMP;
-
-	newBMP.CreateNewBMP("newtest.bmp", 500, 500, RGB(99, 255, 255));
+	Stego st(&image, &text);
 
 
-
-
-
-
+	   	  
 	return 0;
 }

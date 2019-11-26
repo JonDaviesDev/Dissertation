@@ -5,9 +5,9 @@
 
 Stego::Stego(){}
 
-Stego::Stego(const char* coverBMP, const char* textFile)
+Stego::Stego(FileReader* coverBMP, FileReader* textFile) : bmp(coverBMP), text(textFile)
 {
-	//coverObject = 
+	CreateBinaryList(text);
 }
 
 #pragma endregion
@@ -17,5 +17,18 @@ Stego::Stego(const char* coverBMP, const char* textFile)
 #pragma endregion
 
 #pragma region Methods
+
+std::bitset<8> Stego::CharToBinary(char value)
+{
+	return std::bitset<8>(value);
+}
+
+void Stego::CreateBinaryList(TextBuffer buffer)
+{
+	for(int i = 0; i < buffer.GetBuffer().size(); i++)
+	{
+		binaryList.push_back(CharToBinary(buffer.GetBuffer()[i]));
+	}
+}
 
 #pragma endregion

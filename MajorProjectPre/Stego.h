@@ -1,9 +1,25 @@
 #pragma once
 
+#pragma region Preprocessor Directives
+
+#pragma region System Files
+
+#include <bitset>
+
+#pragma endregion
+
+#pragma region Project Files
+
 #include "BMPWriter.h"
 #include "BMP.h"
+#include "TextBuffer.h"
 
-class Stego
+#pragma endregion
+
+#pragma endregion
+
+
+class Stego : public File
 {
 #pragma region Attributes
 
@@ -12,13 +28,9 @@ private:
 
 	BMP bmp;
 
-	FILE* coverObject;
+	TextBuffer text;
 
-	FILE* hiddenObject;
-
-	const char* coverFilePath;
-
-	const char* textFilePath;
+	std::vector<std::bitset<8>> binaryList;
 
 #pragma endregion
 
@@ -27,7 +39,7 @@ private:
 public:
 	Stego();
 
-	Stego(const char* coverBMP, const char* textFile);
+	Stego(FileReader* coverBMP, FileReader* textFile);
 
 #pragma endregion
 
@@ -40,12 +52,6 @@ public:
 
 #pragma region Getters
 
-	BMPWriter GetWriter();
-
-	FILE* GetCoverFile();
-
-	FILE* GetTextFile();
-
 #pragma endregion
 
 #pragma endregion
@@ -53,7 +59,9 @@ public:
 #pragma region Methods
 
 public:
-	void Cloner();
+	std::bitset<8> CharToBinary(char value);
+
+	void CreateBinaryList(TextBuffer buffer);
 
 #pragma endregion
 };

@@ -14,8 +14,6 @@ BMP::BMP(FileReader* reader) : fileHeader(&infoHeader), infoHeader(reader), file
 	ScanBMP();
 
 	ReadPixels();
-
-	//fclose(fileObject->GetFile());
 }
 
 #pragma endregion
