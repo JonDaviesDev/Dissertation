@@ -1,4 +1,11 @@
 #pragma once
+
+#pragma region Preprocessor Directives
+
+#include <bitset>
+
+#pragma endregion
+
 class PixelContainer
 {
 
@@ -56,6 +63,12 @@ public:
 	unsigned char* GetGreen(int iterator);
 
 	unsigned char* GetBlue(int iterator);
+
+	/*std::bitset<1> GetRedLSB(int iterator);
+
+	std::bitset<1> GetGreenLSB(int iterator);
+
+	std::bitset<1> GetBlueLSB(int iterator);*/
 
 #pragma endregion
 #pragma endregion

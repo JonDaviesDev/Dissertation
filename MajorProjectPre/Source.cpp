@@ -17,6 +17,7 @@
 #define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
 #define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
 #define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
+#define BITWISETEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\bitTest.bmp"
 
 // Text
 #define TEXT "C:\\GitHub\\MajorProject\\MajorProjectPre\\hello.txt"
@@ -27,7 +28,8 @@
 
 int main()
 {
-	FileReader image(TESTPATH);
+	FileReader image(BITWISETEST);
+
 	FileReader text(TEXT);
 
 	Stego st(&image, &text);

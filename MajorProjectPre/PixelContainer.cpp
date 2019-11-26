@@ -48,6 +48,12 @@ unsigned char* PixelContainer::GetGreen(int iterator) { return &g[iterator]; }
 
 unsigned char* PixelContainer::GetBlue(int iterator) { return &b[iterator]; }
 
+//std::bitset<1> PixelContainer::GetRedLSB(int iterator){return std::bitset<1>(r) }
+//
+//std::bitset<1> PixelContainer::GetGreenLSB(int iterator);
+//
+//std::bitset<1> PixelContainer::GetBlueLSB(int iterator);
+
 #pragma endregion
 
 #pragma endregion

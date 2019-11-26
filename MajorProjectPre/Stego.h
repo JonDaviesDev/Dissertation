@@ -52,6 +52,8 @@ public:
 
 #pragma region Getters
 
+	int GetBinaryListSize();
+
 #pragma endregion
 
 #pragma endregion
@@ -63,9 +65,10 @@ public:
 
 	void CreateBinaryList(TextBuffer buffer);
 
+	void LSB();
+
 	void ModifyBMP(BMP* bmp, const char* newFileName);
-
-
+	
 #pragma endregion
 };
 
