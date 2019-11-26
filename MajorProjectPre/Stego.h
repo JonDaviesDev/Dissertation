@@ -13,13 +13,13 @@
 #include "BMPWriter.h"
 #include "BMP.h"
 #include "TextBuffer.h"
+#include "BMPUtility.h"
 
 #pragma endregion
 
 #pragma endregion
 
-
-class Stego : public File
+class Stego : public BMPUtility
 {
 #pragma region Attributes
 
@@ -62,6 +62,9 @@ public:
 	std::bitset<8> CharToBinary(char value);
 
 	void CreateBinaryList(TextBuffer buffer);
+
+	void ModifyBMP(BMP* bmp, const char* newFileName);
+
 
 #pragma endregion
 };

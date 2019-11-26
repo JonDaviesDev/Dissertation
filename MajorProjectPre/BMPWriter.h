@@ -15,13 +15,13 @@
 #include "BMPInfoHeader.h"
 #include "BMPFileHeader.h"
 #include "PixelContainer.h"
-#include "File.h"
+#include "BMPUtility.h"
 
 #pragma endregion
 
 #pragma endregion
 
-class BMPWriter : public File
+class BMPWriter : public BMPUtility
 {
 #pragma region Attributes
 
@@ -76,14 +76,6 @@ public:
 	void CreateNewBMP(const char* fileName, int width, int height, RGB colour);
 
 	void CloneBMP(BMP* bmp, const char* newFileName);
-
-	void GenerateImageData(PixelContainer image, int height, int width, const char* imageFileName);
-
-	void GenerateImageData(BMP* bmp, PixelContainer pixelContainer, const char* newFileName);
-
-	unsigned char* CreateFileHeader(int height, int width, int paddingSize);
-
-	unsigned char* CreateInfoHeader(int height, int width);
 
 	void ConvertBGRtoRGB(unsigned char* data, int iteration);
 

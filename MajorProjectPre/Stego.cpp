@@ -31,4 +31,23 @@ void Stego::CreateBinaryList(TextBuffer buffer)
 	}
 }
 
+void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
+{
+	PixelContainer pixelContainer(bmp->GetWidth(), bmp->GetHeight());
+
+	for(int i = 0; i < bmp->GetHeight() * bmp->GetWidth(); i++)
+	{
+		pixelContainer.SetRed((unsigned char*)bmp->GetPixelContainer()->GetRed(i), i);
+		pixelContainer.SetGreen((unsigned char*)bmp->GetPixelContainer()->GetGreen(i), i);
+		pixelContainer.SetBlue((unsigned char*)bmp->GetPixelContainer()->GetBlue(i), i);
+	}
+
+	GenerateImageData(bmp, pixelContainer, newFileName);
+
+	std::cout << "Image generated" << std::endl;
+
+	fclose(bmp->GetFileObject()->GetFile());
+}
+
+
 #pragma endregion
