@@ -76,13 +76,17 @@ void Stego::LSB()
 		// At the point where i am trying to take each binary value and check it against the binary value stored in 
 		// each RGB value of the image.
 
+		int j = 0;
+
 		for(int i = 0; i < GetBinaryListSize(); i++)
 		{
-			for(int j = 0; j < bmp.GetColourSpace(); j++)
+			if((*bmp.GetPixelContainer()[i].GetRed(j) % 2) != 0 && (binaryList[i][j] % 2) != 0)
 			{
-				//if(bmp.GetPixelContainer()[i]->GetRed(i))
+				bmp.GetPixelContainer()[i].SetRed(*bmp.GetPixelContainer()[i].GetRed(j) ^= 1, j);
 			}
-			
+
+
+			j++;
 		}
 
 #pragma region blanked
