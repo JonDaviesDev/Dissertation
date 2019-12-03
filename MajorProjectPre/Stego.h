@@ -33,7 +33,7 @@ private:
 
 	std::vector<std::bitset<8>> binaryList;
 
-	std::vector<std::vector<RGB>> pixelListCopy;
+	std::vector<std::vector<RGB>> pixelList;
 
 #pragma endregion
 

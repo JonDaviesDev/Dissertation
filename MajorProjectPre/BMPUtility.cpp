@@ -1,16 +1,5 @@
 #include "BMPUtility.h"
 
-
-#pragma region Constructors
-
-
-
-#pragma endregion
-
-#pragma region Properties
-
-#pragma endregion
-
 #pragma region Methods
 
 void BMPUtility::GenerateImageData(BMP* bmp, PixelContainer pixelContainer, const char* newFileName)

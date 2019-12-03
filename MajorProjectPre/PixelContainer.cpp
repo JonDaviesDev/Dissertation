@@ -5,11 +5,20 @@
 
 PixelContainer::PixelContainer() : width(0), height(0), r(nullptr), g(nullptr), b(nullptr) {}
 
+PixelContainer::PixelContainer(int size) : width(0), height(0)
+{
+	r = new unsigned char[size];
+	g = new unsigned char[size];
+	b = new unsigned char[size];
+}
+
 PixelContainer::PixelContainer(int width, int height) : width(width), height(height) 
 {
-	r = new unsigned char[width * height];
-	g = new unsigned char[width * height];
-	b = new unsigned char[width * height];
+	int size = width * height;
+
+	r = new unsigned char[size];
+	g = new unsigned char[size];
+	b = new unsigned char[size];
 }
 
 #pragma endregion

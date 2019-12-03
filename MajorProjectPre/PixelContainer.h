@@ -26,6 +26,8 @@ private:
 public:
 	PixelContainer();
 
+	PixelContainer(int size);
+
 	PixelContainer(int width, int height);
 
 #pragma endregion

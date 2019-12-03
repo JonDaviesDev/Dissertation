@@ -28,11 +28,19 @@
 
 int main()
 {
-	FileReader image(REDSQUARE);
-	
-	FileReader text(TEXT);
+	FileReader image("C:\\GitHub\\MajorProject\\MajorProjectPre\\LSBtest2.bmp");
 
-	Stego st(&image, &text);
+	BMP bmp(&image);
+
+	BMPWriter w;
+
+	w.CloneBMP(&bmp, "copyTest.bmp");
+	
+	//FileReader image(REDSQUARE);
+
+	//FileReader text(TEXT);
+
+	//Stego st(&image, &text);
 
 	return 0;
 }

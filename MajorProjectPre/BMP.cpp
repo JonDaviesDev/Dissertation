@@ -66,21 +66,25 @@ void BMP::ReadPixels()
 
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
+		//fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
 
-		for(int j = 0; j < infoHeader.GetWidth(); j++)
+		//fseek(fileObject->GetFile(), 54, SEE);
+
+		fgets((char*)data, infoHeader.GetPaddingSize(), fileObject->GetFile());
+
+		for(int j = 0; j < infoHeader.GetWidth() * 3; j+=3)
 		{
-			ConvertBGRtoRGB(data, k);
+			ConvertBGRtoRGB(data, j);
 
-			pixels.SetRed(data[k], j);
-			pixels.SetGreen(data[k + 1], j);
-			pixels.SetBlue(data[k + 2], j);
+			pixels.SetRed(data[j], k);
 
-			k += 3;
+			pixels.SetGreen(data[j + 1], k);
+
+			pixels.SetBlue(data[j + 2], k);
+
+			k++;
 		}
 
-		k = 0;
-	
 	}
 
 }

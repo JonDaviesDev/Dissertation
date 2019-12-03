@@ -14,7 +14,7 @@ Stego::Stego(FileReader* coverBMP, FileReader* textFile)
 
 	LSB();
 
-	ModifyBMP(&bmp, "new.bmp");
+	ModifyBMP(&bmp, "LSBtest2.bmp");
 }
 
 #pragma endregion
@@ -62,113 +62,66 @@ void Stego::CreateBinaryList(TextBuffer buffer)
 
 void Stego::CreatePixelListCopy()
 {
-	pixelListCopy = std::vector<std::vector<RGB>>(bmp.GetHeight(), std::vector<RGB>(bmp.GetWidth()));
+	pixelList = std::vector<std::vector<RGB>>(bmp.GetHeight(), std::vector<RGB>(bmp.GetWidth()));
 
 	for(int i = 0; i < bmp.GetHeight(); i++)
 	{
 		for(int j = 0; j < bmp.GetWidth(); j++)
 		{
-			pixelListCopy[i][j].SetRed(*bmp.GetPixelContainer()->GetRed(j));
+			pixelList[i][j].SetRed(*bmp.GetPixelContainer()->GetRed(j));
 
-			pixelListCopy[i][j].SetGreen(*bmp.GetPixelContainer()->GetGreen(j));
+			pixelList[i][j].SetGreen(*bmp.GetPixelContainer()->GetGreen(j));
 
-			pixelListCopy[i][j].SetBlue(*bmp.GetPixelContainer()->GetBlue(j));
+			pixelList[i][j].SetBlue(*bmp.GetPixelContainer()->GetBlue(j));
 		}
 	}
 }
 
 void Stego::LSB()
 {
-	// access to the list of pixels
-	// access to the list of binary text
+	int k = 0;
 
-	// loop through each of the rgb elements of each pixel
-		// compare whether the LSB is the same as each binary component
-
-	// Change if needed / leave if not
-
-
-	for(int i = 0; i < bmp.GetHeight() * bmp.GetWidth(); i++)
+	for(int i = 0; i < binaryList.size(); i++)
 	{
-		// Print binary of current RED value
-		std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetGreen(i)) << std::endl;
-
-		// Print the LSB of the first char
-		std::cout << std::bitset<1>(binaryList.data()[i][0]) << std::endl << std::endl;
-
-		// At the point where i am trying to take each binary value and check it against the binary value stored in 
-		// each RGB value of the image.
-
-		int k = 0;
-
-		for(int i = 0; i < binaryList.size(); i++)
+		for(int j = 0; j < binaryList[i].size(); j++)
 		{
-			for(int j = 0; j < binaryList[i].size(); j++)
+			if((pixelList[0][k].GetRed() % 2) != 0 && (binaryList[i][j] % 2) != 0)
 			{
-				if((pixelListCopy[0][k].GetRed() % 2) != 0 && (binaryList[i][j] % 2) != 0)
-				{
-					unsigned char temp = pixelListCopy[i][j].GetRed();
-
-					pixelListCopy[0][k].SetRed(temp ^= 1);
-				}
-
-				k++;
+				unsigned char temp = pixelList[i][j].GetRed();
+			
+				pixelList[0][k].SetRed(temp ^= 1);
 			}
+			
+			k++;
 		}
-
-
-#pragma region blanked
-		//// Red
-		//if(((*bmp.GetPixelContainer()->GetRed(i) % 2) == 0) && (binaryList.data()[i][0]) == 0)
-		//{
-		//	std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetRed(i)) << std::endl << std::endl;
-
-		//	continue;
-		//}
-		//else
-		//{
-		//	bmp.GetPixelContainer()->SetRed(*bmp.GetPixelContainer()->GetRed(i) ^= 1, i);
-
-		//	std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetRed(i)) << std::endl << std::endl;
-		//}
-
-		//// Green
-		//if(((*bmp.GetPixelContainer()->GetGreen(i) % 2) == 0) && (binaryList.data()[i][0]) == 0)
-		//{
-		//	std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetGreen(i)) << std::endl << std::endl;
-
-		//	continue;
-		//}
-		//else
-		//{
-		//	bmp.GetPixelContainer()->SetGreen(*bmp.GetPixelContainer()->GetGreen(i) ^= 1, i);
-
-		//	std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetGreen(i)) << std::endl << std::endl;
-		//}
-#pragma endregion
-
-
-		
 	}
-
 }
 
 void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 {
 	PixelContainer pixelContainer(bmp->GetWidth(), bmp->GetHeight());
 
-	for(int i = 0; i < bmp->GetHeight() * bmp->GetWidth(); i++)
+	int k = 0;
+
+	for(int i = 0; i < bmp->GetHeight(); i++)
 	{
-		pixelContainer.SetRed((unsigned char*)bmp->GetPixelContainer()->GetRed(i), i);
+		for(int j = 0; j < bmp->GetWidth(); j++)
+		{
+			pixelContainer.SetRed(pixelList[i][j].GetRed(), k);
 
-		/*std::cout << std::bitset<8>(*pixelContainer.GetRed(i)) << std::endl;
+			//std::cout << (int)pixelList[i][j].GetRed() << ", ";
 
-		pixelContainer.SetRed(*bmp->GetPixelContainer()->GetRed(i) ^= 1, i);
+			pixelContainer.SetGreen(pixelList[i][j].GetGreen(), k);
 
-		std::cout << std::bitset<8>(*pixelContainer.GetRed(i)) << std::endl;*/
+			//std::cout << (int)pixelList[i][j].GetGreen() << ", ";
 
-		pixelContainer.SetGreen((unsigned char*)bmp->GetPixelContainer()->GetGreen(i), i);
-		pixelContainer.SetBlue((unsigned char*)bmp->GetPixelContainer()->GetBlue(i), i);
+			pixelContainer.SetBlue(pixelList[i][j].GetBlue(), k);
+
+			//std::cout << (int)pixelList[i][j].GetBlue() << std::endl;
+
+			k++;
+		}
+		
 	}
 
 	GenerateImageData(bmp, pixelContainer, newFileName);
