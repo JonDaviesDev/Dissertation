@@ -14,6 +14,7 @@
 #include "BMP.h"
 #include "TextBuffer.h"
 #include "BMPUtility.h"
+#include "RGB.h"
 
 #pragma endregion
 
@@ -31,6 +32,8 @@ private:
 	TextBuffer text;
 
 	std::vector<std::bitset<8>> binaryList;
+
+	std::vector<std::vector<RGB>> pixelListCopy;
 
 #pragma endregion
 
@@ -62,6 +65,8 @@ public:
 
 public:
 	std::bitset<8> CharToBinary(char value);
+
+	void CreatePixelListCopy();
 
 	void CreateBinaryList(TextBuffer buffer);
 

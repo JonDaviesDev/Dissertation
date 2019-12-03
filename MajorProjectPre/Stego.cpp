@@ -5,8 +5,11 @@
 
 Stego::Stego(){}
 
-Stego::Stego(FileReader* coverBMP, FileReader* textFile) : bmp(coverBMP), text(textFile)
+Stego::Stego(FileReader* coverBMP, FileReader* textFile) 
+	: bmp(coverBMP), text(textFile)
 {
+	CreatePixelListCopy();
+
 	CreateBinaryList(text);
 
 	LSB();
@@ -57,6 +60,23 @@ void Stego::CreateBinaryList(TextBuffer buffer)
 	}
 }
 
+void Stego::CreatePixelListCopy()
+{
+	pixelListCopy = std::vector<std::vector<RGB>>(bmp.GetHeight(), std::vector<RGB>(bmp.GetWidth()));
+
+	for(int i = 0; i < bmp.GetHeight(); i++)
+	{
+		for(int j = 0; j < bmp.GetWidth(); j++)
+		{
+			pixelListCopy[i][j].SetRed(*bmp.GetPixelContainer()->GetRed(j));
+
+			pixelListCopy[i][j].SetGreen(*bmp.GetPixelContainer()->GetGreen(j));
+
+			pixelListCopy[i][j].SetBlue(*bmp.GetPixelContainer()->GetBlue(j));
+		}
+	}
+}
+
 void Stego::LSB()
 {
 	// access to the list of pixels
@@ -70,7 +90,10 @@ void Stego::LSB()
 
 	for(int i = 0; i < bmp.GetHeight() * bmp.GetWidth(); i++)
 	{
-		std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetRed(i)) << std::endl;
+		// Print binary of current RED value
+		std::cout << std::bitset<8>(*bmp.GetPixelContainer()->GetGreen(i)) << std::endl;
+
+		// Print the LSB of the first char
 		std::cout << std::bitset<1>(binaryList.data()[i][0]) << std::endl << std::endl;
 
 		// At the point where i am trying to take each binary value and check it against the binary value stored in 
@@ -84,10 +107,20 @@ void Stego::LSB()
 			{
 				bmp.GetPixelContainer()[i].SetRed(*bmp.GetPixelContainer()[i].GetRed(j) ^= 1, j);
 			}
+		
+			if((*bmp.GetPixelContainer()[i].GetGreen(j) % 2) != 0 && (binaryList[i][j] % 2) != 0)
+			{
+				bmp.GetPixelContainer()[i].SetGreen(*bmp.GetPixelContainer()[i].GetGreen(j + 1) ^= 1, j);
+			}
 
+			if((*bmp.GetPixelContainer()[i].GetBlue(j) % 2) != 0 && (binaryList[i][j] % 2) != 0)
+			{
+				bmp.GetPixelContainer()[i].SetBlue(*bmp.GetPixelContainer()[i].GetBlue(j) ^= 1, j);
+			}
 
-			j++;
+			j += 3;
 		}
+
 
 #pragma region blanked
 		//// Red

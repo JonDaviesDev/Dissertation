@@ -28,13 +28,11 @@
 
 int main()
 {
-	FileReader image(BITWISETEST);
-
+	FileReader image(REDSQUARE);
+	
 	FileReader text(TEXT);
 
 	Stego st(&image, &text);
 
-
-	   	  
 	return 0;
 }
