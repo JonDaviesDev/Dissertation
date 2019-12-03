@@ -85,6 +85,8 @@ public:
 
 	void ConvertBGRtoRGB(unsigned char* data, int iteration);
 
+	void ConvertBGRtoRGB(unsigned char* data);
+
 #pragma region Display Functions
 
 	void PrintHeader();

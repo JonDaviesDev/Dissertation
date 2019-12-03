@@ -99,26 +99,21 @@ void Stego::LSB()
 		// At the point where i am trying to take each binary value and check it against the binary value stored in 
 		// each RGB value of the image.
 
-		int j = 0;
+		int k = 0;
 
-		for(int i = 0; i < GetBinaryListSize(); i++)
+		for(int i = 0; i < binaryList.size(); i++)
 		{
-			if((*bmp.GetPixelContainer()[i].GetRed(j) % 2) != 0 && (binaryList[i][j] % 2) != 0)
+			for(int j = 0; j < binaryList[i].size(); j++)
 			{
-				bmp.GetPixelContainer()[i].SetRed(*bmp.GetPixelContainer()[i].GetRed(j) ^= 1, j);
-			}
-		
-			if((*bmp.GetPixelContainer()[i].GetGreen(j) % 2) != 0 && (binaryList[i][j] % 2) != 0)
-			{
-				bmp.GetPixelContainer()[i].SetGreen(*bmp.GetPixelContainer()[i].GetGreen(j + 1) ^= 1, j);
-			}
+				if((pixelListCopy[0][k].GetRed() % 2) != 0 && (binaryList[i][j] % 2) != 0)
+				{
+					unsigned char temp = pixelListCopy[i][j].GetRed();
 
-			if((*bmp.GetPixelContainer()[i].GetBlue(j) % 2) != 0 && (binaryList[i][j] % 2) != 0)
-			{
-				bmp.GetPixelContainer()[i].SetBlue(*bmp.GetPixelContainer()[i].GetBlue(j) ^= 1, j);
-			}
+					pixelListCopy[0][k].SetRed(temp ^= 1);
+				}
 
-			j += 3;
+				k++;
+			}
 		}
 
 

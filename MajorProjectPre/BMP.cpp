@@ -68,19 +68,21 @@ void BMP::ReadPixels()
 	{
 		fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
 
-		ConvertBGRtoRGB(data, i);
-
 		for(int j = 0; j < infoHeader.GetWidth(); j++)
 		{
+			ConvertBGRtoRGB(data, k);
+
 			pixels.SetRed(data[k], j);
 			pixels.SetGreen(data[k + 1], j);
 			pixels.SetBlue(data[k + 2], j);
+
+			k += 3;
 		}
 
-		k+=3;
+		k = 0;
+	
 	}
 
-	
 }
 
 void BMP::ConvertBGRtoRGB(unsigned char* data, int iteration)
