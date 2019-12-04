@@ -84,6 +84,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files\Main</Filter>
     </ClCompile>
+    <ClCompile Include="Decoder.cpp">
+      <Filter>Source Files\Steganography</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files\Data Container</Filter>
     </ClInclude>
     <ClInclude Include="Stego.h">
+      <Filter>Header Files\Steganography</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoder.h">
       <Filter>Header Files\Steganography</Filter>
     </ClInclude>
   </ItemGroup>

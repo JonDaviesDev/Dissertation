@@ -18,9 +18,11 @@
 #define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
 #define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
 #define BITWISETEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\bitTest.bmp"
+#define LSBTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\LSBtest2.bmp"
 
 // Text
 #define TEXT "C:\\GitHub\\MajorProject\\MajorProjectPre\\hello.txt"
+#define AUSTIN "C:\\GitHub\\MajorProject\\MajorProjectPre\\Austin.txt"
 
 #pragma endregion
 
@@ -28,19 +30,18 @@
 
 int main()
 {
-	FileReader image("C:\\GitHub\\MajorProject\\MajorProjectPre\\LSBtest2.bmp");
+	// Create stego file
+	FileReader image(TESTPATH);
 
-	BMP bmp(&image);
+	FileReader text(AUSTIN);
 
-	BMPWriter w;
+	Stego st(&image, &text);
 
-	w.CloneBMP(&bmp, "copyTest.bmp");
-	
-	//FileReader image(REDSQUARE);
 
-	//FileReader text(TEXT);
+	// Read new file to make sure it works
+	FileReader newFile("C:\\GitHub\\MajorProject\\MajorProjectPre\\newStegoTest.bmp");
 
-	//Stego st(&image, &text);
+	BMP newBMP(&newFile);
 
 	return 0;
 }

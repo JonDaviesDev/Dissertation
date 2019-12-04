@@ -14,7 +14,7 @@ Stego::Stego(FileReader* coverBMP, FileReader* textFile)
 
 	LSB();
 
-	ModifyBMP(&bmp, "LSBtest2.bmp");
+	ModifyBMP(&bmp, "newStegoTest.bmp");
 }
 
 #pragma endregion
@@ -68,14 +68,6 @@ void Stego::CreatePixelListCopy()
 	{
 		for(int j = 0; j < bmp.GetWidth(); j++)
 		{
-			// DEBUG ////////////////////////////////////////////////////////////////
-			if(j == bmp.GetWidth() - 1)
-			{
-				j = j;
-			}
-			// DEBUG ////////////////////////////////////////////////////////////////
-
-
 			pixelList[i][j].SetRed(*bmp.GetPixelContainer()->GetRed(j));
 
 			pixelList[i][j].SetGreen(*bmp.GetPixelContainer()->GetGreen(j));
@@ -115,13 +107,6 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 	{
 		for(int j = 0; j < bmp->GetWidth(); j++)
 		{
-			// DEBUG ////////////////////////////////////////////////////////////////
-			if(j == bmp->GetWidth() - 1)
-			{
-				j = j;
-			}
-			// DEBUG ////////////////////////////////////////////////////////////////
-
 			pixelContainer.SetRed(pixelList[i][j].GetRed(), k);
 
 			pixelContainer.SetGreen(pixelList[i][j].GetGreen(), k);
