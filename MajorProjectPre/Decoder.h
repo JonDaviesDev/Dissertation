@@ -5,6 +5,8 @@
 #pragma region System Files
 
 #include <iostream>
+#include <bitset>
+#include <vector>
 
 #pragma endregion
 
@@ -24,6 +26,8 @@ private:
 	FILE* newTextFile;
 	
 	BMP* stegoImage;
+
+	std::vector<std::bitset<8>> messageBinary;
 
 #pragma endregion
 
