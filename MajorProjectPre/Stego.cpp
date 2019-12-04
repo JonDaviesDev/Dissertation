@@ -68,6 +68,14 @@ void Stego::CreatePixelListCopy()
 	{
 		for(int j = 0; j < bmp.GetWidth(); j++)
 		{
+			// DEBUG ////////////////////////////////////////////////////////////////
+			if(j == bmp.GetWidth() - 1)
+			{
+				j = j;
+			}
+			// DEBUG ////////////////////////////////////////////////////////////////
+
+
 			pixelList[i][j].SetRed(*bmp.GetPixelContainer()->GetRed(j));
 
 			pixelList[i][j].SetGreen(*bmp.GetPixelContainer()->GetGreen(j));
@@ -107,17 +115,18 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 	{
 		for(int j = 0; j < bmp->GetWidth(); j++)
 		{
-			pixelContainer.SetRed(pixelList[i][j].GetRed(), k);
+			// DEBUG ////////////////////////////////////////////////////////////////
+			if(j == bmp->GetWidth() - 1)
+			{
+				j = j;
+			}
+			// DEBUG ////////////////////////////////////////////////////////////////
 
-			//std::cout << (int)pixelList[i][j].GetRed() << ", ";
+			pixelContainer.SetRed(pixelList[i][j].GetRed(), k);
 
 			pixelContainer.SetGreen(pixelList[i][j].GetGreen(), k);
 
-			//std::cout << (int)pixelList[i][j].GetGreen() << ", ";
-
 			pixelContainer.SetBlue(pixelList[i][j].GetBlue(), k);
-
-			//std::cout << (int)pixelList[i][j].GetBlue() << std::endl;
 
 			k++;
 		}
@@ -130,6 +139,5 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 
 	fclose(bmp->GetFileObject()->GetFile());
 }
-
 
 #pragma endregion

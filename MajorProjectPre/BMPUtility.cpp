@@ -25,14 +25,18 @@ void BMPUtility::GenerateImageData(BMP* bmp, PixelContainer pixelContainer, cons
 	// Write the info header
 	fwrite(infoHeader, 1, 40, imageFile);
 
+	int k = 0;
+
 	// For each row in the image
 	for(int i = 0; i < bmp->GetHeight(); i++)
 	{
 		for(int j = 0; j < bmp->GetWidth(); j++)
 		{
-			fwrite(pixelContainer.GetBlue(j), sizeof(char), 1, imageFile);
-			fwrite(pixelContainer.GetGreen(j), sizeof(char), 1, imageFile);
-			fwrite(pixelContainer.GetRed(j), sizeof(char), 1, imageFile);
+			fwrite(pixelContainer.GetBlue(k), sizeof(char), 1, imageFile);
+			fwrite(pixelContainer.GetGreen(k), sizeof(char), 1, imageFile);
+			fwrite(pixelContainer.GetRed(k), sizeof(char), 1, imageFile);
+
+			k++;
 		}
 
 		fwrite(padding, 1, paddingSize, imageFile);

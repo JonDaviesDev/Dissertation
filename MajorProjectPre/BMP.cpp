@@ -64,23 +64,34 @@ void BMP::ReadPixels()
 
 	int k = 0;
 
+	std::cout << "BMP - " << this->GetFileHeader()->GetFileName() << " RGB values are:" << std::endl;
+
+	// TO DO ////////////////////////////////////////////////////////////////
+	// 
+	// This function isnt reading the data in the correct order.
+	/////////////////////////////////////////////////////////////////////////
+
+
+
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		//fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
-
-		//fseek(fileObject->GetFile(), 54, SEE);
-
 		fgets((char*)data, infoHeader.GetPaddingSize(), fileObject->GetFile());
 
-		for(int j = 0; j < infoHeader.GetWidth() * 3; j+=3)
+		for(int j = 0; j < infoHeader.GetWidth(); j+=3)
 		{
 			ConvertBGRtoRGB(data, j);
 
 			pixels.SetRed(data[j], k);
 
+			//std::cout << (int)*pixels.GetRed(k) << ", ";
+
 			pixels.SetGreen(data[j + 1], k);
 
+			//std::cout << (int)*pixels.GetGreen(k) << ", ";
+
 			pixels.SetBlue(data[j + 2], k);
+
+			//std::cout << (int)*pixels.GetBlue(k) << std::endl;
 
 			k++;
 		}
