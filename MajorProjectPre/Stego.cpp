@@ -12,6 +12,8 @@ Stego::Stego(FileReader* coverBMP, FileReader* textFile)
 
 	CreateBinaryList(text);
 
+	BitNumber();
+
 	LSB();
 
 	ModifyBMP(&bmp, "newStegoTest.bmp");
@@ -60,6 +62,11 @@ void Stego::CreateBinaryList(TextBuffer buffer)
 	}
 }
 
+void Stego::BitNumber()
+{
+	bmp.GetFileHeader()->SetFileHeaderElement((unsigned char)binaryList.size() * 8, 6);
+}
+
 void Stego::CreatePixelListCopy()
 {
 	pixelList = std::vector<std::vector<RGB>>(bmp.GetHeight(), std::vector<RGB>(bmp.GetWidth()));
@@ -95,6 +102,11 @@ void Stego::LSB()
 			k++;
 		}
 	}
+}
+
+void Stego::DistanceToOrigin()
+{
+	// 
 }
 
 void Stego::ModifyBMP(BMP* bmp, const char* newFileName)

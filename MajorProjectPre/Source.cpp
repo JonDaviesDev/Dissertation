@@ -33,9 +33,11 @@ int main()
 	// Create stego file
 	FileReader image(TESTPATH);
 
-	FileReader text(AUSTIN);
+	FileReader text(TEXT);
 
 	Stego st(&image, &text);
+
+
 
 
 	// Read new file to make sure it works

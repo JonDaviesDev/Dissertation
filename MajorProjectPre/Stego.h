@@ -70,7 +70,11 @@ public:
 
 	void CreateBinaryList(TextBuffer buffer);
 
+	void BitNumber();
+
 	void LSB();
+
+	void DistanceToOrigin();
 
 	void ModifyBMP(BMP* bmp, const char* newFileName);
 	

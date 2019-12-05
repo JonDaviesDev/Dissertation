@@ -22,6 +22,8 @@ void BMPFileHeader::SetFileHeader(BMPInfoHeader* info)
 	SetFileName(info->GetReader()->GetFileName());
 }
 
+void BMPFileHeader::SetFileHeaderElement(unsigned char value, int elementNumber) { fileHeader[elementNumber] = value; }
+
 void BMPFileHeader::SetFileName(const char* value) { fileName = value; }
 
 void BMPFileHeader::SetFileSize(size_t value) { fileSize = value; }

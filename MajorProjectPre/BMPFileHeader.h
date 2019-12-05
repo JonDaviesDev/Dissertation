@@ -50,6 +50,8 @@ public:
 
 	void SetFileHeader(BMPInfoHeader* info);
 
+	void SetFileHeaderElement(unsigned char value, int elementNumber);
+
 	void SetFileName(const char* value);
 
 	void SetFileSize(size_t value);
