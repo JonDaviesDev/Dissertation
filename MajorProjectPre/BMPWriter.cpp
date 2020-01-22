@@ -32,6 +32,8 @@ int BMPWriter::GetWidth() { return width; }
 
 int BMPWriter::GetColourSpace() { return colourSpace; }
 
+const char* BMPWriter::GetFileName() { return fileName; }
+
 #pragma endregion
 
 #pragma endregion

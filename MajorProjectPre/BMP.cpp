@@ -75,8 +75,6 @@ void BMP::ReadPixels()
 
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
-		//fgets((char*)data, infoHeader.GetPaddingSize(), fileObject->GetFile());
-
 		fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
 
 		for(int j = 0; j < infoHeader.GetWidth() * 3; j+=3)
@@ -112,6 +110,43 @@ void BMP::PrintHeader()
 	std::cout << std::endl << "Image width: " << infoHeader.GetWidth() << std::endl;
 	std::cout << "Image height: " << infoHeader.GetHeight() << std::endl;
 	std::cout << "Image size: " << fileHeader.GetFileSize() << " bytes" << std::endl << std::endl;
+}
+
+void BMP::PrintPixels()
+{
+	std::cout << std::endl;
+
+	for(int i = 0; i < infoHeader.GetHeight(); i++)
+	{
+		for(int j = 0; j < infoHeader.GetWidth(); j++)
+		{
+			std::cout << (int)pixels.GetRed(i)[j] << ", ";
+			std::cout << (int)pixels.GetGreen(i)[j] << ", ";
+			std::cout << (int)pixels.GetBlue(i)[j] << std::endl;
+		}
+	}
+}
+
+void BMP::ImageBitRepresentation()
+{
+	std::cout << std::endl;
+
+	for(int i = 0; i < infoHeader.GetHeight(); i+=3)
+	{
+		for(int j = 0; j < infoHeader.GetWidth(); j+=3)
+		{
+			if((int)pixels.GetRed(i)[j] == 255)
+			{
+				std::cout << 1;
+			}
+			
+			{
+				std::cout << 0;
+			}
+		}
+
+		std::cout << std::endl;
+	}
 }
 
 #pragma endregion

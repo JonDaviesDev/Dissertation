@@ -91,6 +91,10 @@ public:
 
 	void PrintHeader();
 
+	void PrintPixels();
+
+	void ImageBitRepresentation();
+
 #pragma endregion
 
 

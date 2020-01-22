@@ -66,6 +66,8 @@ public:
 
 	int GetColourSpace();
 
+	const char* GetFileName();
+
 #pragma endregion
 
 #pragma endregion

@@ -19,10 +19,10 @@
 #define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
 #define BITWISETEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\bitTest.bmp"
 #define LSBTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\LSBtest2.bmp"
+#define VIVABMP "C:\\GitHub\\MajorProject\\MajorProjectPre\\vivaBMP.bmp"
 
 // Text
-#define TEXT "C:\\GitHub\\MajorProject\\MajorProjectPre\\hello.txt"
-#define AUSTIN "C:\\GitHub\\MajorProject\\MajorProjectPre\\Austin.txt"
+#define VIVA "C:\\GitHub\\MajorProject\\MajorProjectPre\\viva.txt"
 
 #pragma endregion
 
@@ -30,20 +30,74 @@
 
 int main()
 {
-	// Create stego file
-	FileReader image(TESTPATH);
+	// CREATE A NEW BMP
+	BMPWriter imageCreator;
 
-	FileReader text(TEXT);
+	imageCreator.CreateNewBMP("vivaBMP.bmp", 32, 32, RGB(255, 0, 0));
 
-	Stego st(&image, &text);
-
-
+	
 
 
-	// Read new file to make sure it works
-	FileReader newFile("C:\\GitHub\\MajorProject\\MajorProjectPre\\newStegoTest.bmp");
+	// READ THE MESSAGE AND IMAGE
+	FileReader message(VIVA);
 
-	BMP newBMP(&newFile);
+	FileReader coverImage(VIVABMP);
+
+
+
+
+	// EMBED THE IMAGE AND PROVIDE FILENAME
+	Stego stegoImage(&coverImage, &message, "vivaStegoImage.bmp");
+
+	
+
+
+
+	// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
+	FileReader stegoLoader(stegoImage.GetStegoFileName());
+
+	BMP newBMPVIVA(&stegoLoader);
+
+
+
+
+
+	// PRINT NEW IMAGES PIXEL VALUES
+	newBMPVIVA.PrintPixels();
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//// Create stego file
+//FileReader image(TESTPATH);
+
+
+
+//Stego st(&image, &text);
+
+
+
+
+//// Read new file to make sure it works
+//FileReader newFile("C:\\GitHub\\MajorProject\\MajorProjectPre\\newStegoTest.bmp");
+
+//BMP newBMP(&newFile);

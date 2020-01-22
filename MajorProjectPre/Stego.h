@@ -25,6 +25,8 @@ class Stego : public BMPUtility
 #pragma region Attributes
 
 private:
+	const char* stegoFileName;
+
 	BMPWriter writer;
 
 	BMP bmp;
@@ -42,7 +44,7 @@ private:
 public:
 	Stego();
 
-	Stego(FileReader* coverBMP, FileReader* textFile);
+	Stego(FileReader* coverBMP, FileReader* textFile, const char* newFileName);
 
 #pragma endregion
 
@@ -56,6 +58,8 @@ public:
 #pragma region Getters
 
 	int GetBinaryListSize();
+
+	const char* GetStegoFileName();
 
 #pragma endregion
 
@@ -77,7 +81,18 @@ public:
 	void DistanceToOrigin();
 
 	void ModifyBMP(BMP* bmp, const char* newFileName);
-	
+
+private:
+	float FindLength(Pixel pixel);
+
+	int RoundToInt(float value);
+
+	int FindModulus(int distance, int modValue);
+
+	void CheckForFringeValues(int value, int modValue);
+
+	void ShiftPixelColour();
+
 #pragma endregion
 };
 
