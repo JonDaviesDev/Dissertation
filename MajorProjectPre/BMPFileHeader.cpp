@@ -40,7 +40,7 @@ size_t BMPFileHeader::GetFileSize() { return fileSize; }
 
 std::array<unsigned char, 14> BMPFileHeader::GetFileData() { return fileHeader; }
 
-FileReader* BMPFileHeader::GetReader() { return reader; }
+FileLoader* BMPFileHeader::GetReader() { return reader; }
 
 #pragma endregion
 

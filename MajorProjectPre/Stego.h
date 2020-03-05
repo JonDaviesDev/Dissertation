@@ -14,7 +14,7 @@
 #include "BMP.h"
 #include "TextBuffer.h"
 #include "BMPUtility.h"
-#include "RGB.h"
+#include "cRGB.h"
 
 #pragma endregion
 
@@ -35,7 +35,7 @@ private:
 
 	std::vector<std::bitset<8>> binaryList;
 
-	std::vector<std::vector<RGB>> pixelList;
+	std::vector<std::vector<cRGB>> pixelList;
 
 #pragma endregion
 
@@ -44,7 +44,7 @@ private:
 public:
 	Stego();
 
-	Stego(FileReader* coverBMP, FileReader* textFile, const char* newFileName);
+	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName);
 
 #pragma endregion
 
@@ -78,18 +78,27 @@ public:
 
 	void LSB();
 
-	void DistanceToOrigin();
-
 	void ModifyBMP(BMP* bmp, const char* newFileName);
 
-private:
+
+	/*---------------- Distance to Origin Utility Functions ----------------*/
+
+	// return value and argument value are temporary just for testing
+	int DistanceToOrigin(Pixel pixel, int modulusValue);
+
+	void InitialiseRemainderTable(int startingValue);
+
+	// Find distance between the pixel and (0, 0, 0)
 	float FindLength(Pixel pixel);
 
 	int RoundToInt(float value);
 
 	int FindModulus(int distance, int modValue);
+	
+	// Find out which side of the midpoint the value sits on
+	int DetermineSegment(int value, int modValue);
 
-	void CheckForFringeValues(int value, int modValue);
+	void CheckEdgesOfScale(int segment, int value, int modValue);
 
 	void ShiftPixelColour();
 

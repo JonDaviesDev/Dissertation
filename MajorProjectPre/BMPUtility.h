@@ -10,13 +10,13 @@
 #pragma region Project Files
 
 #include "BMP.h"
-#include "File.h"
+#include "FileLoader.h"
 
 #pragma endregion
 
 #pragma endregion
 
-class BMPUtility : public File
+class BMPUtility : public FileLoader
 {
 
 #pragma region Attributes
@@ -28,7 +28,6 @@ private:
 
 #pragma region Constructors
 
-public:
 
 #pragma endregion
 

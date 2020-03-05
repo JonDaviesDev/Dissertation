@@ -17,7 +17,7 @@
 #include "Pixel.h"
 #include "BMPFileHeader.h"
 #include "BMPInfoHeader.h"
-#include "FileReader.h"
+#include "FileLoader.h"
 #include "PixelContainer.h"
 
 #pragma endregion
@@ -33,7 +33,7 @@ private:
 
 	BMPFileHeader fileHeader;
 
-	FileReader* fileObject;
+	FileLoader* fileObject;
 
 	PixelContainer pixels;
 
@@ -45,7 +45,7 @@ public:
 
 	BMP();
 
-	BMP(FileReader* reader);
+	BMP(FileLoader* reader);
 
 #pragma endregion
 
@@ -65,7 +65,7 @@ public:
 
 	int GetColourSpace();
 
-	FileReader* GetFileObject();
+	FileLoader* GetFileObject();
 
 	BMPInfoHeader* GetInfoHeader();
 

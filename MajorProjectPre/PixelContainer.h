@@ -14,6 +14,9 @@ class PixelContainer
 private:
 	int width;
 	int height;
+	int channels;
+
+	unsigned char* pixelArray;
 
 	unsigned char* r;
 	unsigned char* g;
@@ -26,7 +29,7 @@ private:
 public:
 	PixelContainer();
 
-	PixelContainer(int size);
+	PixelContainer(int width, int height, int channels, bool arraySelector);
 
 	PixelContainer(int width, int height);
 
@@ -35,6 +38,8 @@ public:
 #pragma region Properties
 
 #pragma region Setters
+
+	void SetArray(unsigned char* pixelArray);
 
 	void SetWidth(int value);
 
@@ -60,11 +65,15 @@ public:
 
 	int GetHeight();
 
+	int GetChannels();
+
 	unsigned char* GetRed(int iterator);
 
 	unsigned char* GetGreen(int iterator);
 
 	unsigned char* GetBlue(int iterator);
+
+	unsigned char* GetPixelArray();
 
 	/*std::bitset<1> GetRedLSB(int iterator);
 

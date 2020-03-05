@@ -40,6 +40,12 @@
     <Filter Include="Header Files\Steganography">
       <UniqueIdentifier>{e31cd410-ed54-4113-9e2b-dc80ca4fbed5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\JPEG">
+      <UniqueIdentifier>{dd165f46-631f-45eb-9fc9-28728335fdbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\JPEG">
+      <UniqueIdentifier>{f9560e59-342c-4070-b2ca-b24c93333df3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BMP.cpp">
@@ -51,9 +57,6 @@
     <ClCompile Include="BMPInfoHeader.cpp">
       <Filter>Source Files\BMP</Filter>
     </ClCompile>
-    <ClCompile Include="BMPReader.cpp">
-      <Filter>Source Files\BMP</Filter>
-    </ClCompile>
     <ClCompile Include="BMPUtility.cpp">
       <Filter>Source Files\BMP</Filter>
     </ClCompile>
@@ -61,9 +64,6 @@
       <Filter>Source Files\BMP</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
-      <Filter>Source Files\File</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReader.cpp">
       <Filter>Source Files\File</Filter>
     </ClCompile>
     <ClCompile Include="TextBuffer.cpp">
@@ -75,9 +75,6 @@
     <ClCompile Include="PixelContainer.cpp">
       <Filter>Source Files\Data Container</Filter>
     </ClCompile>
-    <ClCompile Include="RGB.cpp">
-      <Filter>Source Files\Data Container</Filter>
-    </ClCompile>
     <ClCompile Include="Stego.cpp">
       <Filter>Source Files\Steganography</Filter>
     </ClCompile>
@@ -86,6 +83,21 @@
     </ClCompile>
     <ClCompile Include="Decoder.cpp">
       <Filter>Source Files\Steganography</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEGReader.cpp">
+      <Filter>Source Files\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEG.cpp">
+      <Filter>Source Files\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="cRGB.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +110,6 @@
     <ClInclude Include="BMPInfoHeader.h">
       <Filter>Header Files\BMP</Filter>
     </ClInclude>
-    <ClInclude Include="BMPReader.h">
-      <Filter>Header Files\BMP</Filter>
-    </ClInclude>
     <ClInclude Include="BMPUtility.h">
       <Filter>Header Files\BMP</Filter>
     </ClInclude>
@@ -108,9 +117,6 @@
       <Filter>Header Files\BMP</Filter>
     </ClInclude>
     <ClInclude Include="File.h">
-      <Filter>Header Files\File</Filter>
-    </ClInclude>
-    <ClInclude Include="FileReader.h">
       <Filter>Header Files\File</Filter>
     </ClInclude>
     <ClInclude Include="TextBuffer.h">
@@ -122,14 +128,29 @@
     <ClInclude Include="PixelContainer.h">
       <Filter>Header Files\Data Container</Filter>
     </ClInclude>
-    <ClInclude Include="RGB.h">
-      <Filter>Header Files\Data Container</Filter>
-    </ClInclude>
     <ClInclude Include="Stego.h">
       <Filter>Header Files\Steganography</Filter>
     </ClInclude>
     <ClInclude Include="Decoder.h">
       <Filter>Header Files\Steganography</Filter>
+    </ClInclude>
+    <ClInclude Include="JPEGReader.h">
+      <Filter>Header Files\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JPEG.h">
+      <Filter>Header Files\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="cRGB.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

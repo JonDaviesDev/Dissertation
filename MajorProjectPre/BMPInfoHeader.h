@@ -10,7 +10,7 @@
 
 #pragma region Project Files
 
-#include "FileReader.h"
+#include "FileLoader.h"
 
 #pragma endregion
 
@@ -25,7 +25,7 @@ private:
 
 	int height, width, paddingSize;
 
-	FileReader* reader;
+	FileLoader* reader;
 
 	std::array<unsigned char, 40> infoHeader;
 
@@ -34,7 +34,7 @@ private:
 #pragma region Constructors
 
 public:
-	BMPInfoHeader(FileReader* reader);
+	BMPInfoHeader(FileLoader* reader);
 
 	BMPInfoHeader(int height, int width, int paddingSize);
 
@@ -68,7 +68,7 @@ public:
 
 	int GetPaddingSize();
 
-	FileReader* GetReader();
+	FileLoader* GetReader();
 
 	std::array<unsigned char, 40> GetInfoData();
 

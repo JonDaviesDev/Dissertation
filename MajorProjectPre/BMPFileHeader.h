@@ -12,7 +12,7 @@
 #pragma region Project Files
 
 #include "BMPInfoHeader.h"
-#include "FileReader.h"
+#include "FileLoader.h"
 
 #pragma endregion
 
@@ -29,7 +29,7 @@ private:
 
 	const char* fileName;
 
-	FileReader* reader;
+	FileLoader* reader;
 
 	std::array<unsigned char, 14> fileHeader;
 
@@ -68,7 +68,7 @@ public:
 
 	std::array<unsigned char, 14> GetFileData();
 
-	FileReader* GetReader();
+	FileLoader* GetReader();
 
 #pragma endregion
 	

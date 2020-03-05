@@ -4,34 +4,20 @@
 
 File::File() {}
 
-#pragma endregion
-
-#pragma region Methods
-
-FILE* File::ErrorCheck(FILE* file, const char* filePath, const char* mode)
-{
-	errno_t error = NULL;
-	char errorMessageBuffer[95];	// Maximum error message length is 94 chars. +1 for null terminator
-
-	if((error = fopen_s(&file, filePath, mode)) != 0)
-	{
-		strerror_s(errorMessageBuffer, sizeof(errorMessageBuffer), error);
-
-		std::cout << "Cannot open file '" << filePath << "' : " << errorMessageBuffer << std::endl;
-
-		return NULL;
-	}
-
-	else
-	{
-		strerror_s(errorMessageBuffer, sizeof(errorMessageBuffer), error);
-
-		std::cout << "'" << filePath << "' " << "opened successfully in '" << mode << "' mode" << std::endl;
-		std::cout << errorMessageBuffer << std::endl;
-
-		return file;
-	}
-}
+File::File(const char* fileName) : fileName(fileName) {}
 
 #pragma endregion
+
+#pragma region Properties
+
+void File::SetName(const char* value) { fileName = value; }
+
+void File::SetFile(FILE* file) { this->file = file; }
+
+FILE* File::GetFile() { return file; }
+
+const char* File::GetName() { return fileName; }
+
+#pragma endregion
+
 

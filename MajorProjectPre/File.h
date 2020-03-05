@@ -4,16 +4,32 @@
 
 class File
 {
+#pragma region Attributes
+
+private:
+	FILE* file;
+
+	const char* fileName;
+
+#pragma endregion
+	
 #pragma region Constructors
 public:
 	File();
 
-#pragma endregion
-	   	 
-#pragma region Methods
+	File(const char* fileName);
 
-public:
-	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode);
+#pragma endregion
+
+#pragma region Properties
+
+	void SetName(const char* value);
+
+	void SetFile(FILE* file);
+
+	FILE* GetFile();
+
+	const char* GetName();
 
 #pragma endregion
 

@@ -1,5 +1,6 @@
 #pragma once
-class RGB
+
+class cRGB
 {
 #pragma region Attributes
 
@@ -11,11 +12,11 @@ private:
 #pragma region Constructors
 
 public:
-	RGB();
+	cRGB();
 
-	RGB(unsigned char r, unsigned char g, unsigned char b);
+	cRGB(unsigned char r, unsigned char g, unsigned char b);
 
-	RGB(unsigned char* data, int iterator);
+	cRGB(unsigned char* data, int iterator);
 
 #pragma endregion
 
@@ -43,4 +44,5 @@ public:
 
 #pragma endregion
 };
+
 

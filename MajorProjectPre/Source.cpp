@@ -2,16 +2,20 @@
 
 #pragma region Includes
 
+
+
 #include "BMP.h"
-#include "FileReader.h"
+#include "FileLoader.h"
 #include "BMPWriter.h"
 #include "Stego.h"
+#include "JPEGReader.h"
+#include "JPEG.h"
 
 #pragma endregion
 
 #pragma region Defines
 
-// Images
+// Images - BMP
 #define STRIPESPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
 #define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\test.bmp"
 #define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
@@ -20,6 +24,9 @@
 #define BITWISETEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\bitTest.bmp"
 #define LSBTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\LSBtest2.bmp"
 #define VIVABMP "C:\\GitHub\\MajorProject\\MajorProjectPre\\vivaBMP.bmp"
+
+// Images - JPEG
+#define JPEGTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\JPEGConvertTest.jpg"
 
 // Text
 #define VIVA "C:\\GitHub\\MajorProject\\MajorProjectPre\\viva.txt"
@@ -30,40 +37,47 @@
 
 int main()
 {
-	// CREATE A NEW BMP
-	BMPWriter imageCreator;
+	FileLoader jpegLoader(JPEGTEST);
 
-	imageCreator.CreateNewBMP("vivaBMP.bmp", 32, 32, RGB(255, 0, 0));
+	JPEGReader reader(&jpegLoader);
 
-	
+	JPEG jpeg(&reader);
 
-
-	// READ THE MESSAGE AND IMAGE
-	FileReader message(VIVA);
-
-	FileReader coverImage(VIVABMP);
+	jpeg.Print();
 
 
+	//// CREATE A NEW BMP
+	//BMPWriter imageCreator;
 
-
-	// EMBED THE IMAGE AND PROVIDE FILENAME
-	Stego stegoImage(&coverImage, &message, "vivaStegoImage.bmp");
-
-	
+	//imageCreator.CreateNewBMP("JPEGConvertTest.bmp", 32, 32, cRGB(255, 0, 255));
 
 
 
-	// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
-	FileReader stegoLoader(stegoImage.GetStegoFileName());
+	//// READ THE MESSAGE AND IMAGE
+	//FileLoader message(VIVA);
 
-	BMP newBMPVIVA(&stegoLoader);
+	//FileLoader coverImage(VIVABMP);
+
+
+
+
+	//// EMBED THE IMAGE AND PROVIDE FILENAME
+	//Stego stegoImage(&coverImage, &message, "changesStegoBMP.bmp");
+
+
+
+
+	//// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
+	//FileLoader stegoLoader(stegoImage.GetStegoFileName());
+
+	//BMP newBMPVIVA(&stegoLoader);
 
 
 
 
 
 	// PRINT NEW IMAGES PIXEL VALUES
-	newBMPVIVA.PrintPixels();
+	//newBMPVIVA.PrintPixels();
 
 	return 0;
 }

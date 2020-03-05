@@ -1,21 +1,20 @@
 #pragma once
-#include <iostream>
-#include "BMP.h"
+#include "PixelContainer.h"
+#include "JPEGReader.h"
 
-class BMPReader
+class JPEG
 {
-
 #pragma region Attributes
 
 private:
-	FILE* fileObject;
+	PixelContainer* pixelList;
 
 #pragma endregion
 
 #pragma region Constructors
 
 public:
-	BMPReader(BMP* bmp);
+	JPEG(JPEGReader* jpReader);
 
 #pragma endregion
 
@@ -28,8 +27,8 @@ public:
 #pragma region Methods
 
 public:
-	BMP* CloneBMP(BMP* bmp);
+	void Print();
 
 #pragma endregion
 };
-	
+

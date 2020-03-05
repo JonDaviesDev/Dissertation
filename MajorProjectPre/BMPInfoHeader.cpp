@@ -2,7 +2,7 @@
 
 #pragma region Constructors
 
-BMPInfoHeader::BMPInfoHeader(FileReader* reader)
+BMPInfoHeader::BMPInfoHeader(FileLoader* reader)
 	: bytesPerPixel(3), width(0), height(0), paddingSize(0), reader(reader)
 {
 	CreateInfoHeader();
@@ -52,7 +52,7 @@ int BMPInfoHeader::GetWidth() { return width; }
 
 int BMPInfoHeader::GetPaddingSize() { return paddingSize; }
 
-FileReader* BMPInfoHeader::GetReader() { return reader; }
+FileLoader* BMPInfoHeader::GetReader() { return reader; }
 
 std::array<unsigned char, 40> BMPInfoHeader::GetInfoData() { return infoHeader; }
 

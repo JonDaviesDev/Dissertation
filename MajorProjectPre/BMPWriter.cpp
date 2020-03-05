@@ -40,7 +40,7 @@ const char* BMPWriter::GetFileName() { return fileName; }
 
 #pragma region Methods
 
-void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB colour)
+void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, cRGB colour)
 {
 	PixelContainer pixelContainer(width, height);
 

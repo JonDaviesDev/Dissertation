@@ -3,16 +3,33 @@
 
 #pragma region Constructors
 
-PixelContainer::PixelContainer() : width(0), height(0), r(nullptr), g(nullptr), b(nullptr) {}
+PixelContainer::PixelContainer() : width(0), height(0), channels(0), pixelArray(nullptr), r(nullptr), g(nullptr), b(nullptr) {}
 
-PixelContainer::PixelContainer(int size) : width(0), height(0)
+PixelContainer::PixelContainer(int width, int height, int channels, bool arraySelector) : width(0), height(0), channels(0), pixelArray(nullptr)
 {
-	r = new unsigned char[size];
-	g = new unsigned char[size];
-	b = new unsigned char[size];
+	this->width = width;
+	this->height = height;
+	this->channels = channels;
+
+	if(arraySelector)
+	{
+		pixelArray = new unsigned char[width * height * channels];
+
+		r = nullptr;
+		g = nullptr;
+		b = nullptr;
+	}
+	else
+	{
+		pixelArray = nullptr;
+
+		r = new unsigned char[width * height * channels];
+		g = new unsigned char[width * height * channels];
+		b = new unsigned char[width * height * channels];
+	}
 }
 
-PixelContainer::PixelContainer(int width, int height) : width(width), height(height) 
+PixelContainer::PixelContainer(int width, int height) : width(width), height(height), pixelArray(nullptr)
 {
 	int size = width * height;
 
@@ -21,11 +38,14 @@ PixelContainer::PixelContainer(int width, int height) : width(width), height(hei
 	b = new unsigned char[size];
 }
 
+
 #pragma endregion
 
 #pragma region Properties
 
 #pragma region Setters
+
+void PixelContainer::SetArray(unsigned char* pixelArray) { this->pixelArray = pixelArray; }
 
 void PixelContainer::SetWidth(int value) { width = value; }
 
@@ -51,11 +71,15 @@ int PixelContainer::GetWidth() { return width; }
 
 int PixelContainer::GetHeight() { return height; }
 
+int PixelContainer::GetChannels() { return channels; }
+
 unsigned char* PixelContainer::GetRed(int iterator) { return &r[iterator]; }
 
 unsigned char* PixelContainer::GetGreen(int iterator) { return &g[iterator]; }
 
 unsigned char* PixelContainer::GetBlue(int iterator) { return &b[iterator]; }
+
+unsigned char* PixelContainer::GetPixelArray() { return pixelArray; }
 
 #pragma endregion
 

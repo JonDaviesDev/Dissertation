@@ -5,7 +5,7 @@
 
 BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader), fileObject(nullptr), pixels() {}
 
-BMP::BMP(FileReader* reader) : fileHeader(&infoHeader), infoHeader(reader), fileObject(reader)
+BMP::BMP(FileLoader* reader) : fileHeader(&infoHeader), infoHeader(reader), fileObject(reader)
 {
 	fileObject->ErrorCheck(fileObject->GetFile(), fileObject->GetFileName(), "r");
 
@@ -34,7 +34,7 @@ int BMP::GetWidth() { return infoHeader.GetWidth(); }
 
 int BMP::GetColourSpace() { return infoHeader.GetBytesPerPixel(); }
 
-FileReader* BMP::GetFileObject() { return fileObject; }
+FileLoader* BMP::GetFileObject() { return fileObject; }
 
 BMPInfoHeader* BMP::GetInfoHeader() { return &infoHeader; }
 
@@ -64,7 +64,7 @@ void BMP::ReadPixels()
 
 	int k = 0;
 
-	std::cout << "BMP - " << this->GetFileHeader()->GetFileName() << " RGB values are:" << std::endl;
+	std::cout << "BMP - " << this->GetFileHeader()->GetFileName() << " cRGB values are:" << std::endl;
 
 	// TO DO ////////////////////////////////////////////////////////////////
 	// 

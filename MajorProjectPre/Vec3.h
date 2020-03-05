@@ -1,36 +1,40 @@
 #pragma once
-#include "FileLoader.h"
-#include <vector>
-
-class TextBuffer
+class Vec3
 {
 #pragma region Attributes
 
 private:
-	std::vector<char> buffer;
+	int x, y, z;
 
 #pragma endregion
 
 #pragma region Constructors
 
 public:
-	TextBuffer();
+	Vec3();
 
-	TextBuffer(FileLoader* textFile);
+	Vec3(int x, int y, int z);
 
 #pragma endregion
 
 #pragma region Properties
 
 public:
-	std::vector<char> GetBuffer();
+	Vec3 GetValues();
+
+	int GetX();
+
+	int GetY();
+
+	int GetZ();
 
 #pragma endregion
 
 #pragma region Methods
 
 public:
-	void ReadFile(FileLoader* textFile);
+
+	bool operator==(Vec3 external);
 
 #pragma endregion
 };

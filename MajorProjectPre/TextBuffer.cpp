@@ -7,7 +7,7 @@
 
 TextBuffer::TextBuffer() {}
 
-TextBuffer::TextBuffer(FileReader* textFile)
+TextBuffer::TextBuffer(FileLoader* textFile)
 {
 	ReadFile(textFile);
 }
@@ -22,7 +22,7 @@ std::vector<char> TextBuffer::GetBuffer() { return buffer; }
 
 #pragma region Methods
 
-void TextBuffer::ReadFile(FileReader* textFile)
+void TextBuffer::ReadFile(FileLoader* textFile)
 {
 	textFile->ErrorCheck(textFile->GetFile(), textFile->GetFileName(), "rb");
 

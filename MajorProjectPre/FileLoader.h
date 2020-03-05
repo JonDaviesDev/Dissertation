@@ -1,45 +1,42 @@
 #pragma once
-
-#pragma region Preprocessor Directives
-
-#pragma region Includes
-
-#include <iostream>
 #include "File.h"
 
-#pragma endregion
-
-#pragma endregion
-
-class FileReader : public File
+class FileLoader
 {
 #pragma region Attributes
 
 private:
-	FILE* inputFile;
-
-	const char* fileName;
+	File file;
 
 #pragma endregion
 
 #pragma region Constructors
 
 public:
-	FileReader(const char* fileName);
+	FileLoader();
+
+	FileLoader(const char* fileName);
+
+	FileLoader(FILE* file);
 
 #pragma endregion
 
 #pragma region Properties
 
-public:
+	void SetName(const char* value);
+
 	FILE* GetFile();
 
 	const char* GetFileName();
 
 #pragma endregion
 
+
 #pragma region Methods
-	
+
+public:
+	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode);
+
 #pragma endregion
 };
 
