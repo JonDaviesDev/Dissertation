@@ -1,5 +1,6 @@
 #pragma once
-class Vec3
+
+class Vec3i
 {
 #pragma region Attributes
 
@@ -11,16 +12,16 @@ private:
 #pragma region Constructors
 
 public:
-	Vec3();
+	Vec3i();
 
-	Vec3(int x, int y, int z);
+	Vec3i(int x, int y, int z);
 
 #pragma endregion
 
 #pragma region Properties
 
 public:
-	Vec3 GetValues();
+	Vec3i GetValues();
 
 	int GetX();
 
@@ -34,7 +35,7 @@ public:
 
 public:
 
-	bool operator==(Vec3 external);
+	bool operator==(Vec3i external);
 
 #pragma endregion
 };

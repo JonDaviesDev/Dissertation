@@ -14,7 +14,7 @@ JPEGReader::JPEGReader(FileLoader* file) : file(file), imageData(nullptr)
 
 #pragma region Properties
 
-std::pair<unsigned char*, Vec3>* JPEGReader::GetImageData() { return imageData; }
+std::pair<unsigned char*, Vec3i>* JPEGReader::GetImageData() { return imageData; }
 
 #pragma endregion
 
@@ -27,12 +27,12 @@ void JPEGReader::ReadPixels()
 	stbi_set_flip_vertically_on_load(true);
 
 	unsigned char* arr = stbi_load(this->file->GetFileName(), &width, &height, &channels, STBI_rgb);
-	Vec3 dimensions = {width, height, channels};
+	Vec3i dimensions = {width, height, channels};
 
-	this->imageData = new std::pair<unsigned char*, Vec3>(arr, dimensions);
+	this->imageData = new std::pair<unsigned char*, Vec3i>(arr, dimensions);
 }
 
-PixelContainer JPEGReader::CopyPixelsToContainer(std::pair<unsigned char*, Vec3> pixelArray)
+PixelContainer JPEGReader::CopyPixelsToContainer(std::pair<unsigned char*, Vec3i> pixelArray)
 {
 	int width = pixelArray.second.GetX();
 	int height = pixelArray.second.GetY();

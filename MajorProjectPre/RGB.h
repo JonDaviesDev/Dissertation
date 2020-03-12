@@ -1,22 +1,29 @@
 #pragma once
+#include "Vec3f.h"
 
-class cRGB
+class RGB
 {
 #pragma region Attributes
 
 private:
 	unsigned char r, g, b;
 
+	bool boundingFlag;
+
 #pragma endregion
 
 #pragma region Constructors
 
 public:
-	cRGB();
+	RGB();
 
-	cRGB(unsigned char r, unsigned char g, unsigned char b);
+	RGB(unsigned char r, unsigned char g, unsigned char b);
 
-	cRGB(unsigned char* data, int iterator);
+	RGB(unsigned char* r, unsigned char* g, unsigned char* b);
+
+	RGB(unsigned char* data, int iterator);
+
+	RGB(Vec3f value);
 
 #pragma endregion
 
@@ -41,6 +48,11 @@ public:
 #pragma region Methods
 
 public:
+	Vec3f operator/(int external);
+
+	void UpperBoundryCheck(Vec3f value);
+
+	void LowerBoundryCheck(Vec3f value);
 
 #pragma endregion
 };

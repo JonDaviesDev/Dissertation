@@ -140,7 +140,6 @@
     <ClCompile Include="BMPInfoHeader.cpp" />
     <ClCompile Include="BMPUtility.cpp" />
     <ClCompile Include="BMPWriter.cpp" />
-    <ClCompile Include="cRGB.cpp" />
     <ClCompile Include="Decoder.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileLoader.cpp" />
@@ -148,10 +147,13 @@
     <ClCompile Include="JPEGReader.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="PixelContainer.cpp" />
+    <ClCompile Include="RGB.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Stego.cpp" />
+    <ClCompile Include="StegoMath.cpp" />
     <ClCompile Include="TextBuffer.cpp" />
-    <ClCompile Include="Vec3.cpp" />
+    <ClCompile Include="Vec3f.cpp" />
+    <ClCompile Include="Vec3i.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h" />
@@ -159,7 +161,6 @@
     <ClInclude Include="BMPInfoHeader.h" />
     <ClInclude Include="BMPUtility.h" />
     <ClInclude Include="BMPWriter.h" />
-    <ClInclude Include="cRGB.h" />
     <ClInclude Include="Decoder.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="FileLoader.h" />
@@ -167,10 +168,13 @@
     <ClInclude Include="JPEGReader.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="PixelContainer.h" />
+    <ClInclude Include="RGB.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Stego.h" />
+    <ClInclude Include="StegoMath.h" />
     <ClInclude Include="TextBuffer.h" />
-    <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Vec3f.h" />
+    <ClInclude Include="Vec3i.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

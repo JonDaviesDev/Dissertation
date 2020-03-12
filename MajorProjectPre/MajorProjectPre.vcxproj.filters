@@ -90,14 +90,20 @@
     <ClCompile Include="JPEG.cpp">
       <Filter>Source Files\JPEG</Filter>
     </ClCompile>
-    <ClCompile Include="cRGB.cpp">
-      <Filter>Source Files\Data Container</Filter>
-    </ClCompile>
     <ClCompile Include="FileLoader.cpp">
       <Filter>Source Files\File</Filter>
     </ClCompile>
-    <ClCompile Include="Vec3.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StegoMath.cpp">
+      <Filter>Source Files\Steganography</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3f.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3i.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="RGB.cpp">
+      <Filter>Source Files\Data Container</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,11 +152,17 @@
     <ClInclude Include="FileLoader.h">
       <Filter>Header Files\File</Filter>
     </ClInclude>
-    <ClInclude Include="cRGB.h">
+    <ClInclude Include="StegoMath.h">
+      <Filter>Header Files\Steganography</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3i.h">
       <Filter>Header Files\Data Container</Filter>
     </ClInclude>
-    <ClInclude Include="Vec3.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Vec3f.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="RGB.h">
+      <Filter>Header Files\Data Container</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

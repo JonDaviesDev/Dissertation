@@ -2,7 +2,7 @@
 
 #pragma region Includes
 
-#include "cRGB.h"
+#include "RGB.h"
 
 #pragma endregion
 
@@ -12,7 +12,7 @@ class Pixel
 #pragma region Attributes
 
 private:
-	cRGB colour;
+	RGB colour;
 
 #pragma endregion
 
@@ -21,7 +21,7 @@ private:
 public:
 	Pixel();
 
-	Pixel(cRGB value);
+	Pixel(RGB value);
 
 	Pixel(unsigned char* data, int iterator);
 
@@ -35,7 +35,7 @@ public:
 
 	void SetRGB(unsigned char r, unsigned char g, unsigned char b);
 
-	cRGB GetRGB();
+	RGB GetRGB();
 
 #pragma endregion
 };

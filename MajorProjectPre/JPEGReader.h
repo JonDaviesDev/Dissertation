@@ -2,7 +2,7 @@
 #include <iostream>
 #include "PixelContainer.h"
 #include "FileLoader.h"
-#include "Vec3.h"
+#include "Vec3i.h"
 
 
 class JPEGReader
@@ -12,7 +12,7 @@ class JPEGReader
 private:
 	FileLoader* file;
 
-	std::pair<unsigned char*, Vec3>* imageData;
+	std::pair<unsigned char*, Vec3i>* imageData;
 	
 #pragma endregion
 
@@ -26,7 +26,7 @@ public:
 #pragma region Properties
 
 public:
-	std::pair<unsigned char*, Vec3>* GetImageData();
+	std::pair<unsigned char*, Vec3i>* GetImageData();
 
 #pragma endregion
 
@@ -35,7 +35,7 @@ public:
 public:
 	void ReadPixels();
 
-	PixelContainer CopyPixelsToContainer(std::pair<unsigned char*, Vec3> pixelArray);
+	PixelContainer CopyPixelsToContainer(std::pair<unsigned char*, Vec3i> pixelArray);
 
 #pragma endregion
 };

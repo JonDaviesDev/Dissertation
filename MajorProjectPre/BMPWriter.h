@@ -75,7 +75,7 @@ public:
 #pragma region Methods
 
 public:
-	void CreateNewBMP(const char* fileName, int width, int height, cRGB colour);
+	void CreateNewBMP(const char* fileName, int width, int height, RGB colour);
 
 	void CloneBMP(BMP* bmp, const char* newFileName);
 

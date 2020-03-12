@@ -2,14 +2,13 @@
 
 #pragma region Includes
 
-
-
 #include "BMP.h"
 #include "FileLoader.h"
 #include "BMPWriter.h"
 #include "Stego.h"
 #include "JPEGReader.h"
 #include "JPEG.h"
+#include "Decoder.h"
 
 #pragma endregion
 
@@ -17,7 +16,7 @@
 
 // Images - BMP
 #define STRIPESPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
-#define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\test.bmp"
+#define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\DTOTest.bmp"
 #define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
 #define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
 #define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
@@ -26,7 +25,7 @@
 #define VIVABMP "C:\\GitHub\\MajorProject\\MajorProjectPre\\vivaBMP.bmp"
 
 // Images - JPEG
-#define JPEGTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\JPEGConvertTest.jpg"
+#define JPEGTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\changesDTO.jpg"
 
 // Text
 #define VIVA "C:\\GitHub\\MajorProject\\MajorProjectPre\\viva.txt"
@@ -37,43 +36,46 @@
 
 int main()
 {
-	FileLoader jpegLoader(JPEGTEST);
+	/*FileLoader jpegLoader(JPEGTEST);
 
 	JPEGReader reader(&jpegLoader);
 
 	JPEG jpeg(&reader);
 
-	jpeg.Print();
+	jpeg.Print();*/
 
 
 	//// CREATE A NEW BMP
 	//BMPWriter imageCreator;
 
-	//imageCreator.CreateNewBMP("JPEGConvertTest.bmp", 32, 32, cRGB(255, 0, 255));
+	//imageCreator.CreateNewBMP("DTOTest.bmp", 32, 32, RGB(182, 232, 76));
 
 
 
 	//// READ THE MESSAGE AND IMAGE
 	//FileLoader message(VIVA);
 
-	//FileLoader coverImage(VIVABMP);
+	//FileLoader coverImage(TESTPATH);
 
 
 
 
 	//// EMBED THE IMAGE AND PROVIDE FILENAME
-	//Stego stegoImage(&coverImage, &message, "changesStegoBMP.bmp");
+	//Stego stegoImage(&coverImage, &message, "changesDTO.bmp");
 
 
 
 
-	//// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
-	//FileLoader stegoLoader(stegoImage.GetStegoFileName());
+	// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
+	FileLoader stegoLoader(JPEGTEST);
+
+	JPEGReader jpr(&stegoLoader);
+
+	JPEG jpg(&jpr);
 
 	//BMP newBMPVIVA(&stegoLoader);
 
-
-
+	Decoder d(&jpg);
 
 
 	// PRINT NEW IMAGES PIXEL VALUES

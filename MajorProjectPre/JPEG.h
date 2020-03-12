@@ -21,6 +21,7 @@ public:
 #pragma region Properties
 
 public:
+	PixelContainer* GetPixelList();
 
 #pragma endregion
 

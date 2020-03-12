@@ -5,7 +5,7 @@
 
 JPEG::JPEG(JPEGReader* jpReader)
 {
-	Vec3 temp = jpReader->GetImageData()->second;
+	Vec3i temp = jpReader->GetImageData()->second;
 
 	pixelList = new PixelContainer(temp.GetX(), temp.GetY(), temp.GetZ(), true);
 	
@@ -15,6 +15,8 @@ JPEG::JPEG(JPEGReader* jpReader)
 #pragma endregion
 
 #pragma region Properties
+
+PixelContainer* JPEG::GetPixelList() { return pixelList; }
 
 #pragma endregion
 

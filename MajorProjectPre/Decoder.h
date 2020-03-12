@@ -13,21 +13,23 @@
 #pragma region Project Files
 
 #include "BMP.h"
+#include "JPEG.h"
+#include "StegoMath.h"
 
 #pragma endregion
 
 #pragma endregion
 
-class Decoder
+class Decoder : public StegoMath
 {
 #pragma region Attributes
 
 private:
 	FILE* newTextFile;
-	
-	BMP* stegoImage;
 
 	std::vector<std::bitset<8>> messageBinary;
+
+	std::string decodedMessage;
 
 #pragma endregion
 
@@ -35,6 +37,8 @@ private:
 
 public:
 	Decoder(BMP* stegoImage);
+
+	Decoder(JPEG* stegoImage);
 
 #pragma endregion
 
@@ -47,7 +51,13 @@ public:
 #pragma region Methods
 
 public:
-	void RetrieveMessage();
+	void RetrieveMessage(BMP* image);
+
+	void RetrieveMessage(JPEG* image);
+
+	char BinaryToChar(std::bitset<8> byte);
+
+	std::string ConstructMessage();
 
 #pragma endregion
 };

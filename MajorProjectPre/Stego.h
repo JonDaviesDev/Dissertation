@@ -5,6 +5,7 @@
 #pragma region System Files
 
 #include <bitset>
+#include <cstdlib>
 
 #pragma endregion
 
@@ -14,13 +15,20 @@
 #include "BMP.h"
 #include "TextBuffer.h"
 #include "BMPUtility.h"
-#include "cRGB.h"
+#include "RGB.h"
+#include "Vec3f.h"
+#include "StegoMath.h"
 
 #pragma endregion
 
 #pragma endregion
 
-class Stego : public BMPUtility
+enum class Direction
+{
+	SMALLER, LARGER, STAY, UNDEFINED
+};
+
+class Stego : public BMPUtility, public StegoMath
 {
 #pragma region Attributes
 
@@ -35,7 +43,7 @@ private:
 
 	std::vector<std::bitset<8>> binaryList;
 
-	std::vector<std::vector<cRGB>> pixelList;
+	std::vector<std::vector<RGB>> pixelList;
 
 #pragma endregion
 
@@ -84,24 +92,16 @@ public:
 	/*---------------- Distance to Origin Utility Functions ----------------*/
 
 	// return value and argument value are temporary just for testing
-	int DistanceToOrigin(Pixel pixel, int modulusValue);
+	void DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit);
 
-	void InitialiseRemainderTable(int startingValue);
+	std::pair<int, Direction> DistanceToSafeRemainder(int originalRemainder, int segment, unsigned long bitValue);
 
-	// Find distance between the pixel and (0, 0, 0)
-	float FindLength(Pixel pixel);
+	int ModifyDistance(std::pair<int, Direction> value, int distance);
 
-	int RoundToInt(float value);
+	Vec3f NormaliseDistance(int distance, RGB value);
 
-	int FindModulus(int distance, int modValue);
+	Vec3f ScaleVector(Vec3f normalised, int newDistance);
 	
-	// Find out which side of the midpoint the value sits on
-	int DetermineSegment(int value, int modValue);
-
-	void CheckEdgesOfScale(int segment, int value, int modValue);
-
-	void ShiftPixelColour();
-
 #pragma endregion
 };
 

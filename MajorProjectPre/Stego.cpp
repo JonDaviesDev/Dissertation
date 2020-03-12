@@ -9,21 +9,25 @@ Stego::Stego(){}
 Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName)
 	: bmp(coverBMP), text(textFile), stegoFileName(newFileName)
 {
-	//bmp.PrintPixels();
-
-	auto a = FindModulus(RoundToInt(FindLength(Pixel(cRGB(128, 65, 210)))), 42);
-	auto b = FindModulus(RoundToInt(FindLength(Pixel(cRGB(12, 150, 150)))), 42);
-	auto c = FindModulus(RoundToInt(FindLength(Pixel(cRGB(245, 99, 100)))), 42);
+	int k = 0;
 
 	CreatePixelListCopy();
 
 	CreateBinaryList(text);
 
-	InitialiseRemainderTable(0);
-
 	BitNumber();
 
-	LSB();
+	for(int i = 0; i < binaryList.size(); i++)
+	{
+		for(int j = 0; j < binaryList[i].size(); j++)
+		{
+			DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+
+			k++;
+		}
+	}
+
+	//LSB();
 
 	ModifyBMP(&bmp, newFileName);
 }
@@ -85,7 +89,7 @@ void Stego::BitNumber()
 void Stego::CreatePixelListCopy()
 {
 	// Set up a 2D vector and initialise it to pixelList
-	pixelList = std::vector<std::vector<cRGB>>(bmp.GetHeight(), std::vector<cRGB>(bmp.GetWidth()));
+	pixelList = std::vector<std::vector<RGB>>(bmp.GetHeight(), std::vector<RGB>(bmp.GetWidth()));
 
 	//for each row
 	for(int i = 0; i < bmp.GetHeight(); i++)
@@ -160,132 +164,113 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 	fclose(bmp->GetFileObject()->GetFile());
 }
 
-
-
-
-
-
-// returning an int for testing purposes
-
-
-// To get the remainder from 2 to 10, we increase the value of each component by 5.
-
-
-
-
-// - testing to see how best to change the remainder value
-int Stego::DistanceToOrigin(Pixel pixel, int modulusValue)
+void Stego::DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit)
 {
-	/*for(int i = 0; i < pixelList.size(); i++)
+	int distance = RoundToInt(FindLength(pixel));
+
+	int remainder = FindModulus(distance, modulusValue);
+
+	std::pair<int, Direction> test = DistanceToSafeRemainder(remainder, DetermineSegment(remainder, 42), bit);
+
+	int newDistance = ModifyDistance(test, distance);
+
+	Vec3f normalisedDistance = NormaliseDistance(distance, pixel);
+
+	Vec3f scaledVector = ScaleVector(normalisedDistance, newDistance);
+
+	RGB updatedRGB(scaledVector);
+
+	pixel = RGB(updatedRGB);
+}
+
+std::pair<int, Direction> Stego::DistanceToSafeRemainder(int originalRemainder, int segment, unsigned long bitValue)
+{		
+	if(segment == 0 && bitValue == 0)
 	{
-		for(int j = 0; j < pixelList[i].size(); j++)
+		if(originalRemainder < 10)
 		{
-			int result = FindModulus(RoundToInt(FindLength(pixelList[i][j])), 42);
+			return std::make_pair<int, Direction>(std::abs(10 - originalRemainder), Direction::LARGER);
 		}
-	}*/
-
-	int length = RoundToInt(FindLength(pixel));
-
-	int remainder = FindModulus(length, modulusValue);
-
-	if(remainder < 10)
-	{
-		// find out how far from 10 it is
-
-		int temp = abs(remainder - 10);
-
-
-	}
-	if(remainder > 10 && remainder <= 21)
-	{
-		// find out how far from 11 it is
-	}
-	if(remainder < 30)
-	{
-		// find out how far from 30 it is
-	}
-	if(remainder > 31)
-	{
-		// find out how far from 31 it is
-	}
-
-	return FindModulus(RoundToInt(FindLength(pixel)), 42);
-}
-
-void Stego::InitialiseRemainderTable(int startingValue)
-{
-	int temp = startingValue;
-
-	//remainderTable.Add(temp++,  6, 3); // remainder 1
-	//remainderTable.Add(temp++,  5, 3); // remainder 2
-	//remainderTable.Add(temp++,  , 1); // remainder 3
-	//remainderTable.Add(temp++,  1, 3); // remainder 4
-	//remainderTable.Add(temp++,  ); // remainder 5
-	//remainderTable.Add(temp++,  ); // remainder 6
-	//remainderTable.Add(temp++,  ); // remainder 7
-	//remainderTable.Add(temp++,  ); // remainder 8
-	//remainderTable.Add(temp++,  ); // remainder 9
-}
-
-float Stego::FindLength(Pixel pixel)
-{
-	return sqrt((pixel.GetRGB().GetRed() * pixel.GetRGB().GetRed()) + (pixel.GetRGB().GetGreen() * pixel.GetRGB().GetGreen()) + (pixel.GetRGB().GetBlue() * pixel.GetRGB().GetBlue()));
-}
-
-int Stego::RoundToInt(float value)
-{
-	return (int)roundf(value);
-}
-
-int Stego::FindModulus(int distance, int modValue)
-{
-	return distance % modValue;
-}
-
-int Stego::DetermineSegment(int value, int modValue)
-{
-	// Basic error checking - Make sure that the value does not fall out of the allowed range
-	if(value < 0 || value > modValue)
-	{
-		if(value < 0)
+		else if(originalRemainder > 12)
 		{
-			std::cout << "STEGO::DETERMINESEGEMENT::VALUE_CANNOT_BE_LESS_THAN_ZERO" << std::endl;
+			return std::make_pair<int, Direction>(std::abs(originalRemainder - 12), Direction::SMALLER);
 		}
-		
-		if(value > modValue)
+		else return std::make_pair < int, Direction>(0, Direction::STAY);
+	}
+	else if(segment == 1 && bitValue == 1)
+	{
+		if(originalRemainder < 30)
 		{
-			std::cout << "STEGO::DETERMINESEGEMENT::VALUE_CANNOT_BE_GREATER_THAN_MODULUS_VALUE" << std::endl;
+			return std::make_pair<int, Direction>(std::abs(30 - originalRemainder), Direction::LARGER);
 		}
-
-		exit(-1);
-	}
-
-	if(value >= 0 && value <= (modValue / 2))
-	{
-		return 0;
-	}
-	else return 1;
-
-}
-
-void Stego::CheckEdgesOfScale(int segment, int value, int modValue)
-{
-	if(segment)
-	{
-		// If the value does not equal the centre of the right segment (+/- 1 either side), then enter
-		if(value != (modValue + (modValue * 0.25)) || value != (modValue + (modValue * 0.25) + 1) || value != (modValue + (modValue * 0.25) - 1))
+		else if(originalRemainder > 32)
 		{
-			// Change the RGB values of the pixel to make the value sit in the centre of the right segment and re-calcualate
+			return std::make_pair<int, Direction>(std::abs(originalRemainder - 32), Direction::SMALLER);
+		}
+		else return std::make_pair<int, Direction>(0, Direction::STAY);
+	}
+	else if(segment == 0 && bitValue == 1)
+	{
+		if(originalRemainder <= 11)
+		{
+			// Move remainder down past 0 to 32
+
+			int a = std::abs(0 - originalRemainder);
+			int b = std::abs(42 - 32);
+			int result = a + b;
+
+			return std::make_pair<int, Direction>((int)result, Direction::SMALLER);
+
+		}
+		else if(originalRemainder >= 12)
+		{
+			// Move remainder up to 30
+						
+			return std::make_pair<int, Direction>(std::abs(30 - originalRemainder), Direction::LARGER);
 		}
 	}
-	else
+	else if(segment == 1 && bitValue == 0)
 	{
-		// If the value does not equal the centre of the left segment (+/- 1 either side), then enter
-		if(value != (modValue + (modValue / 2)) || value != (modValue + (modValue / 2) + 1) || value != (modValue + (modValue / 2) - 1))
+		if(originalRemainder <= 31)
 		{
-			// Change the RGB values of the pixel to make the value sit in the centre of the lef segment and re-calcualate
+			// Move remainder down to 12
+
+			return std::make_pair<int, Direction>(std::abs(12 - originalRemainder), Direction::SMALLER);
+		}
+		else if(originalRemainder >= 32)
+		{
+			// Move remainder up past 42 to 10
+			int a = std::abs(originalRemainder - 42);
+			int b = std::abs(0 - 10);
+			int result = a + b;
+
+			return std::make_pair<int, Direction>((int)result, Direction::LARGER);
 		}
 	}
+	else return std::make_pair<int, Direction>(0, Direction::UNDEFINED);
+}
+
+int Stego::ModifyDistance(std::pair<int, Direction> value, int distance)
+{
+	if(value.second == Direction::LARGER)
+	{
+		return distance + value.first;
+	}
+	else if(value.second == Direction::SMALLER)
+	{
+		return distance - value.first;
+	}
+	else return distance;
+}
+
+Vec3f Stego::NormaliseDistance(int distance, RGB value)
+{
+	return Vec3f(value / distance);
+}
+
+Vec3f Stego::ScaleVector(Vec3f normalised, int newDistance)
+{
+	return Vec3f(normalised.GetValues() * newDistance);
 }
 
 #pragma endregion
