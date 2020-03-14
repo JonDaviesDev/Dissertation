@@ -14,9 +14,11 @@
 
 #pragma region Defines
 
+
+
 // Images - BMP
 #define STRIPESPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
-#define TESTPATH "C:\\GitHub\\MajorProject\\MajorProjectPre\\DTOTest.bmp"
+#define TESTPATH "C:\\GitHub\\MajorProject\\ImageSamples\\BMP\\DTOTest.bmp"
 #define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
 #define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
 #define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
@@ -25,10 +27,10 @@
 #define VIVABMP "C:\\GitHub\\MajorProject\\MajorProjectPre\\vivaBMP.bmp"
 
 // Images - JPEG
-#define JPEGTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\changesDTO.jpg"
+#define JPEGTEST "C:\\GitHub\\MajorProject\\ImageSamples\\JPEG\\DTOTest1-Converted-Medium.jpg"
 
 // Text
-#define VIVA "C:\\GitHub\\MajorProject\\MajorProjectPre\\viva.txt"
+#define VIVA "C:\\GitHub\\MajorProject\\MessageSamples\\viva.txt"
 
 #pragma endregion
 
@@ -36,46 +38,43 @@
 
 int main()
 {
-	/*FileLoader jpegLoader(JPEGTEST);
-
-	JPEGReader reader(&jpegLoader);
-
-	JPEG jpeg(&reader);
-
-	jpeg.Print();*/
-
-
 	//// CREATE A NEW BMP
-	//BMPWriter imageCreator;
+	BMPWriter imageCreator;
 
-	//imageCreator.CreateNewBMP("DTOTest.bmp", 32, 32, RGB(182, 232, 76));
+	const char* imageNameDTO = "DTOTest1-Created.bmp";
+	const char* imageNameLSB = "LSBTest1-Created.bmp";
+
+	FileLoader stegoLoader("LSBTest1-Converted.jpg");
 
 
-
-	//// READ THE MESSAGE AND IMAGE
-	//FileLoader message(VIVA);
-
-	//FileLoader coverImage(TESTPATH);
-
+	imageCreator.CreateNewBMP(imageNameLSB, 32, 32, RGB(100, 200, 100));
 
 
 
-	//// EMBED THE IMAGE AND PROVIDE FILENAME
-	//Stego stegoImage(&coverImage, &message, "changesDTO.bmp");
 
+	// READ THE MESSAGE AND IMAGE
+	FileLoader message(VIVA);
+
+	FileLoader coverImage(imageNameLSB);
+
+
+
+
+	// EMBED THE IMAGE AND PROVIDE FILENAME
+	Stego stegoImage(&coverImage, &message, "LSBTest1-Embedded.bmp");
 
 
 
 	// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
 	FileLoader stegoLoader(JPEGTEST);
 
-	JPEGReader jpr(&stegoLoader);
+	//JPEGReader jpr(&stegoLoader);
 
-	JPEG jpg(&jpr);
+	//JPEG jpg(&jpr);
 
-	//BMP newBMPVIVA(&stegoLoader);
+	////BMP newBMPVIVA(&stegoLoader);
 
-	Decoder d(&jpg);
+	//Decoder d(&jpg);
 
 
 	// PRINT NEW IMAGES PIXEL VALUES

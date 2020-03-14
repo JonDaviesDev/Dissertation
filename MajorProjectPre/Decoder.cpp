@@ -5,14 +5,16 @@
 
 Decoder::Decoder(BMP* stegoImage) : newTextFile(nullptr), messageBinary(4, 0)
 {
-	RetrieveMessage(stegoImage);
+	RetrieveMessageLSB(stegoImage);
 	
 	decodedMessage = ConstructMessage();
 }
 
 Decoder::Decoder(JPEG* stegoImage) : newTextFile(nullptr), messageBinary(4, 0)
 {
-	RetrieveMessage(stegoImage);
+	//RetrieveMessageDTO(stegoImage);
+
+	RetrieveMessageLSB(stegoImage);
 
 	decodedMessage = ConstructMessage();
 }
@@ -25,7 +27,7 @@ Decoder::Decoder(JPEG* stegoImage) : newTextFile(nullptr), messageBinary(4, 0)
 
 #pragma region Methods
 
-void Decoder::RetrieveMessage(BMP* image)
+void Decoder::RetrieveMessageDTO(BMP* image)
 {
 	int k = 0;
 
@@ -51,7 +53,7 @@ void Decoder::RetrieveMessage(BMP* image)
 	}
 }
 
-void Decoder::RetrieveMessage(JPEG* image)
+void Decoder::RetrieveMessageDTO(JPEG* image)
 {
 	int k = 0;
 
@@ -63,11 +65,59 @@ void Decoder::RetrieveMessage(JPEG* image)
 		{
 			RGB element(temp, k);
 
-			
-
 			int remainder = RoundToInt(FindLength(element));
 
 			if(DetermineSegment(FindModulus(remainder, 42), 42) == 0)
+			{
+				messageBinary[i][j] = 0;
+			}
+			else
+			{
+				messageBinary[i][j] = 1;
+			}
+
+			k+=3;
+		}
+	}
+}
+
+void Decoder::RetrieveMessageLSB(BMP* image)
+{
+	int k = 0;
+
+	unsigned char* tempRed = nullptr;
+
+	for(int i = 0; i < 4; i++)
+	{
+		for(int j = 0; j < 8; j++)
+		{
+			int tempRed = (int)*image->GetPixelContainer()->GetRed(k);
+
+			if(tempRed % 2 == 0)
+			{
+				messageBinary[i][j] = 0;
+			}
+			else
+			{
+				messageBinary[i][j] = 1;
+			}
+
+			k++;
+		}
+	}
+}
+
+void Decoder::RetrieveMessageLSB(JPEG* image)
+{
+	int k = 0;
+
+	for(int i = 0; i < 4; i++)
+	{
+		for(int j = 0; j < 8; j++)
+		{
+			int tempRed = (int)image->GetPixelList()->GetPixelArray()[k];
+
+			if(tempRed % 2 == 0)
 			{
 				messageBinary[i][j] = 0;
 			}

@@ -51,9 +51,13 @@ public:
 #pragma region Methods
 
 public:
-	void RetrieveMessage(BMP* image);
+	void RetrieveMessageDTO(BMP* image);
 
-	void RetrieveMessage(JPEG* image);
+	void RetrieveMessageDTO(JPEG* image);
+
+	void RetrieveMessageLSB(BMP* image);
+
+	void RetrieveMessageLSB(JPEG* image);
 
 	char BinaryToChar(std::bitset<8> byte);
 

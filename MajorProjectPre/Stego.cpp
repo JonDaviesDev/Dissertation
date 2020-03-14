@@ -1,7 +1,5 @@
 #include "Stego.h"
 
-
-
 #pragma region Constructors
 
 Stego::Stego(){}
@@ -17,17 +15,17 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 
 	BitNumber();
 
-	for(int i = 0; i < binaryList.size(); i++)
-	{
-		for(int j = 0; j < binaryList[i].size(); j++)
-		{
-			DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+	//for(int i = 0; i < binaryList.size(); i++)
+	//{
+	//	for(int j = 0; j < binaryList[i].size(); j++)
+	//	{
+	//		DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
 
-			k++;
-		}
-	}
+	//		k++;
+	//	}
+	//}
 
-	//LSB();
+	LSB();
 
 	ModifyBMP(&bmp, newFileName);
 }
@@ -131,6 +129,15 @@ void Stego::LSB()
 
 			}
 			
+			// If the pixel value ends in an even number AND the binary entry is 1, enter condition
+			else if((pixelList[0][k].GetRed() % 2) == 0 && (binaryList[i][j] % 2) != 0)
+			{
+				unsigned char tempRED = pixelList[i][j].GetRed();
+
+				//bitwise XOR - swap the value if both are equal (LSB switches from 1 to 0)
+				pixelList[0][k].SetRed(tempRED ^= 1);
+			}
+			
 			k++;
 		}
 	}
@@ -142,10 +149,19 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 
 	int k = 0;
 
+	bool firstIteration = true;
+
 	for(int i = 0; i < bmp->GetHeight(); i++)
 	{
 		for(int j = 0; j < bmp->GetWidth(); j++)
 		{
+			if(firstIteration)
+			{
+
+
+				firstIteration = false;
+			}
+
 			pixelContainer.SetRed(pixelList[i][j].GetRed(), k);
 
 			pixelContainer.SetGreen(pixelList[i][j].GetGreen(), k);
