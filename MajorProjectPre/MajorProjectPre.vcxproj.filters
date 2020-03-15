@@ -105,6 +105,9 @@
     <ClCompile Include="RGB.cpp">
       <Filter>Source Files\Data Container</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="RGB.h">
       <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

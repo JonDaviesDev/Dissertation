@@ -36,9 +36,9 @@ private:
 #pragma region Constructors
 
 public:
-	Decoder(BMP* stegoImage);
+	Decoder(BMP* stegoImage, unsigned int flag);
 
-	Decoder(JPEG* stegoImage);
+	Decoder(JPEG* stegoImage, unsigned int flag);
 
 #pragma endregion
 
@@ -62,6 +62,8 @@ public:
 	char BinaryToChar(std::bitset<8> byte);
 
 	std::string ConstructMessage();
+
+	bool FlagChoice(unsigned int flag);
 
 #pragma endregion
 };

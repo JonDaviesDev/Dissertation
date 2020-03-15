@@ -3,18 +3,24 @@
 
 #pragma region Constructors
 
-Decoder::Decoder(BMP* stegoImage) : newTextFile(nullptr), messageBinary(4, 0)
+Decoder::Decoder(BMP* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(4, 0)
 {
-	RetrieveMessageLSB(stegoImage);
-	
+	if(FlagChoice(flag))
+	{
+		RetrieveMessageDTO(stegoImage);
+	}
+	else RetrieveMessageLSB(stegoImage);
+
 	decodedMessage = ConstructMessage();
 }
 
-Decoder::Decoder(JPEG* stegoImage) : newTextFile(nullptr), messageBinary(4, 0)
+Decoder::Decoder(JPEG* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(4, 0)
 {
-	//RetrieveMessageDTO(stegoImage);
-
-	RetrieveMessageLSB(stegoImage);
+	if(FlagChoice(flag))
+	{
+		RetrieveMessageDTO(stegoImage);
+	}
+	else RetrieveMessageLSB(stegoImage);
 
 	decodedMessage = ConstructMessage();
 }
@@ -146,6 +152,18 @@ std::string Decoder::ConstructMessage()
 	}
 
 	return message;
+}
+
+bool Decoder::FlagChoice(unsigned int flag)
+{
+	if(flag == 1)
+	{
+		return true;
+	}
+	else if(flag == 0)
+	{
+		return false;
+	}
 }
 
 #pragma endregion

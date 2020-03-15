@@ -9,6 +9,7 @@
 #include "JPEGReader.h"
 #include "JPEG.h"
 #include "Decoder.h"
+#include "Menu.h"
 
 #pragma endregion
 
@@ -38,47 +39,77 @@
 
 int main()
 {
-	//// CREATE A NEW BMP
-	BMPWriter imageCreator;
-
-	const char* imageNameDTO = "DTOTest1-Created.bmp";
-	const char* imageNameLSB = "LSBTest1-Created.bmp";
-
-	FileLoader stegoLoader("LSBTest1-Converted.jpg");
+	Menu menu;
 
 
-	imageCreator.CreateNewBMP(imageNameLSB, 32, 32, RGB(100, 200, 100));
+#pragma region LSB Tests
 
+	//const char* imageNameLSB = "LSBTest1-Created.bmp";
 
+	////// CREATE A NEW BMP
+	//BMPWriter imageCreator;
 
+	//FileLoader stegoLoader("LSBTest1-Created.bmp");
 
-	// READ THE MESSAGE AND IMAGE
-	FileLoader message(VIVA);
-
-	FileLoader coverImage(imageNameLSB);
+	//imageCreator.CreateNewBMP(imageNameLSB, 32, 32, RGB(100, 200, 100));
 
 
 
+	//// READ THE MESSAGE AND IMAGE
+	//FileLoader message(VIVA);
 
-	// EMBED THE IMAGE AND PROVIDE FILENAME
-	Stego stegoImage(&coverImage, &message, "LSBTest1-Embedded.bmp");
+	//FileLoader coverImage(imageNameLSB);
 
 
 
-	// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO BMP OBJECT
-	FileLoader stegoLoader(JPEGTEST);
+	//// EMBED THE IMAGE AND PROVIDE NEW FILENAME
+	//Stego stegoImage(&coverImage, &message, "LSBTest1-Embedded.bmp");
+
+#pragma endregion
+
+
+#pragma region DTO Tests
+
+	//const char* imageNameDTO = "DTOTest1-Created.bmp";
+
+	////// CREATE A NEW BMP
+	//BMPWriter imageCreator;
+
+	//FileLoader stegoLoader("DTOTest1-Created.bmp");
+
+	//imageCreator.CreateNewBMP(imageNameDTO, 32, 32, RGB(100, 200, 100));
+
+
+
+	//// READ THE MESSAGE AND IMAGE
+	//FileLoader message(VIVA);
+
+	//FileLoader coverImage(imageNameDTO);
+
+
+
+	//// EMBED THE IMAGE AND PROVIDE NEW FILENAME
+	//Stego stegoImage(&coverImage, &message, "DTOTest1-Embedded.bmp");
+
+#pragma endregion
+
+
+#pragma region JPEG Creation
+
+	//// LOAD NEW IMAGE FROM DIRECTORY AND SAVE INTO JPEG OBJECT
+	//FileLoader stegoLoader(JPEGTEST);
 
 	//JPEGReader jpr(&stegoLoader);
 
 	//JPEG jpg(&jpr);
 
-	////BMP newBMPVIVA(&stegoLoader);
-
-	//Decoder d(&jpg);
+#pragma endregion
 
 
-	// PRINT NEW IMAGES PIXEL VALUES
-	//newBMPVIVA.PrintPixels();
+
+	// Second arguement is a flag to decide on using the DTO (1) or LSB (0) methods
+	//Decoder d(&jpg, 1);
+
 
 	return 0;
 }

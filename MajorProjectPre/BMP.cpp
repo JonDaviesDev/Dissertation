@@ -64,8 +64,6 @@ void BMP::ReadPixels()
 
 	int k = 0;
 
-	std::cout << "BMP - " << this->GetFileHeader()->GetFileName() << " cRGB values are:" << std::endl;
-
 	// TO DO ////////////////////////////////////////////////////////////////
 	// 
 	// This function isnt reading the data in the correct order.
