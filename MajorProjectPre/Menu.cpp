@@ -149,13 +149,13 @@ void Menu::MapChoice(unsigned int userChoice)
 	{
 		ClearScreen();
 
-		JPEGio jpegHandler;
-
 		if (currentUserFilePath != "")
 		{
 			FileLoader fl(currentUserFilePath.c_str());
 
 			BMP bmp(&fl);
+
+			JPEGio jpegHandler(&fl);
 
 			jpegHandler.BMPtoJPEG(&bmp);
 		}

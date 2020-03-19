@@ -30,7 +30,8 @@ void JPEGio::ReadPixels()
 {
 	int width, height, channels;
 
-	stbi_set_flip_vertically_on_load(true);
+	// do NOT vertically flip the image (keep it in the same orientation that the bmp was created, bottom to top)
+	stbi_set_flip_vertically_on_load(false);
 
 	unsigned char* arr = stbi_load(this->file->GetFileName(), &width, &height, &channels, STBI_rgb);
 	Vec3i dimensions = {width, height, channels};
@@ -58,13 +59,15 @@ void JPEGio::WriteJPEG(std::string name, int width, int height, int channels, Pi
 	unsigned char* pixelData = new unsigned char[width * height * channels];
 
 	int k = 0;
+	int l = 0;
 
-	for (int i = width * height; i != 0; i--)
+	for (int i = width * height; i != 0; --i)
 	{
-		pixelData[k] = *pixels->GetRed(i);
-		pixelData[k + 1] = *pixels->GetGreen(i);
-		pixelData[k + 2] = *pixels->GetBlue(i);
+		pixelData[k] = *pixels->GetRed(l);
+		pixelData[k + 1] = *pixels->GetGreen(l);
+		pixelData[k + 2] = *pixels->GetBlue(l);
 
+		l++;
 		k += 3;
 	}
 
