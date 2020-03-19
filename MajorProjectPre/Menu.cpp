@@ -158,6 +158,8 @@ void Menu::MapChoice(unsigned int userChoice)
 			JPEGio jpegHandler(&fl);
 
 			jpegHandler.BMPtoJPEG(&bmp);
+
+			InitialSelection();
 		}
 		else
 		{
@@ -183,10 +185,7 @@ void Menu::MapChoice(unsigned int userChoice)
 
 		JPEG jpeg(&jpegreader);
 
-
-		// CANNOT READ PIXEL ARRAY FROM JPEG
-
-		Decoder d(&jpeg, 1);
+		Decoder d(&jpeg, 0, 43);
 
 		break;
 	}

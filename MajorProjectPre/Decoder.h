@@ -40,6 +40,8 @@ public:
 
 	Decoder(JPEG* stegoImage, unsigned int flag);
 
+	Decoder(JPEG* stegoImage, unsigned int flag, int messageSize); // Constructor for testing
+
 #pragma endregion
 
 #pragma region Properties
@@ -55,9 +57,13 @@ public:
 
 	void RetrieveMessageDTO(JPEG* image);
 
+	void RetrieveMessageDTOTesting(JPEG* image, int messageSize);
+
 	void RetrieveMessageLSB(BMP* image);
 
 	void RetrieveMessageLSB(JPEG* image);
+
+	void RetrieveMessageLSBTesting(JPEG* image, int messageSize);
 
 	char BinaryToChar(std::bitset<8> byte);
 

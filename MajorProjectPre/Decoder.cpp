@@ -3,7 +3,7 @@
 
 #pragma region Constructors
 
-Decoder::Decoder(BMP* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(4, 0)
+Decoder::Decoder(BMP* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(43, 0)
 {
 	if(FlagChoice(flag))
 	{
@@ -14,13 +14,24 @@ Decoder::Decoder(BMP* stegoImage, unsigned int flag) : newTextFile(nullptr), mes
 	decodedMessage = ConstructMessage();
 }
 
-Decoder::Decoder(JPEG* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(4, 0)
+Decoder::Decoder(JPEG* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(43, 0)
 {
 	if(FlagChoice(flag))
 	{
 		RetrieveMessageDTO(stegoImage);
 	}
 	else RetrieveMessageLSB(stegoImage);
+
+	decodedMessage = ConstructMessage();
+}
+
+Decoder::Decoder(JPEG* stegoImage, unsigned int flag, int messageSize) : newTextFile(nullptr), messageBinary(messageSize, 0)
+{
+	if (FlagChoice(flag))
+	{
+		RetrieveMessageDTOTesting(stegoImage, messageSize);
+	}
+	else RetrieveMessageLSBTesting(stegoImage, messageSize);
 
 	decodedMessage = ConstructMessage();
 }
@@ -65,8 +76,10 @@ void Decoder::RetrieveMessageDTO(JPEG* image)
 
 	unsigned char* temp = image->GetPixelList()->GetPixelArray();
 
-	for(int i = 0; i < 4; i++)
+	// for each character in the message
+	for(int i = 0; i < 43; i++)
 	{
+		// for each bit that makes up that character
 		for(int j = 0; j < 8; j++)
 		{
 			RGB element(temp, k);
@@ -83,6 +96,36 @@ void Decoder::RetrieveMessageDTO(JPEG* image)
 			}
 
 			k+=3;
+		}
+	}
+}
+
+void Decoder::RetrieveMessageDTOTesting(JPEG* image, int messageSize)
+{
+	int k = 0;
+
+	unsigned char* temp = image->GetPixelList()->GetPixelArray();
+
+	// for each character in the message
+	for (int i = 0; i < messageSize; i++)
+	{
+		// for each bit that makes up that character
+		for (int j = 0; j < 8; j++)
+		{
+			RGB element(temp, k);
+
+			int remainder = RoundToInt(FindLength(element));
+
+			if (DetermineSegment(FindModulus(remainder, 42), 42) == 0)
+			{
+				messageBinary[i][j] = 0;
+			}
+			else
+			{
+				messageBinary[i][j] = 1;
+			}
+
+			k += 3;
 		}
 	}
 }
@@ -133,6 +176,30 @@ void Decoder::RetrieveMessageLSB(JPEG* image)
 			}
 
 			k+=3;
+		}
+	}
+}
+
+void Decoder::RetrieveMessageLSBTesting(JPEG* image, int messageSize)
+{
+	int k = 0;
+
+	for (int i = 0; i < messageSize; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			int tempRed = (int)image->GetPixelList()->GetPixelArray()[k];
+
+			if (tempRed % 2 == 0)
+			{
+				messageBinary[i][j] = 0;
+			}
+			else
+			{
+				messageBinary[i][j] = 1;
+			}
+
+			k += 3;
 		}
 	}
 }
