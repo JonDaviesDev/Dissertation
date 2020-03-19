@@ -7,6 +7,10 @@ Stego::Stego(){}
 Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName)
 	: bmp(coverBMP), text(textFile), stegoFileName(newFileName)
 {
+	informationContainer = PackData(text.GetBuffer().size() * 8, 42);
+
+	
+
 	int k = 0;
 
 	CreatePixelListCopy();
@@ -15,17 +19,17 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 
 	BitNumber();
 
-	//for(int i = 0; i < binaryList.size(); i++)
-	//{
-	//	for(int j = 0; j < binaryList[i].size(); j++)
-	//	{
-	//		DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+	for(int i = 0; i < binaryList.size(); i++)
+	{
+		for(int j = 0; j < binaryList[i].size(); j++)
+		{
+			DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
 
-	//		k++;
-	//	}
-	//}
+			k++;
+		}
+	}
 
-	LSB();
+	//LSB();
 
 	ModifyBMP(&bmp, newFileName);
 }
@@ -285,6 +289,11 @@ Vec3f Stego::NormaliseDistance(int distance, RGB value)
 Vec3f Stego::ScaleVector(Vec3f normalised, int newDistance)
 {
 	return Vec3f(normalised.GetValues() * newDistance);
+}
+
+uint32_t Stego::PackData(uint8_t pixelsToRead, uint8_t modValue)
+{
+	return (pixelsToRead << 8) | modValue;
 }
 
 #pragma endregion

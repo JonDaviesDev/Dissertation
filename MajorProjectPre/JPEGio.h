@@ -3,9 +3,11 @@
 #include "PixelContainer.h"
 #include "FileLoader.h"
 #include "Vec3i.h"
+#include "BMP.h"
+#include <filesystem>
 
 
-class JPEGReader
+class JPEGio
 {
 #pragma region Attributes
 
@@ -19,7 +21,9 @@ private:
 #pragma region Constructors
 
 public:
-	JPEGReader(FileLoader* file);
+	JPEGio();
+
+	JPEGio(FileLoader* file);
 
 #pragma endregion
 
@@ -36,6 +40,12 @@ public:
 	void ReadPixels();
 
 	PixelContainer CopyPixelsToContainer(std::pair<unsigned char*, Vec3i> pixelArray);
+
+	void WriteJPEG(std::string name, int width, int height, int channels, PixelContainer* pixels, int quality);
+
+	void BMPtoJPEG(BMP* bmp);
+
+	std::string ChangeExtension(const char* fileName, const char* newExtension);
 
 #pragma endregion
 };

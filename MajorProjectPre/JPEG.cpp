@@ -3,7 +3,7 @@
 
 #pragma region Constructors
 
-JPEG::JPEG(JPEGReader* jpReader)
+JPEG::JPEG(JPEGio* jpReader)
 {
 	Vec3i temp = jpReader->GetImageData()->second;
 

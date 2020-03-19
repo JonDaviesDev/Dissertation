@@ -29,7 +29,7 @@ PixelContainer::PixelContainer(int width, int height, int channels, bool arraySe
 	}
 }
 
-PixelContainer::PixelContainer(int width, int height) : width(width), height(height), pixelArray(nullptr)
+PixelContainer::PixelContainer(int width, int height) : width(width), height(height), channels(3)
 {
 	int size = width * height;
 

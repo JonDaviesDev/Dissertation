@@ -7,6 +7,11 @@ Menu::Menu()
 {
 	currentUserFile = "";
 
+	imageSamplePathBMP = "C:\\GitHub\\MajorProject\\ImageSamples\\BMP";
+	imageSamplePathJPEG = "C:\\GitHub\\MajorProject\\ImageSamples\\JPEG";
+	projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre";
+	messagePath = "C:\\GitHub\\MajorProject\\MessageSamples";
+
 	StartUpMessage();
 
 	InitialSelection();
@@ -50,7 +55,8 @@ void Menu::InitialSelection()
 	std::cout << "1 - Create a new BMP" << std::endl;
 	std::cout << "2 - Import an existing BMP" << std::endl;
 	std::cout << "3 - Embed a message into a BMP" << std::endl;
-	std::cout << "4 - Extract a message from a JPEG" << std::endl;
+	std::cout << "4 - Convert a BMP into a JPEG" << std::endl;
+	std::cout << "5 - Extract a message from a JPEG" << std::endl;
 
 	std::cin >> userChoice;
 
@@ -89,7 +95,8 @@ void Menu::MapChoice(unsigned int userChoice)
 
 		ClearScreen();
 
-		SearchFiles();
+		SearchFilesByExtension(imageSamplePathBMP, filePathList, ".bmp", ".BMP");
+		SearchFilesByExtension(projectDirectory, filePathList, ".bmp", ".BMP");
 
 		ListFiles();
 
@@ -120,20 +127,69 @@ void Menu::MapChoice(unsigned int userChoice)
 
 			FileLoader imageLoader(currentUserFilePath.c_str());
 
-			Stego stegoImage(&imageLoader, &messageLoader, NewFileName().c_str());
+			std::string newFileName = NewFileName();
+
+			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str());
+
+			filePathList.push_back(std::pair(projectDirectory + "\\", newFileName));
+
+			currentUserFile = newFileName;
+			currentUserFilePath = projectDirectory + "\\" + newFileName;
 
 			ClearScreen();
 
-			std::cout << std::endl << "Message: " << currentUserMessage << " successfully embedded into "
+			std::cout << std::endl << "Message: " << "'" << currentUserMessage << "'" << " successfully embedded into "
 				<< "'" << currentUserFile << "'" << std::endl;
 
 			InitialSelection();
 		}
 
 		break;
-	case Action::DECODEJPEG:
+	case Action::CONVERT:
+	{
+		ClearScreen();
+
+		JPEGio jpegHandler;
+
+		if (currentUserFilePath != "")
+		{
+			FileLoader fl(currentUserFilePath.c_str());
+
+			BMP bmp(&fl);
+
+			jpegHandler.BMPtoJPEG(&bmp);
+		}
+		else
+		{
+			std::cout << "You must first import a BMP file from the main menu." << std::endl;
+
+			InitialSelection();
+		}
 
 		break;
+	}
+	case Action::DECODEJPEG:
+	{
+		ClearScreen();
+
+		SearchFilesByExtension(imageSamplePathJPEG, filePathList, ".jpg");
+		SearchFilesByExtension(projectDirectory, filePathList, ".jpg");
+
+		ListFiles();
+
+		FileLoader fl(currentUserFilePath.c_str());
+
+		JPEGio jpegreader(&fl);
+
+		JPEG jpeg(&jpegreader);
+
+
+		// CANNOT READ PIXEL ARRAY FROM JPEG
+
+		Decoder d(&jpeg, 1);
+
+		break;
+	}
 	}
 }
 
@@ -142,7 +198,7 @@ void Menu::Create()
 	std::string newFileName;
 	unsigned int height, width, r, g, b;
 
-	std::cout << "Enter name for new file: " << std::endl;
+	std::cout << "Enter name for new file (include .bmp file extention): " << std::endl;
 	std::cin >> newFileName;
 
 	std::cout << "Enter height for new image: " << std::endl;
@@ -163,32 +219,31 @@ void Menu::Create()
 	std::cout << "Image created" << std::endl;
 }
 
-void Menu::SearchFiles()
+bool Menu::SearchExtension(std::filesystem::directory_entry file, std::string extension)
 {
-	std::string imageSamplePath = "C:\\GitHub\\MajorProject\\ImageSamples\\BMP";
-	std::string projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre";
+	// if the extension of the current file matches the argument return true, else return false
+	return std::filesystem::path(file).extension() == extension;
+}
 
-	int fileCount = 0;
-
-	for (const auto& file : std::filesystem::directory_iterator(imageSamplePath))
+template<class T> void Menu::SearchFilesByExtension(std::string path, std::vector<std::pair<std::string, std::string>>& container, T extension)
+{
+	// Iterate through all files in a specified directory
+	for (const auto& file : std::filesystem::directory_iterator(path))
 	{
-		if (std::filesystem::path(file).extension() == ".bmp" || std::filesystem::path(file).extension() == ".BMP")
+		// If the extension of the current file matches an argument from list of arguments, step in
+		if (SearchExtension(file, extension))
 		{
-			filePathList.push_back(std::pair<std::string, std::string>(std::filesystem::path(file).string(), std::filesystem::path(file).filename().string()));
-
-			fileCount++;
+			// Add both the file path and the file name to the vector in the form of a pair
+			container.push_back(std::pair<std::string, std::string>(std::filesystem::path(file).string(), std::filesystem::path(file).filename().string()));
 		}
 	}
+}
 
-	for (const auto& file : std::filesystem::directory_iterator(projectDirectory))
-	{
-		if (std::filesystem::path(file).extension() == ".bmp" || std::filesystem::path(file).extension() == ".BMP")
-		{
-			filePathList.push_back(std::pair<std::string, std::string>(std::filesystem::path(file).string(), std::filesystem::path(file).filename().string()));
+template<class T, class... Ts> void Menu::SearchFilesByExtension(std::string path, std::vector<std::pair<std::string, std::string>>& paths, T extension, Ts... extensions)
+{
+	SearchFilesByExtension(path, paths, extension);
 
-			fileCount++;
-		}
-	}
+	SearchFilesByExtension(path, paths, extensions...);
 }
 
 void Menu::ListFiles()
@@ -244,15 +299,8 @@ unsigned int Menu::MessageMenu()
 	{
 	case 1:
 	{
-		std::string messagePath = "C:\\GitHub\\MajorProject\\MessageSamples";
-
-		for (const auto& file : std::filesystem::directory_iterator(messagePath))
-		{
-			if (std::filesystem::path(file).extension() == ".txt" || std::filesystem::path(file).extension() == ".TXT")
-			{
-				messagePathList.push_back(std::pair<std::string, std::string>(std::filesystem::path(file).string(), std::filesystem::path(file).filename().string()));
-			}
-		}
+		SearchFilesByExtension(messagePath, messagePathList, ".txt", ".TXT");
+		SearchFilesByExtension(projectDirectory, messagePathList, ".txt", ".TXT");
 
 		ListMessages();
 

@@ -7,6 +7,7 @@
 
 #include "BMPWriter.h"
 #include "Stego.h"
+#include "Decoder.h"
 
 enum class Method
 {
@@ -20,7 +21,7 @@ enum class Image
 
 enum class Action
 {
-	CREATE = 1, IMPORT, EMBED, DECODEJPEG
+	CREATE = 1, IMPORT, EMBED, CONVERT, DECODEJPEG
 };
 
 class Menu
@@ -37,6 +38,14 @@ private:
 	std::string currentUserMessage;
 
 	std::string currentUserMessagePath;
+
+	std::string imageSamplePathBMP;
+
+	std::string imageSamplePathJPEG;
+
+	std::string messagePath;
+
+	std::string projectDirectory;
 
 	std::vector<std::pair<std::string, std::string>> filePathList;
 
@@ -70,7 +79,11 @@ public:
 
 	void Create();
 
-	void SearchFiles();
+	bool SearchExtension(std::filesystem::directory_entry file, std::string extension);
+
+	template<class T> void SearchFilesByExtension(std::string path, std::vector<std::pair<std::string, std::string>>& container, T extension);
+
+	template<class T, class... Ts> void SearchFilesByExtension(std::string path, std::vector<std::pair<std::string, std::string>>& paths, T extension, Ts... extensions);
 
 	void ListFiles();
 

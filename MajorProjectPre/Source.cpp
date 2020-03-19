@@ -6,40 +6,22 @@
 #include "FileLoader.h"
 #include "BMPWriter.h"
 #include "Stego.h"
-#include "JPEGReader.h"
+#include "JPEGio.h"
 #include "JPEG.h"
 #include "Decoder.h"
 #include "Menu.h"
 
 #pragma endregion
 
-#pragma region Defines
-
-
-
-// Images - BMP
-#define STRIPESPATH "C:\\GitHub\\MajorProject\\ImageSamples\\stripes.bmp"
-#define TESTPATH "C:\\GitHub\\MajorProject\\ImageSamples\\BMP\\DTOTest.bmp"
-#define LENAPATH "C:\\GitHub\\MajorProject\\ImageSamples\\lena.bmp"
-#define REDSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\RedSquare.bmp"
-#define GREENSQUARE "C:\\GitHub\\MajorProject\\ImageSamples\\GreenSquare.bmp"
-#define BITWISETEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\bitTest.bmp"
-#define LSBTEST "C:\\GitHub\\MajorProject\\MajorProjectPre\\LSBtest2.bmp"
-#define VIVABMP "C:\\GitHub\\MajorProject\\MajorProjectPre\\vivaBMP.bmp"
-
-// Images - JPEG
-#define JPEGTEST "C:\\GitHub\\MajorProject\\ImageSamples\\JPEG\\DTOTest1-Converted-Medium.jpg"
-
-// Text
-#define VIVA "C:\\GitHub\\MajorProject\\MessageSamples\\viva.txt"
-
-#pragma endregion
 
 #pragma endregion
 
 int main()
 {
 	Menu menu;
+
+	// NEED TO FIGURE OUT A WAY OF SENDING OVER THE NUMBER OF PIXELS TO DECODE
+
 
 
 #pragma region LSB Tests

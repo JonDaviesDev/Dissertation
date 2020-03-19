@@ -1,6 +1,6 @@
 #pragma once
 #include "PixelContainer.h"
-#include "JPEGReader.h"
+#include "JPEGio.h"
 
 class JPEG
 {
@@ -14,7 +14,7 @@ private:
 #pragma region Constructors
 
 public:
-	JPEG(JPEGReader* jpReader);
+	JPEG(JPEGio* jpReader);
 
 #pragma endregion
 

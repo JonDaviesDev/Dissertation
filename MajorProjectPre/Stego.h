@@ -35,6 +35,8 @@ class Stego : public BMPUtility, public StegoMath
 private:
 	const char* stegoFileName;
 
+	unsigned int informationContainer;
+
 	BMPWriter writer;
 
 	BMP bmp;
@@ -88,6 +90,7 @@ public:
 
 	void ModifyBMP(BMP* bmp, const char* newFileName);
 
+	uint32_t PackData(uint8_t pixelsToRead, uint8_t modValue);
 
 	/*---------------- Distance to Origin Utility Functions ----------------*/
 

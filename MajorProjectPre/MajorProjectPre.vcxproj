@@ -145,7 +145,7 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="JPEG.cpp" />
-    <ClCompile Include="JPEGReader.cpp" />
+    <ClCompile Include="JPEGio.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="PixelContainer.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="JPEG.h" />
-    <ClInclude Include="JPEGReader.h" />
+    <ClInclude Include="JPEGio.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="PixelContainer.h" />
