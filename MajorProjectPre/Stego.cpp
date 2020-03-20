@@ -4,12 +4,10 @@
 
 Stego::Stego(){}
 
-Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName)
+Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO)
 	: bmp(coverBMP), text(textFile), stegoFileName(newFileName)
 {
 	informationContainer = PackData(text.GetBuffer().size() * 8, 42);
-
-	
 
 	int k = 0;
 
@@ -19,17 +17,63 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 
 	BitNumber();
 
-	for(int i = 0; i < binaryList.size(); i++)
+	if (LSBorDTO == 1)
 	{
-		for(int j = 0; j < binaryList[i].size(); j++)
+		for (int i = 0; i < binaryList.size(); i++)
 		{
-			DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+			for (int j = 0; j < binaryList[i].size(); j++)
+			{
+				DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
 
-			k++;
+				k++;
+			}
 		}
 	}
+	else if (LSBorDTO == 0)
+	{
+		LSB();
+	}
+	else
+	{
+		exit(-1);
+	}
+	
+	ModifyBMP(&bmp, newFileName);
+}
 
-	//LSB();
+Stego::Stego(BMP* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO)
+	: bmp(*coverBMP), text(*text), stegoFileName(newFileName)
+{
+	informationContainer = PackData(text->size() * 8, 42);
+
+	int k = 0;
+
+	CreatePixelListCopy();
+
+	CreateBinaryList(*text);
+
+	BitNumber();
+
+	if (LSBorDTO == 1)
+	{
+		for (int i = 0; i < binaryList.size(); i++)
+		{
+			for (int j = 0; j < binaryList[i].size(); j++)
+			{
+				DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+
+				k++;
+			}
+		}
+	}
+	else if (LSBorDTO == 0)
+	{
+		LSB();
+	}
+	else
+	{
+		exit(-1);
+	}
 
 	ModifyBMP(&bmp, newFileName);
 }
@@ -60,6 +104,8 @@ int Stego::GetBinaryListSize()
 
 const char* Stego::GetStegoFileName() { return stegoFileName; }
 
+TextBuffer Stego::GetTextBuffer() { return text; }
+
 #pragma endregion
 
 #pragma endregion
@@ -80,6 +126,16 @@ void Stego::CreateBinaryList(TextBuffer buffer)
 	{
 		// Covert it to binary and add to list
 		binaryList.push_back(CharToBinary(buffer.GetBuffer()[i]));
+	}
+}
+
+void Stego::CreateBinaryList(std::string buffer)
+{
+	// for every element inside the text buffer
+	for (int i = 0; i < buffer.size(); i++)
+	{
+		// Covert it to binary and add to list
+		binaryList.push_back(CharToBinary(buffer[i]));
 	}
 }
 

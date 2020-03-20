@@ -12,6 +12,11 @@ TextBuffer::TextBuffer(FileLoader* textFile)
 	ReadFile(textFile);
 }
 
+TextBuffer::TextBuffer(std::string str)
+{
+	ConvertString(str);
+}
+
 #pragma endregion
 
 #pragma region Properties
@@ -35,6 +40,12 @@ void TextBuffer::ReadFile(FileLoader* textFile)
 		
 }
 
-
+void TextBuffer::ConvertString(std::string str)
+{
+	for (int i = 0; i < str.size(); i++)
+	{
+		buffer.push_back(str[i]);
+	}
+}
 
 #pragma endregion

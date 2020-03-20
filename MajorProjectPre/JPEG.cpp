@@ -5,9 +5,9 @@
 
 JPEG::JPEG(JPEGio* jpReader)
 {
-	Vec3i temp = jpReader->GetImageData()->second;
+	imageData = jpReader->GetImageData()->second;
 
-	pixelList = new PixelContainer(temp.GetX(), temp.GetY(), temp.GetZ(), true);
+	pixelList = new PixelContainer(imageData.GetX(), imageData.GetY(), imageData.GetZ(), true);
 	
 	pixelList->SetArray(jpReader->GetImageData()->first);
 }
@@ -17,6 +17,8 @@ JPEG::JPEG(JPEGio* jpReader)
 #pragma region Properties
 
 PixelContainer* JPEG::GetPixelList() { return pixelList; }
+
+Vec3i JPEG::GetImageData() { return imageData; }
 
 #pragma endregion
 

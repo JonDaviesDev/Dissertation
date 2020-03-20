@@ -9,6 +9,8 @@ class JPEG
 private:
 	PixelContainer* pixelList;
 
+	Vec3i imageData;
+
 #pragma endregion
 
 #pragma region Constructors
@@ -22,6 +24,8 @@ public:
 
 public:
 	PixelContainer* GetPixelList();
+
+	Vec3i GetImageData();
 
 #pragma endregion
 

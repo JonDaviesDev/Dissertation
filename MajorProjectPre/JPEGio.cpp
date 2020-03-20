@@ -16,6 +16,11 @@ JPEGio::JPEGio(FileLoader* file) : file(file), imageData(nullptr)
 	ReadPixels();
 }
 
+JPEGio::JPEGio(BMP* bmp)
+{
+	BMPtoJPEG(bmp);
+}
+
 #pragma endregion
 
 #pragma region Properties
@@ -81,6 +86,9 @@ void JPEGio::BMPtoJPEG(BMP* bmp)
 	std::string f = ChangeExtension(bmp->GetFileHeader()->GetFileName(), "jpg");
 
 	WriteJPEG(f, bmp->GetWidth(), bmp->GetHeight(), bmp->GetColourSpace(), bmp->GetPixelContainer(), 100);
+
+	this->imageData->first = (unsigned char*)f.c_str();
+	this->imageData->second = Vec3i(bmp->GetWidth(), bmp->GetHeight(), bmp->GetColourSpace());
 }
 
 std::string JPEGio::ChangeExtension(const char* fileName, const char* newExtension)

@@ -25,6 +25,8 @@ public:
 
 	JPEGio(FileLoader* file);
 
+	JPEGio(BMP* bmp);
+
 #pragma endregion
 
 #pragma region Properties

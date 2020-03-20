@@ -54,7 +54,9 @@ private:
 public:
 	Stego();
 
-	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName);
+	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO);
+
+	Stego(BMP* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO);
 
 #pragma endregion
 
@@ -71,6 +73,8 @@ public:
 
 	const char* GetStegoFileName();
 
+	TextBuffer GetTextBuffer();
+
 #pragma endregion
 
 #pragma endregion
@@ -84,6 +88,8 @@ public:
 
 	void CreateBinaryList(TextBuffer buffer);
 
+	void CreateBinaryList(std::string buffer);
+
 	void BitNumber();
 
 	void LSB();
@@ -92,7 +98,9 @@ public:
 
 	uint32_t PackData(uint8_t pixelsToRead, uint8_t modValue);
 
-	/*---------------- Distance to Origin Utility Functions ----------------*/
+
+
+
 
 	// return value and argument value are temporary just for testing
 	void DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit);

@@ -47,6 +47,7 @@ public:
 #pragma region Properties
 
 public:
+	std::string GetDecodedMessage();
 
 #pragma endregion
 

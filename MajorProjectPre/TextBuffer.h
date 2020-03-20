@@ -18,6 +18,8 @@ public:
 
 	TextBuffer(FileLoader* textFile);
 
+	TextBuffer(std::string str);
+
 #pragma endregion
 
 #pragma region Properties
@@ -31,6 +33,8 @@ public:
 
 public:
 	void ReadFile(FileLoader* textFile);
+
+	void ConvertString(std::string str);
 
 #pragma endregion
 };

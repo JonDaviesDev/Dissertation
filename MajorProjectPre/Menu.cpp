@@ -7,6 +7,8 @@ Menu::Menu()
 {
 	currentUserFile = "";
 
+	messageSize = 0;
+
 	imageSamplePathBMP = "C:\\GitHub\\MajorProject\\ImageSamples\\BMP";
 	imageSamplePathJPEG = "C:\\GitHub\\MajorProject\\ImageSamples\\JPEG";
 	projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre";
@@ -129,7 +131,9 @@ void Menu::MapChoice(unsigned int userChoice)
 
 			std::string newFileName = NewFileName();
 
-			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str());
+			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodSelection(MethodMenu()));
+
+			messageSize = stegoImage.GetTextBuffer().GetBuffer().size();
 
 			filePathList.push_back(std::pair(projectDirectory + "\\", newFileName));
 
@@ -185,7 +189,9 @@ void Menu::MapChoice(unsigned int userChoice)
 
 		JPEG jpeg(&jpegreader);
 
-		Decoder d(&jpeg, 0, 43);
+		int method = MethodSelection(MethodMenu());
+
+		Decoder d(&jpeg, method, messageSize);
 
 		break;
 	}
@@ -339,6 +345,48 @@ std::string Menu::NewFileName()
 	std::cin >> fileName;
 
 	return fileName;
+}
+
+int Menu::MethodMenu()
+{
+	int userChoice = 0;
+
+	std::cout << "Select which steganographic method you would like to use:" << std::endl << std::endl;
+
+	std::cout << "0 - Least Significant Bit" << std::endl;
+	std::cout << "1 - Distance-to-Origin" << std::endl;
+
+	std::cin >> userChoice;
+
+	ClearScreen();
+
+	return userChoice;
+}
+
+int Menu::MethodSelection(int userChoice)
+{
+	Method userMethod = static_cast<Method>(userChoice);
+
+	switch (userMethod)
+	{
+	case Method::DTO:
+
+		return 1;
+
+		break;
+	case Method::LSB:
+
+		return 0;
+
+		break;
+	default:
+
+		std::cout << "Please select a valid option" << std::endl << std::endl;
+
+		MethodMenu();
+
+		break;
+	}
 }
 
 #pragma endregion

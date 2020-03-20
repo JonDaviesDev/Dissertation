@@ -40,6 +40,8 @@ Decoder::Decoder(JPEG* stegoImage, unsigned int flag, int messageSize) : newText
 
 #pragma region Properties
 
+std::string Decoder::GetDecodedMessage() { return decodedMessage; }
+
 #pragma endregion
 
 #pragma region Methods

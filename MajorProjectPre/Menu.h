@@ -11,7 +11,7 @@
 
 enum class Method
 {
-	DTO, LSB
+	LSB, DTO
 };
 
 enum class Image
@@ -50,6 +50,8 @@ private:
 	std::vector<std::pair<std::string, std::string>> filePathList;
 
 	std::vector<std::pair<std::string, std::string>> messagePathList;
+
+	int messageSize;
 
 #pragma endregion
 
@@ -92,6 +94,10 @@ public:
 	unsigned int MessageMenu();
 
 	std::string NewFileName();
+
+	int MethodMenu();
+
+	int MethodSelection(int userChoice);
 
 #pragma endregion
 };
