@@ -51,9 +51,7 @@ void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB co
 		pixelContainer.SetBlue((unsigned char)colour.GetBlue(), i);
 	}
 
-	GenerateImageData(fileObject ,pixelContainer, height, width, fileName);
-
-	std::cout << "Image generated" << std::endl;
+	GenerateImageData(fileObject, pixelContainer, height, width, fileName);
 }
 
 void BMPWriter::CloneBMP(BMP* bmp, const char* newFileName)

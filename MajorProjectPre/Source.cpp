@@ -19,7 +19,9 @@
 
 int main()
 {
-	Test g;
+	Test tester(100, 100);
+
+
 
 
 	//Menu menu;

@@ -11,6 +11,19 @@ Vec3i::Vec3i(int x, int y, int z) : x(x), y(y), z(z) {}
 
 #pragma region Properties
 
+void Vec3i::SetValues(Vec3i values)
+{
+	this->x = values.x;
+	this->y = values.y;
+	this->z = values.z;
+}
+
+void Vec3i::SetX(int x) { this->x = x; }
+
+void Vec3i::SetY(int y) { this->y = y; }
+
+void Vec3i::SetZ(int z) { this->z = z; }
+
 Vec3i Vec3i::GetValues() { return {x, y, z}; }
 
 int Vec3i::GetX() { return x; }

@@ -19,6 +19,8 @@ public:
 
 	FileLoader(FILE* file);
 
+	FileLoader(FILE* file, const char* fileName);
+
 #pragma endregion
 
 #pragma region Properties

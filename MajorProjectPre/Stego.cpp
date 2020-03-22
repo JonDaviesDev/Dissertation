@@ -41,10 +41,10 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 	ModifyBMP(&bmp, newFileName);
 }
 
-Stego::Stego(BMP* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO)
-	: bmp(*coverBMP), text(*text), stegoFileName(newFileName)
+Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO)
+	: bmp(coverBMP), text(*text), stegoFileName(newFileName)
 {
-	informationContainer = PackData(text->size() * 8, 42);
+	informationContainer = PackData(this->text.GetBuffer().size() * 8, 42);
 
 	int k = 0;
 

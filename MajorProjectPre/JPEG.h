@@ -7,6 +7,8 @@ class JPEG
 #pragma region Attributes
 
 private:
+	const char* fileName;
+
 	PixelContainer* pixelList;
 
 	Vec3i imageData;
@@ -18,6 +20,8 @@ private:
 public:
 	JPEG(JPEGio* jpReader);
 
+	JPEG(JPEGio jpReader, const char* fileName);
+
 #pragma endregion
 
 #pragma region Properties
@@ -26,6 +30,8 @@ public:
 	PixelContainer* GetPixelList();
 
 	Vec3i GetImageData();
+
+	const char* GetFileName();
 
 #pragma endregion
 

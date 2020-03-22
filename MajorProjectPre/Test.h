@@ -11,6 +11,7 @@
 #include "Decoder.h"
 #include "TextBuffer.h"
 #include "Stego.h"
+#include <fstream>
 
 
 // The testing constructors in the decoder allow for the size of the hidden message to be known
@@ -28,6 +29,12 @@ struct Dimension
 	Dimension(int x, int y) : x(x), y(y) {}
 
 	Dimension(Vec3i imageData) : x(imageData.GetX()), y(imageData.GetY()) {}
+
+	Dimension(const Dimension& external)
+	{
+		x = external.x;
+		y = external.y;
+	}
 };
 
 struct Result
@@ -42,7 +49,20 @@ struct Result
 
 
 	Result() : id(0), score(0), compressionLevel(0), dimensions(0, 0) {}
-	Result(float score, int compressionLevel, Dimension imageSize) {}
+	Result(int id, float score, int compressionLevel, Dimension imageSize) 
+	{
+		this->id = id;
+		this->score = score;
+		this->compressionLevel = compressionLevel;
+		this->dimensions = dimensions;
+	}
+	Result(const Result& external)
+	{
+		id = external.id;
+		score = external.score;
+		compressionLevel = external.compressionLevel;
+		dimensions = external.dimensions;
+	}
 };
 
 static struct Random
@@ -69,15 +89,20 @@ class Test
 #pragma region Attributes
 
 public:
+	Result currentResult;
+
 	std::vector<Result> results;
 
+	std::string currentFilePath;
+
+	std::string decodedMessage;
 
 #pragma endregion
 
 #pragma region Constructors
 
 public:
-	Test(int numberOfTests);
+	Test(int numberOfTests, int compressionRatio);
 
 #pragma endregion
 
@@ -90,20 +115,21 @@ public:
 #pragma region Methods
 
 public:
-	BMP* CreateNewBMP();
+	void CreateNewBMP();
 
-	std::string* CreateMessage();
+	std::string CreateMessage();
 
-	BMP* EmbedBMP(BMP* bmp, std::string* message);
+	void EmbedBMP(std::string* message);
 
-	JPEG* ConvertToJPEG(BMP* bmp);
+	JPEG ConvertToJPEG(int compressionLevel);
 	
 	float CompareResults(std::string originalMessage, std::string decodedMessage);
 
-	Result DecodeJPEG(JPEG* jpeg, int messageSize, std::string originalMessage);
+	void DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::string originalMessage);
 
-	void UpdateVector(Result result);
+	void UpdateVector();
 
+	void DeleteImage(std::string fileName);
 
 #pragma endregion
 };

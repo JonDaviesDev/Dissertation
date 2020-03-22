@@ -16,9 +16,24 @@ JPEGio::JPEGio(FileLoader* file) : file(file), imageData(nullptr)
 	ReadPixels();
 }
 
-JPEGio::JPEGio(BMP* bmp)
+JPEGio::JPEGio(BMP* bmp, int compressionLevel) : file(nullptr), imageData(nullptr)
 {
-	BMPtoJPEG(bmp);
+	ReadPixels();
+
+	BMPtoJPEG(bmp, compressionLevel);
+}
+
+JPEGio::JPEGio(BMP bmp, int compressionLevel)
+{
+	file = bmp.GetFileObject();
+
+	file->SetName(bmp.GetFileObject()->GetFileName());
+
+	fileName = bmp.GetFileObject()->GetFileName();
+
+	ReadPixels();
+
+	BMPtoJPEG(&bmp, compressionLevel);
 }
 
 #pragma endregion
@@ -26,6 +41,8 @@ JPEGio::JPEGio(BMP* bmp)
 #pragma region Properties
 
 std::pair<unsigned char*, Vec3i>* JPEGio::GetImageData() { return imageData; }
+
+const char* JPEGio::GetFileName() { return fileName; }
 
 #pragma endregion
 
@@ -59,7 +76,7 @@ PixelContainer JPEGio::CopyPixelsToContainer(std::pair<unsigned char*, Vec3i> pi
 	return pixelList;
 }
 
-void JPEGio::WriteJPEG(std::string name, int width, int height, int channels, PixelContainer* pixels, int quality)
+void JPEGio::WriteJPEG(const char* name, int width, int height, int channels, PixelContainer* pixels, int quality)
 {
 	unsigned char* pixelData = new unsigned char[width * height * channels];
 
@@ -76,19 +93,24 @@ void JPEGio::WriteJPEG(std::string name, int width, int height, int channels, Pi
 		k += 3;
 	}
 
-	stbi_write_jpg(name.c_str(), width, height, channels, pixelData, quality);
+	stbi_write_jpg(name, width, height, channels, pixelData, quality);
 
 	delete[] pixelData;
 }
 
-void JPEGio::BMPtoJPEG(BMP* bmp)
+void JPEGio::BMPtoJPEG(BMP* bmp, int compressionLevel)
 {
-	std::string f = ChangeExtension(bmp->GetFileHeader()->GetFileName(), "jpg");
+	std::string f = ChangeExtension(bmp->GetFileHeader()->GetFileName(), "jpg"); // test this
+	
+	const char* c = static_cast<const char*>(f.c_str());
 
-	WriteJPEG(f, bmp->GetWidth(), bmp->GetHeight(), bmp->GetColourSpace(), bmp->GetPixelContainer(), 100);
+	fileName = c;
 
-	this->imageData->first = (unsigned char*)f.c_str();
-	this->imageData->second = Vec3i(bmp->GetWidth(), bmp->GetHeight(), bmp->GetColourSpace());
+	WriteJPEG(fileName, bmp->GetWidth(), bmp->GetHeight(), bmp->GetColourSpace(), bmp->GetPixelContainer(), compressionLevel);
+
+	imageData->second.SetX(bmp->GetWidth());
+
+	imageData->second = Vec3i(bmp->GetWidth(), bmp->GetHeight(), bmp->GetColourSpace());
 }
 
 std::string JPEGio::ChangeExtension(const char* fileName, const char* newExtension)

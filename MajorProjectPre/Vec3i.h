@@ -21,6 +21,14 @@ public:
 #pragma region Properties
 
 public:
+	void SetValues(Vec3i values);
+
+	void SetX(int x);
+
+	void SetY(int y);
+
+	void SetZ(int z);
+
 	Vec3i GetValues();
 
 	int GetX();

@@ -5,11 +5,24 @@
 
 JPEG::JPEG(JPEGio* jpReader)
 {
+	fileName = jpReader->GetFileName();
+
 	imageData = jpReader->GetImageData()->second;
 
 	pixelList = new PixelContainer(imageData.GetX(), imageData.GetY(), imageData.GetZ(), true);
 	
 	pixelList->SetArray(jpReader->GetImageData()->first);
+}
+
+JPEG::JPEG(JPEGio jpReader, const char* fileName)
+{
+	this->fileName = fileName;
+
+	imageData = jpReader.GetImageData()->second;
+
+	pixelList = new PixelContainer(imageData.GetX(), imageData.GetY(), imageData.GetZ(), true);
+
+	pixelList->SetArray(jpReader.GetImageData()->first);
 }
 
 #pragma endregion
@@ -19,6 +32,8 @@ JPEG::JPEG(JPEGio* jpReader)
 PixelContainer* JPEG::GetPixelList() { return pixelList; }
 
 Vec3i JPEG::GetImageData() { return imageData; }
+
+const char* JPEG::GetFileName() { return fileName; }
 
 #pragma endregion
 

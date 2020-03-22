@@ -8,11 +8,18 @@ FileLoader::FileLoader() {}
 FileLoader::FileLoader(const char* fileName) : file(fileName) 
 {
 	file.SetFile(ErrorCheck(file.GetFile(), file.GetName(), "r"));
+
+	this->file.SetName(fileName);
 }
 
 FileLoader::FileLoader(FILE* file)
 {
 	this->file.SetFile(file);
+}
+
+FileLoader::FileLoader(FILE* file, const char* fileName)
+{
+	this->file.SetFile(ErrorCheck(file, fileName, "r"));
 }
 
 #pragma endregion

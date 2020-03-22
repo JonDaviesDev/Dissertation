@@ -161,7 +161,11 @@ void Menu::MapChoice(unsigned int userChoice)
 
 			JPEGio jpegHandler(&fl);
 
-			jpegHandler.BMPtoJPEG(&bmp);
+			int compressionLevel = 0;
+			std::cout << "Enter the level of compression required (0-100): " << std::endl;
+			std::cin >> compressionLevel;
+
+			jpegHandler.BMPtoJPEG(&bmp, compressionLevel);
 
 			InitialSelection();
 		}
@@ -220,8 +224,6 @@ void Menu::Create()
 	BMPWriter imageCreator;
 
 	imageCreator.CreateNewBMP(newFileName.c_str(), width, height, RGB(r, g, b));
-
-	std::cout << "Image created" << std::endl;
 }
 
 bool Menu::SearchExtension(std::filesystem::directory_entry file, std::string extension)

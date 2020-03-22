@@ -12,6 +12,8 @@ class JPEGio
 #pragma region Attributes
 
 private:
+	const char* fileName;
+
 	FileLoader* file;
 
 	std::pair<unsigned char*, Vec3i>* imageData;
@@ -25,7 +27,9 @@ public:
 
 	JPEGio(FileLoader* file);
 
-	JPEGio(BMP* bmp);
+	JPEGio(BMP* bmp, int compressionLevel);
+
+	JPEGio(BMP bmp, int compressionLevel);
 
 #pragma endregion
 
@@ -33,6 +37,8 @@ public:
 
 public:
 	std::pair<unsigned char*, Vec3i>* GetImageData();
+
+	const char* GetFileName();
 
 #pragma endregion
 
@@ -43,9 +49,9 @@ public:
 
 	PixelContainer CopyPixelsToContainer(std::pair<unsigned char*, Vec3i> pixelArray);
 
-	void WriteJPEG(std::string name, int width, int height, int channels, PixelContainer* pixels, int quality);
+	void WriteJPEG(const char* name, int width, int height, int channels, PixelContainer* pixels, int quality);
 
-	void BMPtoJPEG(BMP* bmp);
+	void BMPtoJPEG(BMP* bmp, int compressionLevel);
 
 	std::string ChangeExtension(const char* fileName, const char* newExtension);
 

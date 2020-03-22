@@ -56,7 +56,7 @@ public:
 
 	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO);
 
-	Stego(BMP* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO);
+	Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO);
 
 #pragma endregion
 
