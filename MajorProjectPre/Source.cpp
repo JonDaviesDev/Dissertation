@@ -19,9 +19,9 @@
 
 int main()
 {
-	Test tester(100, 100);
+	Test tester(10, 90);
 
-
+	std::cin.get();
 
 
 	//Menu menu;

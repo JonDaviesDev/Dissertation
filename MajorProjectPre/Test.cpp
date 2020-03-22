@@ -3,10 +3,8 @@
 
 #pragma region Constructors
 
-Test::Test(int numberOfTests, int compressionRatio)
+Test::Test(int numberOfTests, int compressionRatio, std::string customMessage)
 {
-
-
 	std::string projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre\\";
 
 	std::string fileName = "test.bmp";
@@ -26,23 +24,28 @@ Test::Test(int numberOfTests, int compressionRatio)
 
 		FileLoader imageFileLoader(fileName.c_str());
 
-		
 
-		// Create String
-		// Set the size of the string
-		int stringSize = Random(4, 50).value;
 
 		std::string originalMessage = "";
+		int messageSize = 0;
 
-		// Until the size of the string has been reached, loop
-		for (int i = 0; i < stringSize; i++)
+		if (customMessage != "")
 		{
-			// Add a random character to the string (97-122 = a-z in ASCII)
-			originalMessage += (char)Random(97, 122).value;
+			originalMessage = customMessage;
+		}
+		else
+		{
+			int stringSize = Random(4, 50).value;
+
+			// Until the size of the string has been reached, loop
+			for (int i = 0; i < stringSize; i++)
+			{
+				// Add a random character to the string (97-122 = a-z in ASCII)
+				originalMessage += (char)Random(97, 122).value;
+			}
 		}
 
-		int messageSize = originalMessage.size();
-
+		messageSize = originalMessage.size();
 		
 
 
@@ -96,69 +99,11 @@ Test::Test(int numberOfTests, int compressionRatio)
 #pragma endregion
 
 #pragma region Methods
-//
-//void Test::CreateNewBMP()
-//{
-//	BMPWriter writer;
-//
-//	const char* fileName = "test.bmp";
-//
-//	writer.CreateNewBMP(fileName, 512, 512, RGB(Random(10, 245).value, Random(10, 245).value, Random(10, 245).value));
-//	
-//	FileLoader fl(fileName);
-//
-//	newBMP = new BMP(&fl);
-//}
-//
-//std::string Test::CreateMessage()
-//{
-//	// Set the size of the string
-//	int stringSize = Random(4, 50).value;
-//
-//	std::string temp = "";
-//
-//	// Until the size of the string has been reached, loop
-//	for (int i = 0; i < stringSize; i++)
-//	{
-//		// Add a random character to the string (97-122 = a-z in ASCII)
-//		temp += (char)Random(97, 122).value;
-//	}
-//
-//	return temp;
-//}
-//
-//void Test::EmbedBMP(std::string* message)
-//{
-//	const char* newFileName = "testEmbed.bmp";
-//
-//	Stego s(newBMP, message, newFileName, 1);
-//
-//	FileLoader fl(newFileName);
-//
-//	embeddedBMP = new BMP(&fl);
-//}
-//
-//JPEG Test::ConvertToJPEG(int compressionLevel)
-//{
-//	// cant get access to the file name for read pixels
-//
-//	int a = 3;
-//
-//  	FileLoader fl(embeddedBMP->GetFileObject()->GetFileName());
-//
-//	JPEGio jpio(&fl, compressionLevel);
-//
-//	const char* temp = jpio.GetFileName();
-//
-//	JPEG jpg(jpio, jpio.GetFileName());
-//
-//	return jpg;
-//}
-//
+
 float Test::CompareResults(std::string originalMessage, std::string decodedMessage)
 {
 	int messageSize = originalMessage.size();
-	int matchedCharacters = 0;
+	matchedCharacters = 0;
 
 	for (int i = 0; i < originalMessage.size(); i++)
 	{
@@ -171,7 +116,6 @@ float Test::CompareResults(std::string originalMessage, std::string decodedMessa
 	return (float)matchedCharacters / (float)messageSize * 100;
 }
 
-
 void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::string originalMessage)
 {
 	Decoder decoder(jpeg, 1, messageSize);
@@ -180,9 +124,7 @@ void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::st
 
 	Dimension imageData(jpeg->GetImageData().GetValues());
 
-	currentResult = Result(results.size(), similarity, compressionRatio, imageData);
-
-	
+	currentResult = Result(results.size(), similarity, matchedCharacters, messageSize, compressionRatio, imageData, originalMessage, decoder.GetDecodedMessage());
 }
 
 void Test::UpdateVector()

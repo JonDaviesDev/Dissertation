@@ -41,27 +41,42 @@ struct Result
 {
 	int id;
 
-	float score;
+	float accuracy;
+
+	int matchedCharacters;
+
+	int totalCharacters;
 
 	int compressionLevel;
 
-	Dimension dimensions;
+	Dimension imageDimensions;
 
+	std::string originalMessage;
 
-	Result() : id(0), score(0), compressionLevel(0), dimensions(0, 0) {}
-	Result(int id, float score, int compressionLevel, Dimension imageSize) 
+	std::string decodedMessage;
+
+	Result() : id(0), accuracy(0), matchedCharacters(0), compressionLevel(0), imageDimensions(0, 0) {}
+	Result(int id, float acc, int mc, int tc, int compressionLevel, Dimension imageSize, std::string om, std::string dm) 
 	{
 		this->id = id;
-		this->score = score;
+		this->accuracy = acc;
+		this->matchedCharacters = mc;
+		this->totalCharacters = tc;
 		this->compressionLevel = compressionLevel;
-		this->dimensions = dimensions;
+		this->imageDimensions = imageSize;
+		this->originalMessage = om;
+		this->decodedMessage = dm;
 	}
 	Result(const Result& external)
 	{
 		id = external.id;
-		score = external.score;
+		accuracy = external.accuracy;
+		matchedCharacters = external.matchedCharacters;
+		totalCharacters = external.totalCharacters;
 		compressionLevel = external.compressionLevel;
-		dimensions = external.dimensions;
+		imageDimensions = external.imageDimensions;
+		originalMessage = external.originalMessage;
+		decodedMessage = external.decodedMessage;
 	}
 };
 
@@ -91,6 +106,10 @@ class Test
 public:
 	Result currentResult;
 
+	int matchedCharacters;
+
+	int totalCharacters;
+
 	std::vector<Result> results;
 
 	std::string currentFilePath;
@@ -102,7 +121,7 @@ public:
 #pragma region Constructors
 
 public:
-	Test(int numberOfTests, int compressionRatio);
+	Test(int numberOfTests, int compressionRatio, std::string customMessage = "");
 
 #pragma endregion
 
