@@ -46,12 +46,10 @@ int StegoMath::DetermineSegment(int remainder, int modValue)
 		exit(-1);
 	}
 
+	// Determines which side of the half way point the value sits on
 	if(remainder >= 0 && remainder <= (modValue / 2))
-	{
 		return 0;
-	}
 	else return 1;
-
 }
 
 #pragma endregion

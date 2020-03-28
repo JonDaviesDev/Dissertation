@@ -11,24 +11,50 @@
 #include "Decoder.h"
 #include "Menu.h"
 #include "Test.h"
+#include "Exporter.h"
 
 #pragma endregion
 
 
 #pragma endregion
+
+
+// for some reason the data is not getting written out to the csv file
 
 int main()
 {
-	Test tester(10, 90);
+	Test* tester;
+	Exporter* ex = new Exporter("test.csv");
 
-	std::cin.get();
 
+	int compressionLevel = 100;
+	int numberOfTests = 3;
+
+	int k = 0;
+
+
+	for (int i = 0; i < numberOfTests; i++)
+	{
+		tester = new Test(5, compressionLevel);
+	
+		ex->AddData(i, compressionLevel, numberOfTests, tester->AverageResults());
+
+		ex->Write(k);
+
+		k++;
+		compressionLevel--;
+
+		delete tester;
+	}
+	
+
+	
 
 	//Menu menu;
 
 
-
-
+	ex->Close();
+	delete ex;
 	return 0;
 }
 

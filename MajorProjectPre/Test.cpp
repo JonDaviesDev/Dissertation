@@ -3,6 +3,8 @@
 
 #pragma region Constructors
 
+Test::Test() {}
+
 Test::Test(int numberOfTests, int compressionRatio, std::string customMessage)
 {
 	std::string projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre\\";
@@ -96,6 +98,10 @@ Test::Test(int numberOfTests, int compressionRatio, std::string customMessage)
 
 #pragma region Properties
 
+std::vector<Result> Test::GetList() { return results; }
+
+Result* Test::GetResults() { return &results[0]; }
+
 #pragma endregion
 
 #pragma region Methods
@@ -130,6 +136,18 @@ void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::st
 void Test::UpdateVector()
 {
 	results.push_back(currentResult);
+}
+
+float Test::AverageResults()
+{
+	float total = 0;
+
+	for (int i = 0; i < results.size(); i++)
+	{
+		total += results[i].accuracy;
+	}
+
+	return total / results.size();
 }
 
 void Test::DeleteImage(std::string fileName)

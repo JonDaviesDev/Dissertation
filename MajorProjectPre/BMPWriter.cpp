@@ -67,8 +67,6 @@ void BMPWriter::CloneBMP(BMP* bmp, const char* newFileName)
 
 	GenerateImageData(bmp, pixelContainer, newFileName);
 
-	std::cout << "Image generated" << std::endl;
-
 	fclose(bmp->GetFileObject()->GetFile());
 }
 

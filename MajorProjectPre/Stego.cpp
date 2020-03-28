@@ -238,15 +238,19 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 	fclose(bmp->GetFileObject()->GetFile());
 }
 
+
+
+
+
 void Stego::DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit)
 {
 	int distance = RoundToInt(FindLength(pixel));
 
 	int remainder = FindModulus(distance, modulusValue);
 
-	std::pair<int, Direction> test = DistanceToSafeRemainder(remainder, DetermineSegment(remainder, 42), bit);
+	std::pair<int, Direction> moveData = DistanceToSafeRemainder(remainder, DetermineSegment(remainder, modulusValue), bit);
 
-	int newDistance = ModifyDistance(test, distance);
+	int newDistance = ModifyDistance(moveData, distance);
 
 	Vec3f normalisedDistance = NormaliseDistance(distance, pixel);
 
@@ -269,7 +273,7 @@ std::pair<int, Direction> Stego::DistanceToSafeRemainder(int originalRemainder, 
 		{
 			return std::make_pair<int, Direction>(std::abs(originalRemainder - 12), Direction::SMALLER);
 		}
-		else return std::make_pair < int, Direction>(0, Direction::STAY);
+		else return std::make_pair<int, Direction>(0, Direction::STAY);
 	}
 	else if(segment == 1 && bitValue == 1)
 	{
@@ -327,13 +331,9 @@ std::pair<int, Direction> Stego::DistanceToSafeRemainder(int originalRemainder, 
 int Stego::ModifyDistance(std::pair<int, Direction> value, int distance)
 {
 	if(value.second == Direction::LARGER)
-	{
 		return distance + value.first;
-	}
 	else if(value.second == Direction::SMALLER)
-	{
 		return distance - value.first;
-	}
 	else return distance;
 }
 
@@ -346,6 +346,10 @@ Vec3f Stego::ScaleVector(Vec3f normalised, int newDistance)
 {
 	return Vec3f(normalised.GetValues() * newDistance);
 }
+
+
+
+
 
 uint32_t Stego::PackData(uint8_t pixelsToRead, uint8_t modValue)
 {

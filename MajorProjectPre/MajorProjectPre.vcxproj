@@ -142,6 +142,7 @@
     <ClCompile Include="BMPUtility.cpp" />
     <ClCompile Include="BMPWriter.cpp" />
     <ClCompile Include="Decoder.cpp" />
+    <ClCompile Include="Exporter.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="JPEG.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="BMPUtility.h" />
     <ClInclude Include="BMPWriter.h" />
     <ClInclude Include="Decoder.h" />
+    <ClInclude Include="Exporter.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="JPEG.h" />

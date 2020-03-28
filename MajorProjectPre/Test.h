@@ -14,12 +14,6 @@
 #include <fstream>
 
 
-// The testing constructors in the decoder allow for the size of the hidden message to be known
-
-// use this known value to create random series of strings and have to program create, embed, convert and extract automatically
-
-// then store the results in a .csv (results being an accuracy score)
-
 struct Dimension
 {
 	int x, y;
@@ -121,6 +115,8 @@ public:
 #pragma region Constructors
 
 public:
+	Test();
+
 	Test(int numberOfTests, int compressionRatio, std::string customMessage = "");
 
 #pragma endregion
@@ -128,6 +124,9 @@ public:
 #pragma region Properties
 
 public:
+	std::vector<Result> GetList();
+
+	Result* GetResults();
 
 #pragma endregion
 
@@ -147,6 +146,8 @@ public:
 	void DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::string originalMessage);
 
 	void UpdateVector();
+
+	float AverageResults();
 
 	void DeleteImage(std::string fileName);
 
