@@ -108,7 +108,7 @@ Result* Test::GetResults() { return &results[0]; }
 
 float Test::CompareResults(std::string originalMessage, std::string decodedMessage)
 {
-	int messageSize = originalMessage.size();
+	totalCharacters = originalMessage.size();
 	matchedCharacters = 0;
 
 	for (int i = 0; i < originalMessage.size(); i++)
@@ -119,7 +119,7 @@ float Test::CompareResults(std::string originalMessage, std::string decodedMessa
 		}
 	}
 
-	return (float)matchedCharacters / (float)messageSize * 100;
+	return (float)matchedCharacters / (float)totalCharacters * 100;
 }
 
 void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::string originalMessage)

@@ -17,12 +17,18 @@ struct ExportData
 	
 	float data;
 
+	int originalCharacterCount;
+
+	int matchedCharacterCount;
+
 
 	ExportData() 
-		: testNumber(0), compressionLevel(0), numberOfTests(0), data(0) {}
+		: testNumber(0), compressionLevel(0), numberOfTests(0), data(0), originalCharacterCount(0), matchedCharacterCount(0) 
+	{}
 
-	ExportData(int testNumber, float compressionLevel, int numberOfTests, float data)
-		: testNumber(testNumber), compressionLevel(compressionLevel), numberOfTests(numberOfTests), data(data) {}
+	ExportData(int testNumber, float compressionLevel, int numberOfTests, float data, int originalCharacterCount, int matchedCharacterCount)
+		: testNumber(testNumber), compressionLevel(compressionLevel), numberOfTests(numberOfTests), data(data), originalCharacterCount(originalCharacterCount), matchedCharacterCount(matchedCharacterCount)
+	{}
 };
 
 
@@ -65,11 +71,11 @@ public:
 
 	void Close();
 
-	void AddData(int testNumber, float compressionLevel, int numberOfTests, float data);
+	void AddData(int testNumber, float compressionLevel, int numberOfTests, float data, int originalCharacterCount, int MatchedCharaterCount);
 
 	void PrintHeading();
 
-	void Write(int iteration);
+	void Write();
 
 #pragma endregion
 };

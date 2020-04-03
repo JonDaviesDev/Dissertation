@@ -2,6 +2,8 @@
 
 #pragma region Includes
 
+#include <thread>
+
 #include "BMP.h"
 #include "FileLoader.h"
 #include "BMPWriter.h"
@@ -15,31 +17,27 @@
 
 #pragma endregion
 
-
 #pragma endregion
 
-
-// for some reason the data is not getting written out to the csv file
 
 int main()
 {
 	Test* tester;
-	Exporter* ex = new Exporter("test.csv");
+	Exporter* ex = new Exporter("Test01 - 100%-91%.csv");
 
 
 	int compressionLevel = 100;
-	int numberOfTests = 3;
+	int numberOfCycles = 10;
+	int testsPerCycle = 30;
 
 	int k = 0;
 
 
-	for (int i = 0; i < numberOfTests; i++)
+	for (int j = 0; j < numberOfCycles; j++)
 	{
-		tester = new Test(5, compressionLevel);
-	
-		ex->AddData(i, compressionLevel, numberOfTests, tester->AverageResults());
+		tester = new Test(testsPerCycle, compressionLevel);
 
-		ex->Write(k);
+		ex->AddData(j, compressionLevel, testsPerCycle, tester->AverageResults(), tester->totalCharacters, tester->matchedCharacters);
 
 		k++;
 		compressionLevel--;
@@ -47,8 +45,10 @@ int main()
 		delete tester;
 	}
 	
-
 	
+
+
+	ex->Write();
 
 	//Menu menu;
 
