@@ -117,7 +117,7 @@ public:
 public:
 	Test();
 
-	Test(int numberOfTests, int compressionRatio, std::string customMessage = "");
+	Test(int numberOfTests, int compressionRatio, int modulusValue, std::string customMessage = "");
 
 #pragma endregion
 

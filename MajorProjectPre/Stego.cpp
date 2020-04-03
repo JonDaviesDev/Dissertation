@@ -4,10 +4,10 @@
 
 Stego::Stego(){}
 
-Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO)
+Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO, int modValue)
 	: bmp(coverBMP), text(textFile), stegoFileName(newFileName)
 {
-	informationContainer = PackData(text.GetBuffer().size() * 8, 42);
+	informationContainer = PackData(text.GetBuffer().size() * 8, modValue);
 
 	int k = 0;
 
@@ -23,7 +23,7 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 		{
 			for (int j = 0; j < binaryList[i].size(); j++)
 			{
-				DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+				DistanceToOrigin(pixelList[0][k], modValue, binaryList[i][j]);
 
 				k++;
 			}
@@ -41,10 +41,10 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 	ModifyBMP(&bmp, newFileName);
 }
 
-Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO)
+Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO, int modValue)
 	: bmp(coverBMP), text(*text), stegoFileName(newFileName)
 {
-	informationContainer = PackData(this->text.GetBuffer().size() * 8, 42);
+	informationContainer = PackData(this->text.GetBuffer().size() * 8, modValue);
 
 	int k = 0;
 
@@ -60,7 +60,7 @@ Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, u
 		{
 			for (int j = 0; j < binaryList[i].size(); j++)
 			{
-				DistanceToOrigin(pixelList[0][k], 42, binaryList[i][j]);
+				DistanceToOrigin(pixelList[0][k], modValue, binaryList[i][j]);
 
 				k++;
 			}
@@ -248,7 +248,7 @@ void Stego::DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit)
 
 	int remainder = FindModulus(distance, modulusValue);
 
-	std::pair<int, Direction> moveData = DistanceToSafeRemainder(remainder, DetermineSegment(remainder, modulusValue), bit);
+	std::pair<int, Direction> moveData = DistanceToSafeRemainder(remainder, DetermineSegment(remainder, modulusValue), bit, modulusValue);
 
 	int newDistance = ModifyDistance(moveData, distance);
 
@@ -261,65 +261,69 @@ void Stego::DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit)
 	pixel = RGB(updatedRGB);
 }
 
-std::pair<int, Direction> Stego::DistanceToSafeRemainder(int originalRemainder, int segment, unsigned long bitValue)
+std::pair<int, Direction> Stego::DistanceToSafeRemainder(int originalRemainder, int segment, unsigned long bitValue, int mod)
 {		
+	int half = mod / 2;
+	int quarter = half / 2;
+	int threeQuarter = half + quarter;
+
 	if(segment == 0 && bitValue == 0)
 	{
-		if(originalRemainder < 10)
+		if(originalRemainder < (quarter - 1)) //10
 		{
-			return std::make_pair<int, Direction>(std::abs(10 - originalRemainder), Direction::LARGER);
+			return std::make_pair<int, Direction>(std::abs((quarter - 1) - originalRemainder), Direction::LARGER); // 10
 		}
-		else if(originalRemainder > 12)
+		else if(originalRemainder > (quarter + 1)) // 12
 		{
-			return std::make_pair<int, Direction>(std::abs(originalRemainder - 12), Direction::SMALLER);
+			return std::make_pair<int, Direction>(std::abs(originalRemainder - (quarter + 1)), Direction::SMALLER); // 12
 		}
 		else return std::make_pair<int, Direction>(0, Direction::STAY);
 	}
 	else if(segment == 1 && bitValue == 1)
 	{
-		if(originalRemainder < 30)
+		if(originalRemainder < (threeQuarter - 1)) // 30
 		{
-			return std::make_pair<int, Direction>(std::abs(30 - originalRemainder), Direction::LARGER);
+			return std::make_pair<int, Direction>(std::abs((threeQuarter - 1) - originalRemainder), Direction::LARGER); // 30
 		}
-		else if(originalRemainder > 32)
+		else if(originalRemainder > (threeQuarter + 1)) // 32
 		{
-			return std::make_pair<int, Direction>(std::abs(originalRemainder - 32), Direction::SMALLER);
+			return std::make_pair<int, Direction>(std::abs(originalRemainder - (threeQuarter + 1)), Direction::SMALLER); // 32
 		}
 		else return std::make_pair<int, Direction>(0, Direction::STAY);
 	}
 	else if(segment == 0 && bitValue == 1)
 	{
-		if(originalRemainder <= 11)
+		if(originalRemainder <= (quarter)) // 11
 		{
 			// Move remainder down past 0 to 32
 
 			int a = std::abs(0 - originalRemainder);
-			int b = std::abs(42 - 32);
+			int b = std::abs(mod - threeQuarter); // 42 - 32
 			int result = a + b;
 
 			return std::make_pair<int, Direction>((int)result, Direction::SMALLER);
 
 		}
-		else if(originalRemainder >= 12)
+		else if(originalRemainder >= (quarter + 1)) // 12
 		{
 			// Move remainder up to 30
 						
-			return std::make_pair<int, Direction>(std::abs(30 - originalRemainder), Direction::LARGER);
+			return std::make_pair<int, Direction>(std::abs((threeQuarter - 1) - originalRemainder), Direction::LARGER); //30
 		}
 	}
 	else if(segment == 1 && bitValue == 0)
 	{
-		if(originalRemainder <= 31)
+		if(originalRemainder <= threeQuarter) // 31
 		{
 			// Move remainder down to 12
 
-			return std::make_pair<int, Direction>(std::abs(12 - originalRemainder), Direction::SMALLER);
+			return std::make_pair<int, Direction>(std::abs((quarter + 1) - originalRemainder), Direction::SMALLER); // 12
 		}
-		else if(originalRemainder >= 32)
+		else if(originalRemainder >= (threeQuarter + 1)) // 32
 		{
 			// Move remainder up past 42 to 10
-			int a = std::abs(originalRemainder - 42);
-			int b = std::abs(0 - 10);
+			int a = std::abs(originalRemainder - mod); //42
+			int b = std::abs(0 - (quarter - 1)); // 10
 			int result = a + b;
 
 			return std::make_pair<int, Direction>((int)result, Direction::LARGER);

@@ -5,7 +5,7 @@
 
 Test::Test() {}
 
-Test::Test(int numberOfTests, int compressionRatio, std::string customMessage)
+Test::Test(int numberOfTests, int compressionRatio, int modulusValue, std::string customMessage)
 {
 	std::string projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre\\";
 
@@ -54,7 +54,7 @@ Test::Test(int numberOfTests, int compressionRatio, std::string customMessage)
 		// Embed
 
 
-		Stego s(&imageFileLoader, &originalMessage, newFileName.c_str(), 1);
+		Stego s(&imageFileLoader, &originalMessage, newFileName.c_str(), 1, modulusValue);
 
 
 

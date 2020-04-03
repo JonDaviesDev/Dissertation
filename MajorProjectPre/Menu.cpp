@@ -131,7 +131,12 @@ void Menu::MapChoice(unsigned int userChoice)
 
 			std::string newFileName = NewFileName();
 
-			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodSelection(MethodMenu()));
+			std::cout << "Select a modulus value:" << std::endl;
+
+			int value = 0;
+			std::cin >> value;
+
+			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodSelection(MethodMenu()), value);
 
 			messageSize = stegoImage.GetTextBuffer().GetBuffer().size();
 

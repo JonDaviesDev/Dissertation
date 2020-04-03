@@ -54,9 +54,9 @@ private:
 public:
 	Stego();
 
-	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO);
+	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO, int modValue);
 
-	Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO);
+	Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO, int modValue);
 
 #pragma endregion
 
@@ -105,7 +105,7 @@ public:
 	// return value and argument value are temporary just for testing
 	void DistanceToOrigin(RGB& pixel, int modulusValue, unsigned long bit);
 
-	std::pair<int, Direction> DistanceToSafeRemainder(int originalRemainder, int segment, unsigned long bitValue);
+	std::pair<int, Direction> DistanceToSafeRemainder(int originalRemainder, int segment, unsigned long bitValue, int mod);
 
 	int ModifyDistance(std::pair<int, Direction> value, int distance);
 

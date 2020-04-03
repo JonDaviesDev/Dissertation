@@ -23,21 +23,23 @@
 int main()
 {
 	Test* tester;
-	Exporter* ex = new Exporter("Test01 - 100%-91%.csv");
+	Exporter* ex = new Exporter("higherModTest05 - 60%-51%.csv");
 
 
-	int compressionLevel = 100;
+	int compressionLevel = 60;
 	int numberOfCycles = 10;
 	int testsPerCycle = 30;
+
+	int modulus = 62;
 
 	int k = 0;
 
 
 	for (int j = 0; j < numberOfCycles; j++)
 	{
-		tester = new Test(testsPerCycle, compressionLevel);
+		tester = new Test(testsPerCycle, compressionLevel, modulus);
 
-		ex->AddData(j, compressionLevel, testsPerCycle, tester->AverageResults(), tester->totalCharacters, tester->matchedCharacters);
+		ex->AddData(j, compressionLevel, testsPerCycle, tester->AverageResults());
 
 		k++;
 		compressionLevel--;

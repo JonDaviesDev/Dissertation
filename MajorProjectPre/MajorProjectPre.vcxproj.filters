@@ -46,6 +46,21 @@
     <Filter Include="Header Files\JPEG">
       <UniqueIdentifier>{f9560e59-342c-4070-b2ca-b24c93333df3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Test Harness">
+      <UniqueIdentifier>{cef5f14e-0684-42b5-bf47-f6274fae9f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Test Harness">
+      <UniqueIdentifier>{3dbdd2d7-b5d6-43c7-8be9-9ab7a04ec991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{851c459f-017c-4499-991c-a80b31388332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{7f2f7c81-efbb-466e-9941-3c2e797c92a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Third-Party">
+      <UniqueIdentifier>{253ea62d-1362-49fa-83d9-82c7e2425857}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BMP.cpp">
@@ -102,17 +117,17 @@
     <ClCompile Include="RGB.cpp">
       <Filter>Source Files\Data Container</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="JPEGio.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\JPEG</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Test Harness</Filter>
     </ClCompile>
     <ClCompile Include="Exporter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +164,6 @@
     <ClInclude Include="Decoder.h">
       <Filter>Header Files\Steganography</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JPEG.h">
       <Filter>Header Files\JPEG</Filter>
     </ClInclude>
@@ -170,20 +182,23 @@
     <ClInclude Include="RGB.h">
       <Filter>Header Files\Data Container</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JPEGio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image_write.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\JPEG</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Test Harness</Filter>
     </ClInclude>
     <ClInclude Include="Exporter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files\Third-Party</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_write.h">
+      <Filter>Header Files\Third-Party</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
