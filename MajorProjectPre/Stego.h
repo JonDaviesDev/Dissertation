@@ -28,6 +28,8 @@ enum class Direction
 	SMALLER, LARGER, STAY, UNDEFINED
 };
 
+
+
 class Stego : public BMPUtility, public StegoMath
 {
 #pragma region Attributes
@@ -54,9 +56,9 @@ private:
 public:
 	Stego();
 
-	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO, int modValue);
+	Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, Method method, int modValue);
 
-	Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO, int modValue);
+	Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, Method method, int modValue);
 
 #pragma endregion
 
@@ -93,6 +95,8 @@ public:
 	void BitNumber();
 
 	void LSB();
+
+	void MSB();
 
 	void ModifyBMP(BMP* bmp, const char* newFileName);
 

@@ -23,21 +23,21 @@
 int main()
 {
 	Test* tester;
-	Exporter* ex = new Exporter("higherModTest05 - 60%-51%.csv");
+	Exporter* ex = new Exporter("enumTest6.csv"); 
 
 
-	int compressionLevel = 60;
-	int numberOfCycles = 10;
-	int testsPerCycle = 30;
+	int compressionLevel = 100;
+	int numberOfCycles = 5;
+	int testsPerCycle = 5;
+	Method currentMethod = Method::DTO;
 
-	int modulus = 62;
+	int modulus = 42;
 
 	int k = 0;
 
-
 	for (int j = 0; j < numberOfCycles; j++)
 	{
-		tester = new Test(testsPerCycle, compressionLevel, modulus);
+		tester = new Test(testsPerCycle, compressionLevel, modulus, currentMethod);
 
 		ex->AddData(j, compressionLevel, testsPerCycle, tester->AverageResults());
 

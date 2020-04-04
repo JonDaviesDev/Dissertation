@@ -136,7 +136,7 @@ void Menu::MapChoice(unsigned int userChoice)
 			int value = 0;
 			std::cin >> value;
 
-			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodSelection(MethodMenu()), value);
+			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodMenu(), value);
 
 			messageSize = stegoImage.GetTextBuffer().GetBuffer().size();
 
@@ -198,9 +198,7 @@ void Menu::MapChoice(unsigned int userChoice)
 
 		JPEG jpeg(&jpegreader);
 
-		int method = MethodSelection(MethodMenu());
-
-		Decoder d(&jpeg, method, messageSize);
+		Decoder d(&jpeg, MethodMenu(), messageSize);
 
 		break;
 	}
@@ -354,7 +352,7 @@ std::string Menu::NewFileName()
 	return fileName;
 }
 
-int Menu::MethodMenu()
+Method Menu::MethodMenu()
 {
 	int userChoice = 0;
 
@@ -367,33 +365,36 @@ int Menu::MethodMenu()
 
 	ClearScreen();
 
-	return userChoice;
+	return static_cast<Method>(userChoice);
 }
 
-int Menu::MethodSelection(int userChoice)
-{
-	Method userMethod = static_cast<Method>(userChoice);
-
-	switch (userMethod)
-	{
-	case Method::DTO:
-
-		return 1;
-
-		break;
-	case Method::LSB:
-
-		return 0;
-
-		break;
-	default:
-
-		std::cout << "Please select a valid option" << std::endl << std::endl;
-
-		MethodMenu();
-
-		break;
-	}
-}
+//Method Menu::MethodSelection(Method userChoice)
+//{
+//	switch (userChoice)
+//	{
+//	case Method::DTO:
+//
+//		return 1;
+//
+//		break;
+//	case Method::LSB:
+//
+//		return 0;
+//
+//		break;
+//	case Method::MSB:
+//
+//		return 2;
+//
+//		break;
+//	default:
+//
+//		std::cout << "Please select a valid option" << std::endl << std::endl;
+//
+//		MethodMenu();
+//
+//		break;
+//	}
+//}
 
 #pragma endregion

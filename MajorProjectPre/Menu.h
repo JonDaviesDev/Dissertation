@@ -9,11 +9,6 @@
 #include "Stego.h"
 #include "Decoder.h"
 
-enum class Method
-{
-	LSB, DTO
-};
-
 enum class Image
 {
 	BMP, JPEG
@@ -95,9 +90,9 @@ public:
 
 	std::string NewFileName();
 
-	int MethodMenu();
+	Method MethodMenu();
 
-	int MethodSelection(int userChoice);
+	Method MethodSelection(Method userChoice);
 
 #pragma endregion
 };

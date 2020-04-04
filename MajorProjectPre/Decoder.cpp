@@ -3,9 +3,23 @@
 
 #pragma region Constructors
 
-Decoder::Decoder(BMP* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(43, 0)
+Decoder::Decoder(BMP* stegoImage, Method method) : newTextFile(nullptr), messageBinary(43, 0)
 {
-	if(FlagChoice(flag))
+	if(method == Method::DTO)
+	{
+		RetrieveMessageDTO(stegoImage);
+	}
+	else if (method == Method::LSB)
+	{
+		RetrieveMessageLSB(stegoImage);
+	}
+
+	decodedMessage = ConstructMessage();
+}
+
+Decoder::Decoder(JPEG* stegoImage, Method method) : newTextFile(nullptr), messageBinary(43, 0)
+{
+	if(method == Method::DTO)
 	{
 		RetrieveMessageDTO(stegoImage);
 	}
@@ -14,24 +28,16 @@ Decoder::Decoder(BMP* stegoImage, unsigned int flag) : newTextFile(nullptr), mes
 	decodedMessage = ConstructMessage();
 }
 
-Decoder::Decoder(JPEG* stegoImage, unsigned int flag) : newTextFile(nullptr), messageBinary(43, 0)
+Decoder::Decoder(JPEG* stegoImage, Method method, int messageSize) : newTextFile(nullptr), messageBinary(messageSize, 0)
 {
-	if(FlagChoice(flag))
-	{
-		RetrieveMessageDTO(stegoImage);
-	}
-	else RetrieveMessageLSB(stegoImage);
-
-	decodedMessage = ConstructMessage();
-}
-
-Decoder::Decoder(JPEG* stegoImage, unsigned int flag, int messageSize) : newTextFile(nullptr), messageBinary(messageSize, 0)
-{
-	if (FlagChoice(flag))
+	if (method == Method::DTO)
 	{
 		RetrieveMessageDTOTesting(stegoImage, messageSize);
 	}
-	else RetrieveMessageLSBTesting(stegoImage, messageSize);
+	else if (method == Method::LSB)
+	{
+		RetrieveMessageLSBTesting(stegoImage, messageSize);
+	}
 
 	decodedMessage = ConstructMessage();
 }
@@ -223,16 +229,5 @@ std::string Decoder::ConstructMessage()
 	return message;
 }
 
-bool Decoder::FlagChoice(unsigned int flag)
-{
-	if(flag == 1)
-	{
-		return true;
-	}
-	else if(flag == 0)
-	{
-		return false;
-	}
-}
 
 #pragma endregion

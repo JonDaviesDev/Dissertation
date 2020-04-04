@@ -17,7 +17,10 @@
 
 #pragma endregion
 
-
+enum class Method
+{
+	LSB, DTO
+};
 
 class StegoMath
 {

@@ -3,9 +3,98 @@
 
 #pragma region Constructors
 
-Test::Test() {}
+Test::Test(){}
 
-Test::Test(int numberOfTests, int compressionRatio, int modulusValue, std::string customMessage)
+Test::Test(int numberOfTests, int compressionRatio, Method method, std::string customMessage) 
+{
+	std::string projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre\\";
+
+	std::string fileName = "test.bmp";
+	std::string newFileName = "testEmbed.bmp";
+	std::string jpegName = "testEmbed.jpg";
+
+	decodedMessage = "";
+
+	for (int i = 0; i < numberOfTests; i++)
+	{
+		//Create Image
+		BMPWriter writer;
+
+
+
+		writer.CreateNewBMP(fileName.c_str(), 512, 512, RGB(Random(10, 245).value, Random(10, 245).value, Random(10, 245).value));
+
+		FileLoader imageFileLoader(fileName.c_str());
+
+
+
+		std::string originalMessage = "";
+		int messageSize = 0;
+
+		if (customMessage != "")
+		{
+			originalMessage = customMessage;
+		}
+		else
+		{
+			int stringSize = Random(4, 50).value;
+
+			// Until the size of the string has been reached, loop
+			for (int i = 0; i < stringSize; i++)
+			{
+				// Add a random character to the string (97-122 = a-z in ASCII)
+				originalMessage += (char)Random(97, 122).value;
+			}
+		}
+
+		messageSize = originalMessage.size();
+
+
+
+		// Embed
+
+
+		Stego s(&imageFileLoader, &originalMessage, newFileName.c_str(), method, 0);
+
+
+
+
+
+
+		FileLoader embeddedFileLoader(newFileName.c_str());
+
+		BMP embeddedBMP(&embeddedFileLoader);
+
+		JPEGio jpio(&embeddedFileLoader);
+
+		jpio.BMPtoJPEG(&embeddedBMP, compressionRatio);
+
+
+
+
+		FileLoader fl(jpegName.c_str());
+
+		JPEGio jpegreader(&fl);
+
+		JPEG jpeg(&jpegreader);
+
+		DecodeJPEG(&jpeg, messageSize, compressionRatio, method, originalMessage);
+
+
+
+
+		UpdateVector();
+
+		_fcloseall();
+
+
+		DeleteImage(fileName);
+		DeleteImage(newFileName);
+		DeleteImage(jpegName);
+	}
+}
+
+Test::Test(int numberOfTests, int compressionRatio, int modulusValue, Method method, std::string customMessage)
 {
 	std::string projectDirectory = "C:\\GitHub\\MajorProject\\MajorProjectPre\\";
 
@@ -54,7 +143,7 @@ Test::Test(int numberOfTests, int compressionRatio, int modulusValue, std::strin
 		// Embed
 
 
-		Stego s(&imageFileLoader, &originalMessage, newFileName.c_str(), 1, modulusValue);
+		Stego s(&imageFileLoader, &originalMessage, newFileName.c_str(), method, modulusValue);
 
 
 
@@ -78,7 +167,7 @@ Test::Test(int numberOfTests, int compressionRatio, int modulusValue, std::strin
 
 		JPEG jpeg(&jpegreader);
 
-		DecodeJPEG(&jpeg, messageSize, compressionRatio, originalMessage);
+		DecodeJPEG(&jpeg, messageSize, compressionRatio, method, originalMessage);
 
 
 
@@ -122,9 +211,9 @@ float Test::CompareResults(std::string originalMessage, std::string decodedMessa
 	return (float)matchedCharacters / (float)totalCharacters * 100;
 }
 
-void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::string originalMessage)
+void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, Method method, std::string originalMessage)
 {
-	Decoder decoder(jpeg, 1, messageSize);
+	Decoder decoder(jpeg, method, messageSize);
 
 	float similarity = CompareResults(originalMessage, decoder.GetDecodedMessage());
 

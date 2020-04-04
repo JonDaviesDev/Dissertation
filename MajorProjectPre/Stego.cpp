@@ -4,7 +4,7 @@
 
 Stego::Stego(){}
 
-Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, unsigned int LSBorDTO, int modValue)
+Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName, Method method, int modValue)
 	: bmp(coverBMP), text(textFile), stegoFileName(newFileName)
 {
 	informationContainer = PackData(text.GetBuffer().size() * 8, modValue);
@@ -17,7 +17,7 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 
 	BitNumber();
 
-	if (LSBorDTO == 1)
+	if (method == Method::DTO)
 	{
 		for (int i = 0; i < binaryList.size(); i++)
 		{
@@ -29,7 +29,7 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 			}
 		}
 	}
-	else if (LSBorDTO == 0)
+	else if (method == Method::LSB)
 	{
 		LSB();
 	}
@@ -41,7 +41,7 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 	ModifyBMP(&bmp, newFileName);
 }
 
-Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, unsigned int LSBorDTO, int modValue)
+Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, Method method, int modValue)
 	: bmp(coverBMP), text(*text), stegoFileName(newFileName)
 {
 	informationContainer = PackData(this->text.GetBuffer().size() * 8, modValue);
@@ -54,7 +54,7 @@ Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, u
 
 	BitNumber();
 
-	if (LSBorDTO == 1)
+	if (method == Method::DTO)
 	{
 		for (int i = 0; i < binaryList.size(); i++)
 		{
@@ -66,7 +66,7 @@ Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, u
 			}
 		}
 	}
-	else if (LSBorDTO == 0)
+	else if (method == Method::LSB)
 	{
 		LSB();
 	}
@@ -198,6 +198,45 @@ void Stego::LSB()
 				pixelList[0][k].SetRed(tempRED ^= 1);
 			}
 			
+			k++;
+		}
+	}
+}
+
+void Stego::MSB()
+{
+	int k = 0;
+
+	// For each character
+	for (int i = 0; i < binaryList.size(); i++)
+	{
+		//Step through that characters binary representation, bit by bit
+		for (int j = 0; j < binaryList[i].size(); j++)
+		{
+			// If the value ends in an odd number, the LSB has got to be 1.
+
+			// If the value ends in an even number, the LSB has got be 0.
+
+			// Check this against the binary value that we want to embed.  
+			// If the pixel value ends in an odd number AND the binary entry is 0, enter condition
+			if ((pixelList[0][k].GetRed() >> (sizeof(pixelList[0][k].GetRed()) * 8 - 1) & 1) == 1 && (binaryList[i][j] % 2) != 1)
+			{
+				unsigned char tempRED = pixelList[i][j].GetRed() << 32;
+
+				//bitwise XOR - swap the value if both are equal (LSB switches from 1 to 0)
+				pixelList[0][k].SetRed(tempRED ^= 1);
+
+			}
+
+			// If the pixel value ends in an even number AND the binary entry is 1, enter condition
+			else if ((pixelList[0][k].GetRed() >> (sizeof(pixelList[0][k].GetRed()) * 8 - 1) & 1) == 0 && (binaryList[i][j] % 2) != 0)
+			{
+				unsigned char tempRED = pixelList[i][j].GetRed() << 32;
+
+				//bitwise XOR - swap the value if both are equal (LSB switches from 1 to 0)
+				pixelList[0][k].SetRed(tempRED ^= 1);
+			}
+
 			k++;
 		}
 	}

@@ -117,7 +117,9 @@ public:
 public:
 	Test();
 
-	Test(int numberOfTests, int compressionRatio, int modulusValue, std::string customMessage = "");
+	Test(int numberOfTests, int compressionRatio, Method method, std::string customMessage = "");
+
+	Test(int numberOfTests, int compressionRatio, int modulusValue, Method method, std::string customMessage = "");
 
 #pragma endregion
 
@@ -143,7 +145,7 @@ public:
 	
 	float CompareResults(std::string originalMessage, std::string decodedMessage);
 
-	void DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, std::string originalMessage);
+	void DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, Method method, std::string originalMessage);
 
 	void UpdateVector();
 
