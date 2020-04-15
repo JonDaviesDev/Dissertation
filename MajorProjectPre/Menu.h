@@ -48,6 +48,8 @@ private:
 
 	int messageSize;
 
+	int modValue;
+
 #pragma endregion
 
 #pragma region Constructors

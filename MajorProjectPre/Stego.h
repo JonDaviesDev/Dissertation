@@ -18,6 +18,7 @@
 #include "RGB.h"
 #include "Vec3f.h"
 #include "StegoMath.h"
+#include "Timer.h"
 
 #pragma endregion
 
@@ -49,6 +50,8 @@ private:
 
 	std::vector<std::vector<RGB>> pixelList;
 
+	float functionTime;
+
 #pragma endregion
 
 #pragma region Constructors
@@ -77,6 +80,8 @@ public:
 
 	TextBuffer GetTextBuffer();
 
+	float GetFunctionTime();
+
 #pragma endregion
 
 #pragma endregion
@@ -101,9 +106,6 @@ public:
 	void ModifyBMP(BMP* bmp, const char* newFileName);
 
 	uint32_t PackData(uint8_t pixelsToRead, uint8_t modValue);
-
-
-
 
 
 	// return value and argument value are temporary just for testing

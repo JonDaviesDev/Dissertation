@@ -129,6 +129,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\Test Harness</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="stb_image_write.h">
       <Filter>Header Files\Third-Party</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files\Test Harness</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

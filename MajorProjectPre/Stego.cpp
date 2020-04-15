@@ -19,6 +19,8 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 
 	if (method == Method::DTO)
 	{
+		Timer timer("DTO");
+
 		for (int i = 0; i < binaryList.size(); i++)
 		{
 			for (int j = 0; j < binaryList[i].size(); j++)
@@ -28,6 +30,8 @@ Stego::Stego(FileLoader* coverBMP, FileLoader* textFile, const char* newFileName
 				k++;
 			}
 		}
+
+		functionTime = timer.GetTime();
 	}
 	else if (method == Method::LSB)
 	{
@@ -56,6 +60,8 @@ Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, M
 
 	if (method == Method::DTO)
 	{
+		Timer timer("DTO");
+
 		for (int i = 0; i < binaryList.size(); i++)
 		{
 			for (int j = 0; j < binaryList[i].size(); j++)
@@ -65,6 +71,8 @@ Stego::Stego(FileLoader* coverBMP, std::string* text, const char* newFileName, M
 				k++;
 			}
 		}
+
+		functionTime = timer.GetTime();
 	}
 	else if (method == Method::LSB)
 	{
@@ -105,6 +113,8 @@ int Stego::GetBinaryListSize()
 const char* Stego::GetStegoFileName() { return stegoFileName; }
 
 TextBuffer Stego::GetTextBuffer() { return text; }
+
+float Stego::GetFunctionTime() { return functionTime; }
 
 #pragma endregion
 
@@ -166,6 +176,8 @@ void Stego::CreatePixelListCopy()
 
 void Stego::LSB()
 {
+	Timer timer("LSB");
+
 	int k = 0;
 
 	// For each character
@@ -201,45 +213,8 @@ void Stego::LSB()
 			k++;
 		}
 	}
-}
 
-void Stego::MSB()
-{
-	int k = 0;
-
-	// For each character
-	for (int i = 0; i < binaryList.size(); i++)
-	{
-		//Step through that characters binary representation, bit by bit
-		for (int j = 0; j < binaryList[i].size(); j++)
-		{
-			// If the value ends in an odd number, the LSB has got to be 1.
-
-			// If the value ends in an even number, the LSB has got be 0.
-
-			// Check this against the binary value that we want to embed.  
-			// If the pixel value ends in an odd number AND the binary entry is 0, enter condition
-			if ((pixelList[0][k].GetRed() >> (sizeof(pixelList[0][k].GetRed()) * 8 - 1) & 1) == 1 && (binaryList[i][j] % 2) != 1)
-			{
-				unsigned char tempRED = pixelList[i][j].GetRed() << 32;
-
-				//bitwise XOR - swap the value if both are equal (LSB switches from 1 to 0)
-				pixelList[0][k].SetRed(tempRED ^= 1);
-
-			}
-
-			// If the pixel value ends in an even number AND the binary entry is 1, enter condition
-			else if ((pixelList[0][k].GetRed() >> (sizeof(pixelList[0][k].GetRed()) * 8 - 1) & 1) == 0 && (binaryList[i][j] % 2) != 0)
-			{
-				unsigned char tempRED = pixelList[i][j].GetRed() << 32;
-
-				//bitwise XOR - swap the value if both are equal (LSB switches from 1 to 0)
-				pixelList[0][k].SetRed(tempRED ^= 1);
-			}
-
-			k++;
-		}
-	}
+	functionTime = timer.GetTime();
 }
 
 void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
@@ -248,19 +223,10 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 
 	int k = 0;
 
-	bool firstIteration = true;
-
 	for(int i = 0; i < bmp->GetHeight(); i++)
 	{
 		for(int j = 0; j < bmp->GetWidth(); j++)
 		{
-			if(firstIteration)
-			{
-
-
-				firstIteration = false;
-			}
-
 			pixelContainer.SetRed(pixelList[i][j].GetRed(), k);
 
 			pixelContainer.SetGreen(pixelList[i][j].GetGreen(), k);
@@ -276,7 +242,6 @@ void Stego::ModifyBMP(BMP* bmp, const char* newFileName)
 
 	fclose(bmp->GetFileObject()->GetFile());
 }
-
 
 
 
@@ -306,7 +271,7 @@ std::pair<int, Direction> Stego::DistanceToSafeRemainder(int originalRemainder, 
 	int quarter = half / 2;
 	int threeQuarter = half + quarter;
 
-	if(segment == 0 && bitValue == 0)
+	if(segment == 0 && bitValue == 0)	
 	{
 		if(originalRemainder < (quarter - 1)) //10
 		{

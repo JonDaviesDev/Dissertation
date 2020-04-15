@@ -73,6 +73,10 @@ public:
 
 	void Write();
 
+	void PixelData(BMP& bmp);
+
+	void TimingData(const std::vector<std::vector<float>>& timings);
+
 #pragma endregion
 };
 

@@ -78,7 +78,7 @@ Test::Test(int numberOfTests, int compressionRatio, Method method, std::string c
 
 		JPEG jpeg(&jpegreader);
 
-		DecodeJPEG(&jpeg, messageSize, compressionRatio, method, originalMessage);
+		DecodeJPEG(&jpeg, messageSize, compressionRatio, method, originalMessage, 0);
 
 
 
@@ -145,7 +145,7 @@ Test::Test(int numberOfTests, int compressionRatio, int modulusValue, Method met
 
 		Stego s(&imageFileLoader, &originalMessage, newFileName.c_str(), method, modulusValue);
 
-
+		timeRecords.push_back(s.GetFunctionTime());
 
 
 
@@ -167,7 +167,7 @@ Test::Test(int numberOfTests, int compressionRatio, int modulusValue, Method met
 
 		JPEG jpeg(&jpegreader);
 
-		DecodeJPEG(&jpeg, messageSize, compressionRatio, method, originalMessage);
+		DecodeJPEG(&jpeg, messageSize, compressionRatio, method, originalMessage, modulusValue);
 
 
 
@@ -191,6 +191,8 @@ std::vector<Result> Test::GetList() { return results; }
 
 Result* Test::GetResults() { return &results[0]; }
 
+std::vector<float> Test::GetTimeRecords() { return timeRecords; }
+
 #pragma endregion
 
 #pragma region Methods
@@ -211,9 +213,9 @@ float Test::CompareResults(std::string originalMessage, std::string decodedMessa
 	return (float)matchedCharacters / (float)totalCharacters * 100;
 }
 
-void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, Method method, std::string originalMessage)
+void Test::DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, Method method, std::string originalMessage, int modValue)
 {
-	Decoder decoder(jpeg, method, messageSize);
+	Decoder decoder(jpeg, method, messageSize, modValue);
 
 	float similarity = CompareResults(originalMessage, decoder.GetDecodedMessage());
 

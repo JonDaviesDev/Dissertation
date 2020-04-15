@@ -54,4 +54,39 @@ void Exporter::Write()
 
 }
 
+void Exporter::PixelData(BMP& bmp)
+{
+	out.open(filename);
+
+	int k = 0;
+
+	out << "BMP" << "\n\n";
+
+	for(int i = 0; i < bmp.GetHeight(); i++)
+	{
+		for (int j = 0; j < bmp.GetWidth(); j++)
+		{
+			out << (int)*bmp.GetPixelContainer()->GetRed(k) << ",";
+			out << (int)*bmp.GetPixelContainer()->GetGreen(k) << ",";
+			out << (int)*bmp.GetPixelContainer()->GetBlue(k) << ",";
+		}
+
+		out << "\n";
+	}
+}
+
+void Exporter::TimingData(const std::vector<std::vector<float>>& timingData)
+{
+	out.open(filename);
+
+	for (int i = 0; i < timingData.size(); i++)
+	{
+		for (int j = 0; j < timingData[i].size(); j++)
+		{
+			out << (float)timingData[i][j] << "\n";
+		}
+
+	}
+}
+
 #pragma endregion

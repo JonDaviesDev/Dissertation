@@ -23,15 +23,14 @@
 int main()
 {
 	Test* tester;
-	Exporter* ex = new Exporter("enumTest6.csv"); 
+	Exporter* ex = new Exporter("Mod242 - 10.csv"); 
 
-
-	int compressionLevel = 100;
-	int numberOfCycles = 5;
-	int testsPerCycle = 5;
+	int compressionLevel = 10;
+	int numberOfCycles = 10;
+	int testsPerCycle = 30;
 	Method currentMethod = Method::DTO;
 
-	int modulus = 42;
+	int modulus = 242;
 
 	int k = 0;
 
@@ -47,8 +46,6 @@ int main()
 		delete tester;
 	}
 	
-	
-
 
 	ex->Write();
 
@@ -57,6 +54,29 @@ int main()
 
 	ex->Close();
 	delete ex;
+
+	/*BMPWriter writer;
+
+	writer.CreateNewBMP("Mod142.bmp", 512, 512, RGB(30, 30, 200));
+
+	FileLoader fl("Mod142.bmp");
+	FileLoader mfl("test.txt");
+
+	Stego s(&fl, &mfl, "embeddedMod142.bmp", Method::DTO, 142);
+
+
+
+	FileLoader efl("embeddedMod142.bmp");
+
+	BMP embeddedBMP(&efl);
+
+	JPEGio jpio(&efl);
+
+	jpio.BMPtoJPEG(&embeddedBMP, 100);*/
+
+
+
+
 	return 0;
 }
 

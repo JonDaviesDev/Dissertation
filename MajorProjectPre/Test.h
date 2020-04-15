@@ -110,6 +110,8 @@ public:
 
 	std::string decodedMessage;
 
+	std::vector<float> timeRecords;
+
 #pragma endregion
 
 #pragma region Constructors
@@ -130,6 +132,8 @@ public:
 
 	Result* GetResults();
 
+	std::vector<float> GetTimeRecords();
+
 #pragma endregion
 
 #pragma region Methods
@@ -145,7 +149,7 @@ public:
 	
 	float CompareResults(std::string originalMessage, std::string decodedMessage);
 
-	void DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, Method method, std::string originalMessage);
+	void DecodeJPEG(JPEG* jpeg, int messageSize, int compressionRatio, Method method, std::string originalMessage, int modValue);
 
 	void UpdateVector();
 

@@ -133,10 +133,9 @@ void Menu::MapChoice(unsigned int userChoice)
 
 			std::cout << "Select a modulus value:" << std::endl;
 
-			int value = 0;
-			std::cin >> value;
+			std::cin >> modValue;
 
-			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodMenu(), value);
+			Stego stegoImage(&imageLoader, &messageLoader, newFileName.c_str(), MethodMenu(), modValue);
 
 			messageSize = stegoImage.GetTextBuffer().GetBuffer().size();
 
@@ -198,7 +197,7 @@ void Menu::MapChoice(unsigned int userChoice)
 
 		JPEG jpeg(&jpegreader);
 
-		Decoder d(&jpeg, MethodMenu(), messageSize);
+		Decoder d(&jpeg, MethodMenu(), messageSize, modValue);
 
 		break;
 	}

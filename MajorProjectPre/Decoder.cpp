@@ -28,11 +28,11 @@ Decoder::Decoder(JPEG* stegoImage, Method method) : newTextFile(nullptr), messag
 	decodedMessage = ConstructMessage();
 }
 
-Decoder::Decoder(JPEG* stegoImage, Method method, int messageSize) : newTextFile(nullptr), messageBinary(messageSize, 0)
+Decoder::Decoder(JPEG* stegoImage, Method method, int messageSize, int modValue) : newTextFile(nullptr), messageBinary(messageSize, 0)
 {
 	if (method == Method::DTO)
 	{
-		RetrieveMessageDTOTesting(stegoImage, messageSize);
+		RetrieveMessageDTOTesting(stegoImage, messageSize, modValue);
 	}
 	else if (method == Method::LSB)
 	{
@@ -108,7 +108,7 @@ void Decoder::RetrieveMessageDTO(JPEG* image)
 	}
 }
 
-void Decoder::RetrieveMessageDTOTesting(JPEG* image, int messageSize)
+void Decoder::RetrieveMessageDTOTesting(JPEG* image, int messageSize, int modValue)
 {
 	int k = 0;
 
@@ -124,7 +124,7 @@ void Decoder::RetrieveMessageDTOTesting(JPEG* image, int messageSize)
 
 			int remainder = RoundToInt(FindLength(element));
 
-			if (DetermineSegment(FindModulus(remainder, 42), 42) == 0)
+			if (DetermineSegment(FindModulus(remainder, modValue), modValue) == 0)
 			{
 				messageBinary[i][j] = 0;
 			}

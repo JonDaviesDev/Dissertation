@@ -40,7 +40,7 @@ public:
 
 	Decoder(JPEG* stegoImage, Method method);
 
-	Decoder(JPEG* stegoImage, Method method, int messageSize); // Constructor for testing
+	Decoder(JPEG* stegoImage, Method method, int messageSize, int modValue); // Constructor for testing
 
 #pragma endregion
 
@@ -58,7 +58,7 @@ public:
 
 	void RetrieveMessageDTO(JPEG* image);
 
-	void RetrieveMessageDTOTesting(JPEG* image, int messageSize);
+	void RetrieveMessageDTOTesting(JPEG* image, int messageSize, int modValue);
 
 	void RetrieveMessageLSB(BMP* image);
 
