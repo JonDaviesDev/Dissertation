@@ -50,6 +50,12 @@ private:
 
 	int modValue;
 
+	bool imported;
+
+	bool bmpToJPEG;
+
+	bool embedded;
+
 #pragma endregion
 
 #pragma region Constructors

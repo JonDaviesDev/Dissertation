@@ -18,6 +18,7 @@
 
 class BMPUtility : public FileLoader
 {
+	// This class provides base functionality for any classes that implement it
 
 #pragma region Attributes
 

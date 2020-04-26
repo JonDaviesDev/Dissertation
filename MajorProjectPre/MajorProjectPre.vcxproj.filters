@@ -207,7 +207,4 @@
       <Filter>Header Files\Test Harness</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\MessageSamples\Sentence.txt" />
-  </ItemGroup>
 </Project>

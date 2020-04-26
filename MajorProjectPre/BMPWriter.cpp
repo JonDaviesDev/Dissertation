@@ -42,10 +42,12 @@ const char* BMPWriter::GetFileName() { return fileName; }
 
 void BMPWriter::CreateNewBMP(const char* fileName, int width, int height, RGB colour)
 {
+	// Make a new pixel container with the correct dimensions
 	PixelContainer pixelContainer(width, height);
 
 	for(int i = 0; i < height * width; i++)
 	{
+		// Set each component of the pixelContainer to the colour values that the user selected
 		pixelContainer.SetRed((unsigned char)colour.GetRed(), i);
 		pixelContainer.SetGreen((unsigned char)colour.GetGreen(), i);
 		pixelContainer.SetBlue((unsigned char)colour.GetBlue(), i);

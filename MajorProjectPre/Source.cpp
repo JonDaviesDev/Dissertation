@@ -22,60 +22,86 @@
 
 int main()
 {
-	Test* tester;
-	Exporter* ex = new Exporter("Mod242 - 10.csv"); 
 
-	int compressionLevel = 10;
-	int numberOfCycles = 10;
-	int testsPerCycle = 30;
-	Method currentMethod = Method::DTO;
+#pragma region Menu
 
-	int modulus = 242;
+	// README
+	/* The menu system will allow you:
+	   1. to create BMPs 
+	   2. import a bmp from a list of samples or one that you have created
+	   3. Embed a message into a bmp (choose from a selction of messages) - please note that the program will exit if
+	      the message size is too large for the image.
+	   4. Convert the image into a JPEG
+	   5. Decode the message out of the JPEG
 
-	int k = 0;
 
-	for (int j = 0; j < numberOfCycles; j++)
-	{
-		tester = new Test(testsPerCycle, compressionLevel, modulus, currentMethod);
+	   Notes -
 
-		ex->AddData(j, compressionLevel, testsPerCycle, tester->AverageResults());
+	   If you see the main menu after completing an operation, it means that it completed successfully
 
-		k++;
-		compressionLevel--;
 
-		delete tester;
-	}
+
+	   When creating/embedding an image, dimensions of 512x512 work best in relation to creation speed and storage size
+	   
+	   Check the project directory after creation to see your new image
+
+	   When selecting an image to import, the program will read the contents of both the project directory and a directory in the
+	   solution folder called 'ImageSamples', and present you with a list of all of these to choose from.
+
+
+
+	   Because the message is being stored in the top line of the image, if you create a BMP with small dimensions, say 32x32,
+	   and then try to put a large message inside the program, it will lead to an exception.
+
+
+
+	   Lastly, when selecting a JPEG to decode, ensure that you choose the filename that you created but with the '.jpg' extension.
+
+	*/
+
+	Menu menu;
+
+#pragma endregion
+
+#pragma region Automated testing code
+
+	// Uncomment this code to run a series of tests using values of your choosing (please keep 'numberOfCycles' to <=10)
+
+
+	//Test* tester;
+	//Exporter* ex = new Exporter("Mod42.csv"); 
+
+	//int compressionLevel = 10;
+	//int numberOfCycles = 10;
+	//int testsPerCycle = 5;
+	//Method currentMethod = Method::DTO;
+
+	//int modulus = 42;
 	
+	//int k = 0;
+	
+	//for (int j = 0; j < numberOfCycles; j++)
+	//{
+	//	tester = new Test(testsPerCycle, compressionLevel, modulus, currentMethod);
+	
+	//	ex->AddData(j, compressionLevel, testsPerCycle, tester->AverageResults());
+	
+	//	k++;
+	//	compressionLevel--;
+	
+	//	delete tester;
+	//}
+	//
+	
+	//ex->Write();
+	
+	////Menu menu;
+	
+	
+	//ex->Close();
+	//delete ex;
 
-	ex->Write();
-
-	//Menu menu;
-
-
-	ex->Close();
-	delete ex;
-
-	/*BMPWriter writer;
-
-	writer.CreateNewBMP("Mod142.bmp", 512, 512, RGB(30, 30, 200));
-
-	FileLoader fl("Mod142.bmp");
-	FileLoader mfl("test.txt");
-
-	Stego s(&fl, &mfl, "embeddedMod142.bmp", Method::DTO, 142);
-
-
-
-	FileLoader efl("embeddedMod142.bmp");
-
-	BMP embeddedBMP(&efl);
-
-	JPEGio jpio(&efl);
-
-	jpio.BMPtoJPEG(&embeddedBMP, 100);*/
-
-
-
+#pragma endregion
 
 	return 0;
 }

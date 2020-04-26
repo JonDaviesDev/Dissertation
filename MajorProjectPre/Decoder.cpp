@@ -229,5 +229,9 @@ std::string Decoder::ConstructMessage()
 	return message;
 }
 
+void Decoder::PrintMessage()
+{
+	std::cout << "Hidden message: " << decodedMessage << std::endl;
+}
 
 #pragma endregion

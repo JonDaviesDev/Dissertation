@@ -50,6 +50,7 @@ struct Result
 	std::string decodedMessage;
 
 	Result() : id(0), accuracy(0), matchedCharacters(0), compressionLevel(0), imageDimensions(0, 0) {}
+
 	Result(int id, float acc, int mc, int tc, int compressionLevel, Dimension imageSize, std::string om, std::string dm) 
 	{
 		this->id = id;
@@ -61,6 +62,7 @@ struct Result
 		this->originalMessage = om;
 		this->decodedMessage = dm;
 	}
+
 	Result(const Result& external)
 	{
 		id = external.id;

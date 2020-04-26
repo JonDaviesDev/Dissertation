@@ -7,8 +7,10 @@ BMP::BMP() : infoHeader(nullptr), fileHeader(&infoHeader), fileObject(nullptr), 
 
 BMP::BMP(FileLoader* reader) : fileHeader(&infoHeader), infoHeader(reader), fileObject(reader)
 {
+	// Open the file after perfoming a check to see if the file can be found/accessed
 	fileObject->ErrorCheck(fileObject->GetFile(), fileObject->GetFileName(), "r");
 
+	// Assign the size of the pixel container
 	pixels = {infoHeader.GetWidth(), infoHeader.GetHeight()};
 
 	ScanBMP();
@@ -52,6 +54,7 @@ void BMP::ScanBMP()
 {
 	const char* buffer;
 
+	// Print file information
 	if(fileObject->GetFile())
 	{
 		PrintHeader();
@@ -64,19 +67,16 @@ void BMP::ReadPixels()
 
 	int k = 0;
 
-	// TO DO ////////////////////////////////////////////////////////////////
-	// 
-	// This function isnt reading the data in the correct order.
-	/////////////////////////////////////////////////////////////////////////
-
-
-
+	// Iterate through all the rows of the image
 	for(int i = 0; i < infoHeader.GetHeight(); i++)
 	{
+		// Read the current line of pixels of the image
 		fread(data, sizeof(unsigned char), infoHeader.GetPaddingSize(), fileObject->GetFile());
 
+		// Iterate through all the colums of the image
 		for(int j = 0; j < infoHeader.GetWidth() * 3; j+=3)
 		{
+			// Conversion
 			ConvertBGRtoRGB(data, j);
 
 			pixels.SetRed(data[j], k);
@@ -92,6 +92,7 @@ void BMP::ReadPixels()
 
 }
 
+// Covert from Windows' native BGR to RGB
 void BMP::ConvertBGRtoRGB(unsigned char* data, int iteration)
 {
 	unsigned char temp = 0;

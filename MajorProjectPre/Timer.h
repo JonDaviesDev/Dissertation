@@ -18,13 +18,17 @@ public:
 #pragma region Constructors
 
 public:
-	Timer(std:: string owner = "");
+	// Start time on construction
+	Timer(const std:: string& owner = "");
+
+	// Display time on destruction
 	~Timer();
 
 #pragma endregion
 
 #pragma region Properties
 
+	// If the time is needed before destruction
 	float GetTime();
 
 #pragma endregion

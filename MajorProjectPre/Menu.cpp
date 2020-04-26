@@ -7,6 +7,8 @@ Menu::Menu()
 {
 	currentUserFile = "";
 
+
+
 	messageSize = 0;
 
 	imageSamplePathBMP = "C:\\GitHub\\MajorProject\\ImageSamples\\BMP";
@@ -51,6 +53,7 @@ void Menu::InitialSelection()
 	{
 		std::cout << std::endl << "Current file selected: " << currentUserMessage << std::endl << std::endl;
 	}
+
 
 	std::cout << std::endl << "Please choose an option by entering the associated number: " << std::endl << std::endl;
 
@@ -166,7 +169,7 @@ void Menu::MapChoice(unsigned int userChoice)
 			JPEGio jpegHandler(&fl);
 
 			int compressionLevel = 0;
-			std::cout << "Enter the level of compression required (0-100): " << std::endl;
+			std::cout << "Enter the level of compression quality required (0-100%): " << std::endl;
 			std::cin >> compressionLevel;
 
 			jpegHandler.BMPtoJPEG(&bmp, compressionLevel);
@@ -199,6 +202,10 @@ void Menu::MapChoice(unsigned int userChoice)
 
 		Decoder d(&jpeg, MethodMenu(), messageSize, modValue);
 
+		d.PrintMessage();
+
+		InitialSelection();
+
 		break;
 	}
 	}
@@ -218,7 +225,7 @@ void Menu::Create()
 	std::cout << "Enter width for new image: " << std::endl;
 	std::cin >> width;
 
-	std::cout << "Enter red, green and blue values (0-255)" << std::endl;
+	std::cout << "Enter red, green and blue values (0-255) - (hit 'enter' after each value)" << std::endl;
 	std::cin >> r;
 	std::cin >> g;
 	std::cin >> b;
@@ -234,6 +241,7 @@ bool Menu::SearchExtension(std::filesystem::directory_entry file, std::string ex
 	return std::filesystem::path(file).extension() == extension;
 }
 
+// Searches for one file with the desired extention (this will be used with the variadic function to ensure that the last file is found)
 template<class T> void Menu::SearchFilesByExtension(std::string path, std::vector<std::pair<std::string, std::string>>& container, T extension)
 {
 	// Iterate through all files in a specified directory
@@ -248,6 +256,7 @@ template<class T> void Menu::SearchFilesByExtension(std::string path, std::vecto
 	}
 }
 
+// Variadic function to search for X number of file extensions
 template<class T, class... Ts> void Menu::SearchFilesByExtension(std::string path, std::vector<std::pair<std::string, std::string>>& paths, T extension, Ts... extensions)
 {
 	SearchFilesByExtension(path, paths, extension);
@@ -344,7 +353,7 @@ std::string Menu::NewFileName()
 {
 	std::string fileName;
 
-	std::cout << std::endl << "Enter a name for the new image: " << std::endl;
+	std::cout << std::endl << "Enter a name for the new image: (include .bmp)" << std::endl;
 
 	std::cin >> fileName;
 
@@ -366,34 +375,5 @@ Method Menu::MethodMenu()
 
 	return static_cast<Method>(userChoice);
 }
-
-//Method Menu::MethodSelection(Method userChoice)
-//{
-//	switch (userChoice)
-//	{
-//	case Method::DTO:
-//
-//		return 1;
-//
-//		break;
-//	case Method::LSB:
-//
-//		return 0;
-//
-//		break;
-//	case Method::MSB:
-//
-//		return 2;
-//
-//		break;
-//	default:
-//
-//		std::cout << "Please select a valid option" << std::endl << std::endl;
-//
-//		MethodMenu();
-//
-//		break;
-//	}
-//}
 
 #pragma endregion

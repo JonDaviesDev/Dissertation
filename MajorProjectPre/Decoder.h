@@ -70,6 +70,8 @@ public:
 
 	std::string ConstructMessage();
 
+	void PrintMessage();
+
 #pragma endregion
 };
 
