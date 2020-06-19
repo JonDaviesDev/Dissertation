@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
@@ -13,18 +9,202 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\BMP">
+      <UniqueIdentifier>{e31ed146-a6bc-4c99-a9df-4946fefc001f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\File">
+      <UniqueIdentifier>{4ccec102-17a8-45a1-935f-0d4c38fb524d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data Container">
+      <UniqueIdentifier>{7bfd36c2-49ed-4d47-8b71-a9d9ff16d37d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Steganography">
+      <UniqueIdentifier>{3335a672-1cc6-480e-9075-b15a521e1001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Main">
+      <UniqueIdentifier>{f05fef46-6f23-4b5f-bf70-9b8fdc7310b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BMP">
+      <UniqueIdentifier>{0cce0f86-24b1-4e63-8210-72f1bb12e9b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\File">
+      <UniqueIdentifier>{92eb688f-d325-4ed8-913a-2c139dcc142c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data Container">
+      <UniqueIdentifier>{a6fffc9b-c950-491e-86b1-4d22bda625ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Steganography">
+      <UniqueIdentifier>{e31cd410-ed54-4113-9e2b-dc80ca4fbed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\JPEG">
+      <UniqueIdentifier>{dd165f46-631f-45eb-9fc9-28728335fdbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\JPEG">
+      <UniqueIdentifier>{f9560e59-342c-4070-b2ca-b24c93333df3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Test Harness">
+      <UniqueIdentifier>{cef5f14e-0684-42b5-bf47-f6274fae9f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Test Harness">
+      <UniqueIdentifier>{3dbdd2d7-b5d6-43c7-8be9-9ab7a04ec991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{851c459f-017c-4499-991c-a80b31388332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{7f2f7c81-efbb-466e-9941-3c2e797c92a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Third-Party">
+      <UniqueIdentifier>{253ea62d-1362-49fa-83d9-82c7e2425857}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BMP.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="BMPFileHeader.cpp">
+      <Filter>Source Files\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="BMPInfoHeader.cpp">
+      <Filter>Source Files\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="BMPUtility.cpp">
+      <Filter>Source Files\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="BMPWriter.cpp">
+      <Filter>Source Files\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBuffer.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Pixel.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelContainer.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Stego.cpp">
+      <Filter>Source Files\Steganography</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Decoder.cpp">
+      <Filter>Source Files\Steganography</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEG.cpp">
+      <Filter>Source Files\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="StegoMath.cpp">
+      <Filter>Source Files\Steganography</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3f.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3i.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="RGB.cpp">
+      <Filter>Source Files\Data Container</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEGio.cpp">
+      <Filter>Source Files\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Source Files\Test Harness</Filter>
+    </ClCompile>
+    <ClCompile Include="Exporter.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\Test Harness</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="BMPFileHeader.h">
+      <Filter>Header Files\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="BMPInfoHeader.h">
+      <Filter>Header Files\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="BMPUtility.h">
+      <Filter>Header Files\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="BMPWriter.h">
+      <Filter>Header Files\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBuffer.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixel.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelContainer.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Stego.h">
+      <Filter>Header Files\Steganography</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoder.h">
+      <Filter>Header Files\Steganography</Filter>
+    </ClInclude>
+    <ClInclude Include="JPEG.h">
+      <Filter>Header Files\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="StegoMath.h">
+      <Filter>Header Files\Steganography</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3i.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3f.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="RGB.h">
+      <Filter>Header Files\Data Container</Filter>
+    </ClInclude>
+    <ClInclude Include="JPEGio.h">
+      <Filter>Header Files\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Header Files\Test Harness</Filter>
+    </ClInclude>
+    <ClInclude Include="Exporter.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files\Third-Party</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_write.h">
+      <Filter>Header Files\Third-Party</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files\Test Harness</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

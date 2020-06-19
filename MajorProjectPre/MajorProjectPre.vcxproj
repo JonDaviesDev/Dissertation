@@ -76,9 +76,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -87,9 +92,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,11 +109,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -115,19 +127,66 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BMP.cpp" />
+    <ClCompile Include="BMPFileHeader.cpp" />
+    <ClCompile Include="BMPInfoHeader.cpp" />
+    <ClCompile Include="BMPUtility.cpp" />
+    <ClCompile Include="BMPWriter.cpp" />
+    <ClCompile Include="Decoder.cpp" />
+    <ClCompile Include="Exporter.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="JPEG.cpp" />
+    <ClCompile Include="JPEGio.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="PixelContainer.cpp" />
+    <ClCompile Include="RGB.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Stego.cpp" />
+    <ClCompile Include="StegoMath.cpp" />
+    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="TextBuffer.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Vec3f.cpp" />
+    <ClCompile Include="Vec3i.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BMP.h" />
+    <ClInclude Include="BMPFileHeader.h" />
+    <ClInclude Include="BMPInfoHeader.h" />
+    <ClInclude Include="BMPUtility.h" />
+    <ClInclude Include="BMPWriter.h" />
+    <ClInclude Include="Decoder.h" />
+    <ClInclude Include="Exporter.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="JPEG.h" />
+    <ClInclude Include="JPEGio.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Pixel.h" />
+    <ClInclude Include="PixelContainer.h" />
+    <ClInclude Include="RGB.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="Stego.h" />
+    <ClInclude Include="StegoMath.h" />
+    <ClInclude Include="Test.h" />
+    <ClInclude Include="TextBuffer.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vec3f.h" />
+    <ClInclude Include="Vec3i.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

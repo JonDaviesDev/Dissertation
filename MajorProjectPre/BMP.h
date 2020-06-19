@@ -1,38 +1,41 @@
 #pragma once
+
+#pragma region Preprocessor Directives
+
+#pragma region System Files
+
 #include <iostream>
 #include <fstream>
-#include <fstream>
-#include <stdio.h>
 #include <vector>
 #include <bitset>
 #include <sstream>
 
-struct Pixel
-{
-	Pixel();
-	Pixel(unsigned char* data);
-	Pixel(unsigned char* data, int iterator);
+#pragma endregion
 
-	unsigned char r, g, b;
-};
+#pragma region Project Files
+
+#include "Pixel.h"
+#include "BMPFileHeader.h"
+#include "BMPInfoHeader.h"
+#include "FileLoader.h"
+#include "PixelContainer.h"
+
+#pragma endregion
+
+#pragma endregion
 
 class BMP
 {
 #pragma region Attributes
 
 private:
+	BMPInfoHeader infoHeader;
 
-	unsigned int width, height, size, rowPadding;
+	BMPFileHeader fileHeader;
 
-	const char* fileLocation;
+	FileLoader* fileObject;
 
-	const int fileHeaderSize = 14;
-	const int infoHeaderSize = 40;
-	const int bytesPerPixel = 3; /// red, green, blue
-
-	FILE* file;
-
-	std::vector<Pixel> pixels;
+	PixelContainer pixels;
 
 #pragma endregion
 
@@ -42,59 +45,54 @@ public:
 
 	BMP();
 
+	BMP(FileLoader* reader);
+
 #pragma endregion
 
 #pragma region Properties
 
-	void SetHeaderInfomation(char* bmpHeaderInfo, const char* filePath, FILE* file);
+#pragma region Setters
 
-	void SetPixelData(unsigned char* data, int iterator);
+	void SetPixelContainer(PixelContainer pixelList);
 
-	void SetPixelData(BMP* bmp, unsigned char* data, int iterator);
+#pragma endregion
+
+#pragma region Getters
+
+	int GetHeight();
+
+	int GetWidth();
+
+	int GetColourSpace();
+
+	FileLoader* GetFileObject();
+
+	BMPInfoHeader* GetInfoHeader();
+
+	BMPFileHeader* GetFileHeader();
+
+	PixelContainer* GetPixelContainer();
+
+#pragma endregion
 
 #pragma endregion
 
 #pragma region Methods
 
-	BMP* ScanBMP(const char* filePath, const char* openMode);
+	void ScanBMP();
 
-	FILE* LoadBMP(BMP& bmp, const char* openMode);
+	void ReadPixels();
 
-	unsigned int CalculatePadding();
-
-	void ReadPixels(FILE* file);
-
+	// Covert from Windows' native BGR to RGB
 	void ConvertBGRtoRGB(unsigned char* data, int iteration);
 
-	FILE* ErrorCheck(FILE* file, const char* filePath, const char* mode);
+#pragma region Display Functions
 
-	//void WriteToBMP(BMP& bmp);
+	void PrintHeader();
 
-	void Write(const char* fileName);
+	void PrintPixels();
 
-	void Write(BMP bmp);
-
-	void generateBitmapImage(unsigned char* image, int height, int width, const char* imageFileName);
-
-	void GenerateBitmapImage(std::vector<std::vector<std::vector<unsigned char>>> image, BMP bmp);
-
-	unsigned char* createBitmapFileHeader(int height, int width, int paddingSize);
-
-	unsigned char* createBitmapInfoHeader(int height, int width);
-
-	std::bitset<8> GetBinary8(unsigned char p);
-
-	std::string ReadTextFile();
-
-#pragma region DisplayFunctions
-
-	void DisplayHeaderInformation();
-
-	void DisplayRGBValues(unsigned char* data, int& iteration);
-
-	void DisplayHexValues(unsigned char* data, int& iteration, int& pixels);
-
-	void DisplayBinaryTest(unsigned char p);
+	void ImageBitRepresentation();
 
 #pragma endregion
 
