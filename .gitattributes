@@ -61,3 +61,5 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+*stb_image.h linguist-detectable=false
+*stb_image_write.h linguist-detectable=false
